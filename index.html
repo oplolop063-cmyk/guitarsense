@@ -8,208 +8,229 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --w:#fff;
-  --mint:#F0FDF4;
-  --g100:#DCFCE7;
-  --g200:#BBF7D0;
-  --g300:#86EFAC;
-  --g400:#4ADE80;
-  --g500:#22C55E;
-  --g600:#16A34A;
-  --g700:#15803D;
-  --g800:#166534;
-  --gray50:#F9FAFB;
-  --gray100:#F3F4F6;
-  --gray200:#E5E7EB;
-  --gray300:#D1D5DB;
-  --gray400:#9CA3AF;
-  --gray500:#6B7280;
-  --gray700:#374151;
-  --gray900:#111827;
-  --red:#EF4444;
-  --amber:#F59E0B;
-  --r:14px;
-  --rsm:8px;
-  --sh:0 2px 16px rgba(22,101,52,.08);
-  --shmd:0 6px 28px rgba(22,101,52,.13);
+  --w:#fff;--mint:#F0FDF4;--g100:#DCFCE7;--g200:#BBF7D0;--g300:#86EFAC;
+  --g400:#4ADE80;--g500:#22C55E;--g600:#16A34A;--g700:#15803D;--g800:#166534;
+  --gray50:#F9FAFB;--gray100:#F3F4F6;--gray200:#E5E7EB;--gray300:#D1D5DB;
+  --gray400:#9CA3AF;--gray500:#6B7280;--gray700:#374151;--gray900:#111827;
+  --red:#EF4444;--r:14px;--rsm:8px;--sh:0 2px 16px rgba(22,101,52,.08);
 }
 body{font-family:'Inter',sans-serif;background:var(--mint);color:var(--gray700);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
 
-/* ── HEADER ── */
+/* HEADER */
 header{background:var(--w);border-bottom:1.5px solid var(--gray200);position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.05)}
-.hd{max-width:720px;margin:0 auto;padding:0 16px;height:58px;display:flex;align-items:center;gap:10px}
-.logo{font-family:'Prompt',sans-serif;font-weight:800;font-size:20px;color:var(--g700);letter-spacing:-.5px}
+.hd{max-width:720px;margin:0 auto;padding:0 14px;height:56px;display:flex;align-items:center;gap:8px}
+.logo{font-family:'Prompt',sans-serif;font-weight:800;font-size:19px;color:var(--g700)}
 .logo em{color:var(--g500);font-style:normal}
-.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--g500);margin-left:2px;animation:blink 2s infinite}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--g500);animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.mic-status{margin-left:auto;font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;cursor:pointer;transition:.2s}
-.mic-status.ok{background:var(--g100);color:var(--g700)}
-.mic-status.err{background:#FEE2E2;color:#DC2626}
-.mic-status.idle{background:var(--gray100);color:var(--gray500)}
+.mic-pill{margin-left:auto;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;cursor:pointer;border:none;transition:.2s}
+.mic-pill.ok{background:var(--g100);color:var(--g700)}
+.mic-pill.err{background:#FEE2E2;color:#DC2626}
+.mic-pill.idle{background:var(--gray100);color:var(--gray500)}
 
-/* ── TABS ── */
+/* TABS */
 nav{background:var(--w);border-bottom:1.5px solid var(--gray200);overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
-.tabs{max-width:720px;margin:0 auto;display:flex;padding:0 8px;min-width:max-content}
-.tab{background:none;border:none;padding:11px 16px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--gray500);cursor:pointer;border-bottom:3px solid transparent;transition:.2s;white-space:nowrap;display:flex;align-items:center;gap:5px}
-.tab:hover{color:var(--g600)}
-.tab.on{color:var(--g600);border-bottom-color:var(--g500);font-weight:700}
+.tabs{max-width:720px;margin:0 auto;display:flex;padding:0 6px;min-width:max-content}
+.tab{background:none;border:none;padding:11px 14px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--gray500);cursor:pointer;border-bottom:3px solid transparent;transition:.2s;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.tab:hover{color:var(--g600)}.tab.on{color:var(--g600);border-bottom-color:var(--g500);font-weight:700}
 
-/* ── MAIN ── */
-main{max-width:720px;margin:0 auto;padding:20px 16px 100px}
-.pg{display:none}.pg.on{display:flex;flex-direction:column;gap:16px}
+/* MAIN */
+main{max-width:720px;margin:0 auto;padding:16px 14px 100px}
+.pg{display:none}.pg.on{display:flex;flex-direction:column;gap:14px}
 
-/* ── CARD ── */
+/* CARD */
 .card{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
-.card-head{padding:16px 18px 0;display:flex;align-items:center;gap:8px}
-.card-head h2{font-family:'Prompt',sans-serif;font-weight:700;font-size:15px;color:var(--gray900)}
-.card-body{padding:16px 18px 18px}
-.card-head + .card-body{padding-top:12px}
+.ch{padding:14px 16px 0;display:flex;align-items:center;gap:8px}
+.ch h2{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:var(--gray900)}
+.cb{padding:14px 16px 16px}
+.ch+.cb{padding-top:10px}
 
-/* ── MIC PERMISSION BANNER ── */
-.mic-banner{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:var(--r);padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
-.mic-banner .icon{font-size:26px;flex-shrink:0;margin-top:2px}
-.mic-banner h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:#92400E;margin-bottom:4px}
-.mic-banner p{font-size:12px;color:#78350F;line-height:1.5}
-.btn-allow{margin-top:10px;background:#D97706;color:#fff;border:none;border-radius:99px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
-.btn-allow:hover{background:#B45309}
+/* MIC BANNER */
+.mic-banner{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:var(--r);padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+.mic-banner h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:#92400E;margin-bottom:3px}
+.mic-banner p{font-size:11px;color:#78350F;line-height:1.5}
+.btn-allow{margin-top:8px;background:#D97706;color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer}
 
-/* ── CHORD DETECTOR ── */
-.detector{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:480px){.detector{grid-template-columns:1fr}}
-.ring-zone{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0}
-.ring{width:148px;height:148px;border-radius:50%;border:5px solid var(--gray200);display:flex;align-items:center;justify-content:center;position:relative;transition:border-color .3s,box-shadow .3s;background:radial-gradient(circle,var(--mint),#fff)}
+/* DETECT PAGE */
+.detector{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:460px){.detector{grid-template-columns:1fr}}
+.ring-zone{display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0}
+.ring{width:140px;height:140px;border-radius:50%;border:5px solid var(--gray200);display:flex;align-items:center;justify-content:center;transition:all .3s;background:radial-gradient(circle,var(--mint),#fff)}
 .ring.listen{border-color:var(--g300);animation:rp 1.6s ease-in-out infinite}
-.ring.hit{border-color:var(--g500);box-shadow:0 0 0 10px rgba(34,197,94,.15),0 0 40px rgba(34,197,94,.2)}
-@keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 16px rgba(74,222,128,0)}}
-.chord-big{font-family:'Prompt',sans-serif;font-weight:800;font-size:44px;color:var(--g700);line-height:1;text-align:center}
-.chord-small{font-size:11px;color:var(--gray400);font-weight:500;text-align:center;margin-top:2px}
-.waveform{display:flex;align-items:flex-end;gap:2.5px;height:40px;margin-top:4px}
+.ring.hit{border-color:var(--g500);box-shadow:0 0 0 10px rgba(34,197,94,.15)}
+@keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 14px rgba(74,222,128,0)}}
+.chord-big{font-family:'Prompt',sans-serif;font-weight:800;font-size:42px;color:var(--g700);line-height:1;text-align:center}
+.chord-small{font-size:11px;color:var(--gray400);text-align:center;margin-top:2px}
+.waveform{display:flex;align-items:flex-end;gap:2px;height:36px}
 .wv{width:5px;background:var(--g300);border-radius:3px;min-height:3px;transition:height .08s}
-.btn-listen{background:var(--g500);color:#fff;border:none;border-radius:99px;padding:10px 26px;font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(34,197,94,.35)}
-.btn-listen:hover{background:var(--g600);transform:translateY(-1px)}
-.btn-listen.stop{background:#EF4444;box-shadow:0 4px 14px rgba(239,68,68,.3)}
-.btn-listen:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-.conf-block{padding-top:6px}
-.conf-lbl{font-size:11px;color:var(--gray500);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
-.conf-track{background:var(--gray100);border-radius:99px;height:7px;overflow:hidden;margin-bottom:12px}
+.btn-listen{background:var(--g500);color:#fff;border:none;border-radius:99px;padding:9px 24px;font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:5px;box-shadow:0 4px 14px rgba(34,197,94,.35)}
+.btn-listen:hover{background:var(--g600)}.btn-listen.stop{background:#EF4444}
+.conf-lbl{font-size:10px;color:var(--gray500);font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+.conf-track{background:var(--gray100);border-radius:99px;height:6px;overflow:hidden;margin-bottom:10px}
 .conf-fill{height:100%;background:linear-gradient(90deg,var(--g400),var(--g600));border-radius:99px;transition:width .4s;width:0%}
-.info-box{background:var(--mint);border-radius:var(--rsm);padding:14px;border:1px solid var(--g200)}
-.info-box h4{font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:var(--g800);margin-bottom:8px}
-.notes-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
-.n-chip{background:var(--g100);color:var(--g800);border-radius:6px;padding:3px 9px;font-weight:700;font-size:11px}
-.tip-box{background:#fff;border-left:3px solid var(--g500);padding:8px 10px;border-radius:0 6px 6px 0;font-size:12px;color:var(--gray700);line-height:1.5}
-.tip-box b{color:var(--g700)}
+.info-box{background:var(--mint);border-radius:var(--rsm);padding:12px;border:1px solid var(--g200)}
+.info-box h4{font-family:'Prompt',sans-serif;font-weight:700;font-size:12px;color:var(--g800);margin-bottom:6px}
+.notes-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.n-chip{background:var(--g100);color:var(--g800);border-radius:5px;padding:2px 8px;font-weight:700;font-size:11px}
+.tip-box{background:#fff;border-left:3px solid var(--g500);padding:7px 9px;border-radius:0 6px 6px 0;font-size:11px;color:var(--gray700);line-height:1.5}
 
-/* ── RECORD BUTTON ── */
-.rec-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--gray50);border-top:1px solid var(--gray200)}
-.btn-rec{background:#EF4444;color:#fff;border:none;border-radius:99px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px;transition:.2s}
-.btn-rec:hover{background:#DC2626}
+/* RECORD BAR */
+.rec-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--gray50);border-top:1px solid var(--gray200);flex-wrap:wrap;gap:8px}
+.btn-rec{background:#EF4444;color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px;transition:.2s}
 .btn-rec.recording{background:#fff;color:#EF4444;border:2px solid #EF4444;animation:recpulse 1s infinite}
-@keyframes recpulse{50%{box-shadow:0 0 0 6px rgba(239,68,68,.2)}}
-.rec-timer{font-size:13px;font-weight:700;color:#EF4444;font-variant-numeric:tabular-nums}
-.recordings-list{display:flex;flex-direction:column;gap:8px;padding:0 18px 16px}
-.rec-item{background:var(--mint);border-radius:var(--rsm);padding:10px 14px;display:flex;align-items:center;gap:10px;border:1px solid var(--g200)}
-.rec-item audio{flex:1;height:32px;min-width:0}
-.btn-dl{background:var(--g500);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;transition:.2s}
-.btn-dl:hover{background:var(--g600)}
-.btn-del-rec{background:#FEE2E2;color:#DC2626;border:none;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;transition:.2s}
-.btn-del-rec:hover{background:#FECACA}
+@keyframes recpulse{50%{box-shadow:0 0 0 5px rgba(239,68,68,.2)}}
+.rec-timer{font-size:12px;font-weight:700;color:#EF4444;font-variant-numeric:tabular-nums}
+.recordings-list{display:flex;flex-direction:column;gap:7px;padding:0 16px 14px}
+.rec-item{background:var(--mint);border-radius:var(--rsm);padding:9px 12px;display:flex;align-items:center;gap:8px;border:1px solid var(--g200)}
+.rec-item audio{flex:1;height:30px;min-width:0}
+.btn-dl{background:var(--g500);color:#fff;border:none;border-radius:6px;padding:5px 9px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-del-rec{background:#FEE2E2;color:#DC2626;border:none;border-radius:6px;padding:5px 7px;font-size:10px;cursor:pointer}
 
-/* ── SONGS PAGE ── */
-.upload-zone{border:2.5px dashed var(--g300);border-radius:var(--r);padding:32px 16px;text-align:center;cursor:pointer;transition:.2s;background:var(--mint)}
+/* NOISE REDUCTION */
+.noise-toggle{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--gray50);border-top:1px solid var(--gray200)}
+.noise-toggle span{font-size:12px;font-weight:600;color:var(--gray700);flex:1}
+.toggle-sw{position:relative;width:42px;height:24px;flex-shrink:0}
+.toggle-sw input{opacity:0;width:0;height:0}
+.toggle-sw .slider{position:absolute;cursor:pointer;inset:0;background:var(--gray300);border-radius:99px;transition:.3s}
+.toggle-sw .slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle-sw input:checked+.slider{background:var(--g500)}
+.toggle-sw input:checked+.slider:before{transform:translateX(18px)}
+
+/* SONGS PAGE */
+.upload-zone{border:2px dashed var(--g300);border-radius:var(--r);padding:28px 16px;text-align:center;cursor:pointer;transition:.2s;background:var(--mint)}
 .upload-zone:hover,.upload-zone.drag{border-color:var(--g500);background:var(--g100)}
-.upload-zone .ui{font-size:36px;margin-bottom:10px}
-.upload-zone h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:var(--gray700);margin-bottom:4px}
-.upload-zone p{font-size:12px;color:var(--gray400)}
+.upload-zone .ui{font-size:32px;margin-bottom:8px}
+.upload-zone h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:var(--gray700);margin-bottom:3px}
+.upload-zone p{font-size:11px;color:var(--gray400)}
 #mp3in{display:none}
-.song-list{display:flex;flex-direction:column;gap:10px}
-.song-row{background:var(--w);border:1.5px solid var(--gray200);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px;transition:.2s;cursor:pointer}
-.song-row:hover{border-color:var(--g300);box-shadow:0 2px 12px rgba(34,197,94,.1)}
-.song-row.on{border-color:var(--g500);background:var(--mint)}
-.song-ico{width:42px;height:42px;background:var(--g100);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.song-list{display:flex;flex-direction:column;gap:9px}
+.song-row{background:var(--w);border:1.5px solid var(--gray200);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:10px;transition:.2s}
+.song-row:hover{border-color:var(--g300)}.song-row.on{border-color:var(--g500);background:var(--mint)}
+.song-ico{width:40px;height:40px;background:var(--g100);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .song-meta{flex:1;min-width:0}
 .song-name{font-weight:600;font-size:13px;color:var(--gray900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .song-sub{font-size:11px;color:var(--gray400);margin-top:2px}
-.song-btns{display:flex;gap:6px;flex-shrink:0}
-.bsm{padding:6px 12px;border-radius:99px;font-size:11px;font-weight:700;border:none;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif}
+.song-btns{display:flex;gap:5px;flex-shrink:0}
+.bsm{padding:6px 11px;border-radius:99px;font-size:11px;font-weight:700;border:none;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif}
 .bpri{background:var(--g500);color:#fff}.bpri:hover{background:var(--g600)}
-.bdng{background:#FEE2E2;color:#DC2626}.bdng:hover{background:#FECACA}
-.spin{width:16px;height:16px;border:2px solid var(--g200);border-top-color:var(--g500);border-radius:50%;animation:spin .8s linear infinite;display:inline-block}
+.bdng{background:#FEE2E2;color:#DC2626}
+.spin{width:15px;height:15px;border:2px solid var(--g200);border-top-color:var(--g500);border-radius:50%;animation:spin .8s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── PRACTICE MODE ── */
-.player-card{background:linear-gradient(135deg,var(--g800),var(--g600));border-radius:var(--r);padding:18px;color:#fff}
-.player-title{font-family:'Prompt',sans-serif;font-weight:800;font-size:16px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.player-meta{font-size:11px;opacity:.75;margin-bottom:12px}
-audio.styled{width:100%;height:36px;border-radius:8px}
-audio.styled::-webkit-media-controls-panel{background:rgba(255,255,255,.15)}
+/* ══ PRACTICE / KARAOKE PAGE ══ */
+.player-card{background:linear-gradient(135deg,var(--g800),var(--g600));border-radius:var(--r);padding:16px;color:#fff}
+.player-title{font-family:'Prompt',sans-serif;font-weight:800;font-size:15px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-meta{font-size:11px;opacity:.75;margin-bottom:10px}
+audio.styled{width:100%;height:34px;border-radius:8px}
 
-/* chord scroll */
+/* KARAOKE DISPLAY */
+.karaoke-wrap{background:linear-gradient(180deg,#0f172a,#1e293b);border-radius:var(--r);overflow:hidden;position:relative;min-height:220px}
+.karaoke-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)}
+.karaoke-header .song-info{font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:#fff}
+.karaoke-header .key-tag{background:rgba(34,197,94,.25);color:#4ade80;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700}
+.karaoke-body{padding:16px;min-height:160px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px}
+.lyric-prev{font-size:13px;color:rgba(255,255,255,.35);font-family:'Prompt',sans-serif;font-weight:500;min-height:20px}
+.lyric-curr{font-size:20px;color:#fff;font-family:'Prompt',sans-serif;font-weight:700;line-height:1.4;min-height:30px;transition:all .3s}
+.lyric-curr .word{display:inline;transition:color .2s}
+.lyric-curr .word.done{color:var(--g400)}
+.lyric-curr .word.active{color:#facc15;text-shadow:0 0 12px rgba(250,204,21,.5)}
+.lyric-next{font-size:13px;color:rgba(255,255,255,.35);font-family:'Prompt',sans-serif;font-weight:500;min-height:20px}
+.chord-curr-display{display:flex;align-items:center;gap:8px;margin-top:4px}
+.chord-now{background:rgba(34,197,94,.2);border:2px solid var(--g400);border-radius:10px;padding:6px 18px;font-family:'Prompt',sans-serif;font-weight:800;font-size:22px;color:#4ade80;transition:all .3s}
+.chord-now.wrong{background:rgba(239,68,68,.2);border-color:#ef4444;color:#ef4444;animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.chord-next-lbl{font-size:11px;color:rgba(255,255,255,.5)}
+.chord-next-val{font-family:'Prompt',sans-serif;font-weight:700;font-size:16px;color:rgba(255,255,255,.6)}
+
+/* PROGRESS BAR */
+.karaoke-progress{padding:0 16px 14px}
+.kp-bar{background:rgba(255,255,255,.1);border-radius:99px;height:4px;overflow:hidden;margin-bottom:6px}
+.kp-fill{height:100%;background:linear-gradient(90deg,var(--g400),var(--g500));border-radius:99px;transition:width .5s linear;width:0%}
+.kp-time{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.4)}
+
+/* CHORD SCROLL */
 .chord-scroll-wrap{overflow-x:auto;scrollbar-width:none;padding:4px 0}
 .chord-scroll-wrap::-webkit-scrollbar{display:none}
-.chord-scroll{display:flex;gap:8px;padding:4px 0;min-width:max-content}
-.cc{background:#fff;border:2px solid var(--g200);border-radius:10px;padding:8px 16px;font-family:'Prompt',sans-serif;font-weight:800;font-size:16px;color:var(--g800);cursor:pointer;transition:.15s;flex-shrink:0}
-.cc:hover{border-color:var(--g500);background:var(--g100)}
-.cc.hl{background:var(--g500);color:#fff;border-color:var(--g500)}
+.chord-scroll{display:flex;gap:7px;padding:2px 0;min-width:max-content}
+.cc{background:#fff;border:2px solid var(--g200);border-radius:9px;padding:7px 14px;font-family:'Prompt',sans-serif;font-weight:800;font-size:15px;color:var(--g800);cursor:pointer;transition:.15s;flex-shrink:0}
+.cc:hover{border-color:var(--g500);background:var(--g100)}.cc.hl{background:var(--g500);color:#fff;border-color:var(--g500)}
 
-/* lyrics / key */
-.section-tag{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--gray400);margin-bottom:8px}
-.key-badge{display:inline-flex;align-items:center;gap:6px;background:var(--g100);color:var(--g800);border-radius:8px;padding:6px 12px;font-weight:700;font-size:13px;margin-bottom:10px}
-.lyrics-box{background:var(--gray50);border-radius:var(--rsm);padding:14px;font-size:13px;line-height:1.9;color:var(--gray700);white-space:pre-wrap;border:1px solid var(--gray200);max-height:260px;overflow-y:auto}
-.lyrics-box .hl-lyric{background:var(--g200);border-radius:4px;padding:0 3px;color:var(--g800);font-weight:600}
+/* WRONG CHORD ALERT */
+.wrong-alert{background:#FEF2F2;border:1.5px solid #FECACA;border-radius:var(--rsm);padding:10px 14px;display:flex;align-items:center;gap:8px;display:none}
+.wrong-alert.show{display:flex}
+.wrong-alert span{font-size:12px;color:#DC2626;font-weight:600}
 
-/* AI feedback */
-.ai-feedback{background:linear-gradient(135deg,var(--mint),#fff);border:1.5px solid var(--g200);border-radius:var(--r);padding:16px}
-.ai-feedback h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:var(--g800);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.feedback-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--g100)}
-.feedback-item:last-child{border-bottom:none}
-.fb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.fb-text{font-size:12px;line-height:1.5;color:var(--gray700)}
-.fb-text b{color:var(--g800)}
-.score-ring{width:64px;height:64px;position:relative;margin:0 auto 10px}
-.score-ring svg{position:absolute;top:0;left:0}
-.score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Prompt',sans-serif;font-weight:800;font-size:18px;color:var(--g700)}
+/* SETTINGS PANEL */
+.settings-panel{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.settings-section{padding:12px 16px;border-bottom:1px solid var(--gray100)}
+.settings-section:last-child{border-bottom:none}
+.settings-section h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:12px;color:var(--gray400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.setting-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray50)}
+.setting-row:last-child{border-bottom:none}
+.setting-label{flex:1}
+.setting-label b{display:block;font-size:13px;font-weight:600;color:var(--gray900)}
+.setting-label span{font-size:11px;color:var(--gray400)}
+.toggle-sw{position:relative;width:42px;height:24px;flex-shrink:0}
+.toggle-sw input{opacity:0;width:0;height:0;position:absolute}
+.toggle-sw .slider{position:absolute;cursor:pointer;inset:0;background:var(--gray300);border-radius:99px;transition:.3s}
+.toggle-sw .slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle-sw input:checked+.slider{background:var(--g500)}
+.toggle-sw input:checked+.slider:before{transform:translateX(18px)}
+.slider-input{width:100%;-webkit-appearance:none;height:5px;border-radius:99px;background:var(--gray200);outline:none}
+.slider-input::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--g500);cursor:pointer}
+.slider-val{font-size:12px;font-weight:700;color:var(--g700);min-width:36px;text-align:right}
+.color-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.color-chip{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:.2s}
+.color-chip.on{border-color:var(--gray900);transform:scale(1.1)}
+select.sel{background:var(--gray50);border:1.5px solid var(--gray200);border-radius:8px;padding:6px 10px;font-size:12px;font-family:'Inter',sans-serif;color:var(--gray700);outline:none;cursor:pointer}
 
-/* ── CHORD LIBRARY ── */
-.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}
-.chord-tile{background:#fff;border:1.5px solid var(--gray200);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s}
-.chord-tile:hover{border-color:var(--g400);transform:translateY(-2px);box-shadow:var(--sh)}
-.chord-tile.on{border-color:var(--g500);background:var(--mint)}
-.ct-name{font-family:'Prompt',sans-serif;font-weight:800;font-size:20px;color:var(--g700)}
-.ct-type{font-size:10px;color:var(--gray400);margin-top:1px;font-weight:500}
-.diagram-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px;text-align:center}
-.diagram-card h3{font-family:'Prompt',sans-serif;font-weight:800;font-size:18px;color:var(--g800);margin-bottom:8px}
-svg.fb{display:block;margin:0 auto}
-.filter-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.pill{padding:5px 12px;border-radius:99px;border:1.5px solid var(--gray200);background:#fff;font-size:11px;font-weight:700;color:var(--gray500);cursor:pointer;transition:.15s}
-.pill:hover{border-color:var(--g400);color:var(--g700)}
-.pill.on{background:var(--g500);color:#fff;border-color:var(--g500)}
+/* CHORD LIBRARY */
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:7px}
+.chord-tile{background:#fff;border:1.5px solid var(--gray200);border-radius:9px;padding:10px 8px;text-align:center;cursor:pointer;transition:.2s}
+.chord-tile:hover{border-color:var(--g400);transform:translateY(-2px);box-shadow:var(--sh)}.chord-tile.on{border-color:var(--g500);background:var(--mint)}
+.ct-name{font-family:'Prompt',sans-serif;font-weight:800;font-size:18px;color:var(--g700)}
+.ct-type{font-size:10px;color:var(--gray400);margin-top:1px}
+.diagram-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px;text-align:center}
+.diagram-card h3{font-family:'Prompt',sans-serif;font-weight:800;font-size:17px;color:var(--g800);margin-bottom:8px}
+.filter-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.pill{padding:4px 11px;border-radius:99px;border:1.5px solid var(--gray200);background:#fff;font-size:11px;font-weight:700;color:var(--gray500);cursor:pointer;transition:.15s}
+.pill:hover{border-color:var(--g400);color:var(--g700)}.pill.on{background:var(--g500);color:#fff;border-color:var(--g500)}
 
-/* ── STATS PAGE ── */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.stat-card{background:#fff;border-radius:var(--r);padding:16px;text-align:center;box-shadow:var(--sh)}
-.stat-val{font-family:'Prompt',sans-serif;font-weight:800;font-size:28px;color:var(--g600)}
-.stat-lbl{font-size:11px;color:var(--gray400);margin-top:2px;font-weight:500}
-.streak-bar{display:flex;gap:4px;margin-top:10px}
-.streak-day{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
-.sd-on{background:var(--g500);color:#fff}
-.sd-off{background:var(--gray100);color:var(--gray400)}
-.chord-history{display:flex;flex-direction:column;gap:6px;margin-top:8px}
-.ch-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--gray50);border-radius:8px}
-.ch-name{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:var(--g700);width:36px}
-.ch-bar{flex:1;background:var(--gray200);border-radius:99px;height:6px;overflow:hidden}
+/* STATS */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat-card{background:#fff;border-radius:var(--r);padding:14px;text-align:center;box-shadow:var(--sh)}
+.stat-val{font-family:'Prompt',sans-serif;font-weight:800;font-size:26px;color:var(--g600)}
+.stat-lbl{font-size:10px;color:var(--gray400);margin-top:2px;font-weight:500}
+.streak-bar{display:flex;gap:4px;margin-top:8px}
+.streak-day{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0}
+.sd-on{background:var(--g500);color:#fff}.sd-off{background:var(--gray100);color:var(--gray400)}
+.chord-history{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+.ch-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--gray50);border-radius:7px}
+.ch-name{font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:var(--g700);width:32px}
+.ch-bar{flex:1;background:var(--gray200);border-radius:99px;height:5px;overflow:hidden}
 .ch-fill{height:100%;background:var(--g500);border-radius:99px}
-.ch-count{font-size:11px;color:var(--gray500);font-weight:600;width:24px;text-align:right}
+.ch-count{font-size:10px;color:var(--gray500);font-weight:600;width:20px;text-align:right}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--gray900);color:#fff;padding:9px 18px;border-radius:99px;font-size:12px;font-weight:600;opacity:0;transition:.3s;z-index:999;pointer-events:none;white-space:nowrap}
+/* AI FEEDBACK */
+.ai-feedback{background:linear-gradient(135deg,var(--mint),#fff);border:1.5px solid var(--g200);border-radius:var(--r);padding:14px}
+.ai-feedback h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:var(--g800);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.feedback-item{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--g100)}
+.feedback-item:last-child{border-bottom:none}
+.fb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.fb-text{font-size:12px;line-height:1.5;color:var(--gray700)}
+.score-ring{width:60px;height:60px;position:relative;margin:0 auto 8px}
+.score-ring svg{position:absolute;top:0;left:0}
+.score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Prompt',sans-serif;font-weight:800;font-size:16px;color:var(--g700)}
+
+/* EMPTY */
+.empty{text-align:center;padding:32px 16px;color:var(--gray400)}
+.empty .ei{font-size:36px;margin-bottom:8px}
+.empty p{font-size:12px;line-height:1.6}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--gray900);color:#fff;padding:8px 16px;border-radius:99px;font-size:11px;font-weight:600;opacity:0;transition:.3s;z-index:999;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* ── EMPTY ── */
-.empty{text-align:center;padding:36px 16px;color:var(--gray400)}
-.empty .ei{font-size:40px;margin-bottom:10px}
-.empty p{font-size:13px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -217,112 +238,100 @@ svg.fb{display:block;margin:0 auto}
 <header>
   <div class="hd">
     <div class="logo">Guitar<em>Sense</em><span class="logo-dot"></span></div>
-    <div class="mic-status idle" id="micStatus" onclick="requestMic()">🎤 แตะเพื่อเปิดไมค์</div>
+    <button class="mic-pill idle" id="micPill" onclick="requestMic()">🎤 เปิดไมค์</button>
   </div>
 </header>
-
 <nav>
   <div class="tabs">
     <button class="tab on" data-tab="detect" onclick="goTab('detect')">🎧 ตรวจจับ</button>
     <button class="tab" data-tab="songs" onclick="goTab('songs')">🎵 เพลง</button>
     <button class="tab" data-tab="practice" onclick="goTab('practice')">🎼 ฝึก</button>
     <button class="tab" data-tab="library" onclick="goTab('library')">📖 คอร์ด</button>
+    <button class="tab" data-tab="settings" onclick="goTab('settings')">⚙️ ตั้งค่า</button>
     <button class="tab" data-tab="stats" onclick="goTab('stats')">📊 สถิติ</button>
   </div>
 </nav>
-
 <main>
 
-<!-- ═══ DETECT PAGE ═══ -->
+<!-- ═══ DETECT ═══ -->
 <div class="pg on" id="pg-detect">
-
   <div id="micBanner" class="mic-banner" style="display:none">
-    <div class="icon">🎙️</div>
-    <div>
-      <h3>ต้องการสิทธิ์ไมโครโฟน</h3>
-      <p>กดปุ่มด้านล่าง แล้วเลือก <b>"Allow"</b> เมื่อบราวเซอร์ถาม<br>ถ้าไม่มี popup → กด 🔒 ใน URL bar → Microphone → Allow</p>
-      <button class="btn-allow" onclick="requestMic()">🎤 ขอสิทธิ์ไมโครโฟน</button>
+    <div style="font-size:24px">🎙️</div>
+    <div><h3>ต้องการสิทธิ์ไมโครโฟน</h3>
+      <p>กดปุ่มด้านล่าง → เลือก <b>Allow</b><br>หรือกด 🔒 URL bar → Microphone → Allow</p>
+      <button class="btn-allow" onclick="requestMic()">🎤 ขอสิทธิ์</button>
     </div>
   </div>
-
   <div class="card">
-    <div class="card-head"><h2>🎧 ตรวจจับคอร์ด Real-time</h2></div>
-    <div class="card-body">
+    <div class="ch"><h2>🎧 ตรวจจับคอร์ด Real-time</h2></div>
+    <div class="cb">
       <div class="detector">
         <div class="ring-zone">
           <div class="ring" id="ring">
-            <div>
-              <div class="chord-big" id="chordBig">—</div>
-              <div class="chord-small" id="chordSmall">กดเริ่มฟัง</div>
-            </div>
+            <div><div class="chord-big" id="chordBig">—</div><div class="chord-small" id="chordSmall">กดเริ่มฟัง</div></div>
           </div>
           <div class="waveform" id="wv">
-            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
-            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
-            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
-            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
-            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
+            <div class="wv"></div><div class="wv"></div><div class="wv"></div><div class="wv"></div>
+            <div class="wv"></div><div class="wv"></div><div class="wv"></div><div class="wv"></div>
+            <div class="wv"></div><div class="wv"></div>
           </div>
           <button class="btn-listen" id="listenBtn" onclick="toggleListen()">🎤 เริ่มฟัง</button>
         </div>
         <div>
-          <div class="conf-block">
-            <div class="conf-lbl">ความมั่นใจ</div>
-            <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
-            <div class="info-box" id="infoBox">
-              <h4>— รอฟังเสียง —</h4>
-              <p style="font-size:12px;color:var(--gray400)">จับกีต้าร์ใกล้ไมค์ ดีดคอร์ดได้เลย</p>
-            </div>
+          <div class="conf-lbl">ความมั่นใจ</div>
+          <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+          <div class="info-box" id="infoBox">
+            <h4>— รอฟังเสียง —</h4>
+            <p style="font-size:11px;color:var(--gray400)">จับกีต้าร์ใกล้ไมค์ แล้วดีดคอร์ด</p>
           </div>
         </div>
       </div>
     </div>
+    <div class="noise-toggle">
+      <span>🔇 ตัดเสียงรบกวน (Noise Gate)</span>
+      <label class="toggle-sw"><input type="checkbox" id="noiseGate" checked><span class="slider"></span></label>
+    </div>
     <div class="rec-bar">
-      <div style="display:flex;align-items:center;gap:10px">
-        <button class="btn-rec" id="recBtn" onclick="toggleRecord()">⏺ บันทึกเสียง</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="btn-rec" id="recBtn" onclick="toggleRecord()">⏺ บันทึก</button>
         <span class="rec-timer" id="recTimer" style="display:none">00:00</span>
       </div>
       <span style="font-size:11px;color:var(--gray400)" id="recCount">ยังไม่มีการบันทึก</span>
     </div>
   </div>
-
   <div class="card" id="recListCard" style="display:none">
-    <div class="card-head"><h2>🎙️ เสียงที่บันทึกไว้</h2></div>
+    <div class="ch"><h2>🎙️ เสียงที่บันทึก</h2></div>
     <div class="recordings-list" id="recList"></div>
   </div>
-
 </div>
 
-<!-- ═══ SONGS PAGE ═══ -->
+<!-- ═══ SONGS ═══ -->
 <div class="pg" id="pg-songs">
   <div class="card">
-    <div class="card-head"><h2>📂 อัปโหลดเพลง MP3</h2></div>
-    <div class="card-body">
+    <div class="ch"><h2>📂 อัปโหลดเพลง</h2></div>
+    <div class="cb">
       <div class="upload-zone" id="uploadZone" onclick="document.getElementById('mp3in').click()">
         <div class="ui">🎵</div>
-        <h3>แตะหรือลากไฟล์ MP3 มาวาง</h3>
-        <p>AI จะวิเคราะห์คอร์ด + เนื้อเพลงอัตโนมัติ</p>
+        <h3>แตะหรือลากไฟล์ MP3</h3>
+        <p>AI วิเคราะห์คอร์ด + ซับไตเติ้ลอัตโนมัติ</p>
       </div>
       <input type="file" id="mp3in" accept=".mp3,audio/*" multiple onchange="uploadSongs(event)">
     </div>
   </div>
   <div class="card">
-    <div class="card-head"><h2>🎶 เพลงของฉัน</h2></div>
-    <div class="card-body">
-      <div class="song-list" id="songList">
-        <div class="empty"><div class="ei">🎸</div><p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบนก่อนเลย</p></div>
-      </div>
-    </div>
+    <div class="ch"><h2>🎶 เพลงของฉัน</h2></div>
+    <div class="cb"><div class="song-list" id="songList">
+      <div class="empty"><div class="ei">🎸</div><p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบน</p></div>
+    </div></div>
   </div>
 </div>
 
-<!-- ═══ PRACTICE PAGE ═══ -->
+<!-- ═══ PRACTICE / KARAOKE ═══ -->
 <div class="pg" id="pg-practice">
   <div id="practiceEmpty" class="empty" style="padding:60px 0">
-    <div class="ei">🎼</div>
-    <p>เลือกเพลงจากหน้า <b>"เพลง"</b> ก่อนนะครับ</p>
+    <div class="ei">🎼</div><p>เลือกเพลงจากหน้า <b>"เพลง"</b> ก่อน</p>
   </div>
-  <div id="practiceContent" style="display:none;display:flex;flex-direction:column;gap:14px">
+  <div id="practiceContent" style="display:none;flex-direction:column;gap:12px">
 
     <div class="player-card">
       <div class="player-title" id="pTitle">—</div>
@@ -330,48 +339,80 @@ svg.fb{display:block;margin:0 auto}
       <audio class="styled" id="pAudio" controls></audio>
     </div>
 
+    <!-- KARAOKE -->
+    <div class="karaoke-wrap">
+      <div class="karaoke-header">
+        <div class="song-info" id="kSongInfo">—</div>
+        <div class="key-tag" id="kKeyTag">Key: —</div>
+      </div>
+      <div class="karaoke-body">
+        <div class="lyric-prev" id="lyricPrev"></div>
+        <div class="lyric-curr" id="lyricCurr">เลือกเพลงเพื่อเริ่ม</div>
+        <div class="lyric-next" id="lyricNext"></div>
+        <div class="chord-curr-display">
+          <div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:3px">คอร์ดตอนนี้</div>
+            <div class="chord-now" id="chordNow">—</div>
+          </div>
+          <div style="margin-left:12px">
+            <div class="chord-next-lbl">ถัดไป</div>
+            <div class="chord-next-val" id="chordNext">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="karaoke-progress">
+        <div class="kp-bar"><div class="kp-fill" id="kpFill"></div></div>
+        <div class="kp-time"><span id="kpCurr">0:00</span><span id="kpTotal">0:00</span></div>
+      </div>
+    </div>
+
+    <!-- WRONG CHORD ALERT -->
+    <div class="wrong-alert" id="wrongAlert">
+      <span>⚠️</span>
+      <span id="wrongMsg">คอร์ดไม่ถูกต้อง — เพลงหยุดชั่วคราว</span>
+    </div>
+
+    <!-- CHORD LIST -->
     <div class="card">
-      <div class="card-head"><h2>🎵 คอร์ดในเพลง</h2></div>
-      <div class="card-body">
-        <div class="key-badge" id="keyBadge">🎵 Key: —</div>
+      <div class="ch"><h2>🎵 คอร์ดทั้งหมด</h2></div>
+      <div class="cb">
         <div class="chord-scroll-wrap"><div class="chord-scroll" id="chordScroll"></div></div>
       </div>
     </div>
 
+    <!-- PRACTICE CONTROLS -->
     <div class="card">
-      <div class="card-head"><h2>📝 เนื้อเพลง + คอร์ด</h2></div>
-      <div class="card-body">
-        <div class="lyrics-box" id="lyricsBox">— รอข้อมูล —</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-head"><h2>🎙️ ฝึกและบันทึก</h2></div>
-      <div class="card-body" style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn-listen" id="pracListenBtn" onclick="togglePracticeListen()" style="font-size:13px;padding:9px 20px">🎤 เริ่มฟังระหว่างเล่น</button>
-        <button class="btn-rec" id="pracRecBtn" onclick="togglePracticeRecord()" style="font-size:13px;padding:9px 20px">⏺ บันทึก</button>
+      <div class="ch"><h2>🎙️ ฝึกและบันทึก</h2></div>
+      <div class="cb" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn-listen" id="pracListenBtn" onclick="togglePracListen()" style="font-size:12px;padding:8px 18px">🎤 ฟังระหว่างเล่น</button>
+        <button class="btn-rec" id="pracRecBtn" onclick="togglePracRec()">⏺ บันทึก</button>
         <span class="rec-timer" id="pracTimer" style="display:none"></span>
       </div>
-      <div style="padding:0 18px 14px">
-        <div id="pracLiveChord" style="font-size:12px;color:var(--gray400)">ดีดกีต้าร์เพื่อตรวจจับคอร์ด...</div>
+      <div style="padding:0 16px 12px;margin-top:6px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="font-size:11px;color:var(--gray400)">ตรวจจับ:</div>
+          <div id="pracLiveChord" style="font-family:Prompt;font-weight:800;font-size:16px;color:var(--g600)">—</div>
+        </div>
+      </div>
+      <div class="noise-toggle">
+        <span>🔇 ตัดเสียงรบกวน</span>
+        <label class="toggle-sw"><input type="checkbox" id="noiseGate2" checked><span class="slider"></span></label>
       </div>
     </div>
 
     <div class="card" id="feedbackCard" style="display:none">
-      <div class="card-head"><h2>🤖 AI วิเคราะห์การเล่น</h2></div>
-      <div class="card-body">
-        <div id="feedbackContent"></div>
-      </div>
+      <div class="ch"><h2>🤖 AI วิเคราะห์การเล่น</h2></div>
+      <div class="cb" id="feedbackContent"></div>
     </div>
 
   </div>
 </div>
 
-<!-- ═══ LIBRARY PAGE ═══ -->
+<!-- ═══ LIBRARY ═══ -->
 <div class="pg" id="pg-library">
   <div class="card">
-    <div class="card-head"><h2>🎸 คลังคอร์ดกีต้าร์</h2></div>
-    <div class="card-body">
+    <div class="ch"><h2>🎸 คลังคอร์ด</h2></div>
+    <div class="cb">
       <div class="filter-pills" id="filterPills"></div>
       <div class="lib-grid" id="libGrid"></div>
     </div>
@@ -381,39 +422,81 @@ svg.fb{display:block;margin:0 auto}
   </div>
 </div>
 
-<!-- ═══ STATS PAGE ═══ -->
-<div class="pg" id="pg-stats">
-  <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-val" id="stChords">0</div>
-      <div class="stat-lbl">คอร์ดที่ตรวจพบวันนี้</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="stSongs">0</div>
-      <div class="stat-lbl">เพลงในคลัง</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="stRecs">0</div>
-      <div class="stat-lbl">ไฟล์บันทึก</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="stStreak">1</div>
-      <div class="stat-lbl">วันติดต่อกัน 🔥</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-head"><h2>📅 7 วันล่าสุด</h2></div>
-    <div class="card-body">
-      <div class="streak-bar" id="streakBar"></div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-head"><h2>🏆 คอร์ดที่เล่นบ่อย</h2></div>
-    <div class="card-body">
-      <div class="chord-history" id="chordHistory">
-        <div class="empty"><div class="ei">🎵</div><p>เริ่มฝึกเพื่อดูสถิติ</p></div>
+<!-- ═══ SETTINGS ═══ -->
+<div class="pg" id="pg-settings">
+  <div class="settings-panel">
+    <div class="settings-section">
+      <h3>🎨 ธีมสี</h3>
+      <div class="setting-row">
+        <div class="setting-label"><b>สีหลัก</b><span>เลือกสีธีมของแอป</span></div>
+        <div class="color-row" id="colorRow">
+          <div class="color-chip on" style="background:#22C55E" data-color="#22C55E" onclick="setColor('#22C55E','#16A34A','#166534',this)"></div>
+          <div class="color-chip" style="background:#3B82F6" data-color="#3B82F6" onclick="setColor('#3B82F6','#2563EB','#1e40af',this)"></div>
+          <div class="color-chip" style="background:#F59E0B" data-color="#F59E0B" onclick="setColor('#F59E0B','#D97706','#92400E',this)"></div>
+          <div class="color-chip" style="background:#8B5CF6" data-color="#8B5CF6" onclick="setColor('#8B5CF6','#7C3AED','#4c1d95',this)"></div>
+          <div class="color-chip" style="background:#EC4899" data-color="#EC4899" onclick="setColor('#EC4899','#DB2777','#831843',this)"></div>
+        </div>
       </div>
     </div>
+    <div class="settings-section">
+      <h3>🎵 การเล่นเพลง</h3>
+      <div class="setting-row">
+        <div class="setting-label"><b>หยุดเพลงเมื่อเล่นผิดคอร์ด</b><span>หยุดอัตโนมัติเมื่อคอร์ดไม่ตรง</span></div>
+        <label class="toggle-sw"><input type="checkbox" id="stopOnWrong" checked><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-label"><b>ความไวในการตรวจจับ</b><span id="sensLabel">ปานกลาง</span></div>
+        <input type="range" class="slider-input" id="sensitivitySlider" min="1" max="5" value="3" oninput="updateSens(this.value)" style="width:80px">
+      </div>
+      <div class="setting-row">
+        <div class="setting-label"><b>ขนาดตัวอักษรซับ</b><span id="fontLabel">ปกติ</span></div>
+        <input type="range" class="slider-input" id="fontSlider" min="14" max="26" value="20" oninput="updateFont(this.value)" style="width:80px">
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>🔇 เสียง</h3>
+      <div class="setting-row">
+        <div class="setting-label"><b>ตัดเสียงรบกวน</b><span>Noise Gate — กรองเสียงรบกวนพื้นหลัง</span></div>
+        <label class="toggle-sw"><input type="checkbox" id="noiseGateMain" checked onchange="syncNoiseGate(this)"><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-label"><b>ระดับ Noise Gate</b><span id="ngLabel">-55 dB</span></div>
+        <input type="range" class="slider-input" id="ngSlider" min="-70" max="-30" value="-55" oninput="updateNG(this.value)" style="width:80px">
+      </div>
+      <div class="setting-row">
+        <div class="setting-label"><b>คุณภาพการบันทึก</b><span>เลือกความชัดของเสียงที่บันทึก</span></div>
+        <select class="sel" id="recQuality">
+          <option value="128000">128 kbps</option>
+          <option value="256000" selected>256 kbps</option>
+        </select>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>ℹ️ เกี่ยวกับ</h3>
+      <div class="setting-row">
+        <div class="setting-label"><b>GuitarSense</b><span>v2.0 — AI Guitar Learning</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="pg" id="pg-stats">
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-val" id="stChords">0</div><div class="stat-lbl">คอร์ดวันนี้</div></div>
+    <div class="stat-card"><div class="stat-val" id="stSongs">0</div><div class="stat-lbl">เพลงในคลัง</div></div>
+    <div class="stat-card"><div class="stat-val" id="stRecs">0</div><div class="stat-lbl">ไฟล์บันทึก</div></div>
+    <div class="stat-card"><div class="stat-val" id="stStreak">1</div><div class="stat-lbl">วันติดต่อกัน 🔥</div></div>
+  </div>
+  <div class="card">
+    <div class="ch"><h2>📅 7 วันล่าสุด</h2></div>
+    <div class="cb"><div class="streak-bar" id="streakBar"></div></div>
+  </div>
+  <div class="card">
+    <div class="ch"><h2>🏆 คอร์ดที่เล่นบ่อย</h2></div>
+    <div class="cb"><div class="chord-history" id="chordHistory">
+      <div class="empty"><div class="ei">🎵</div><p>เริ่มฝึกเพื่อดูสถิติ</p></div>
+    </div></div>
   </div>
 </div>
 
@@ -424,32 +507,24 @@ svg.fb{display:block;margin:0 auto}
 // ═══════════════════════════════════════
 // CHORD DATA
 // ═══════════════════════════════════════
-const CHORDS = {
-  "C":  {type:"Major",notes:["C","E","G"],    f:[[1,0],[2,1,1],[3,0],[4,2,3],[5,3,4],[6,-1]],barre:null,desc:"คอร์ดพื้นฐาน เสียงสว่างใส ใช้บ่อยมาก"},
-  "D":  {type:"Major",notes:["D","F#","A"],   f:[[1,2,1],[2,3,3],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงอบอุ่น ใช้บ่อยในเพลงป็อป"},
-  "E":  {type:"Major",notes:["E","G#","B"],   f:[[1,0],[2,0],[3,1,1],[4,2,3],[5,2,4],[6,0]],barre:null,desc:"เสียงเต็มก้อง ดีดง่าย เหมาะมือใหม่"},
-  "F":  {type:"Major",notes:["F","A","C"],    f:[[1,1,1],[2,1,1],[3,2,2],[4,3,4],[5,3,3],[6,1,1]],barre:1,desc:"คอร์ด Barre แรกที่ควรฝึก"},
-  "G":  {type:"Major",notes:["G","B","D"],    f:[[1,3,4],[2,3,3],[3,0],[4,0],[5,2,1],[6,3,2]],barre:null,desc:"เสียงก้อง นิยมมากในเพลงโฟล์ค"},
-  "A":  {type:"Major",notes:["A","C#","E"],   f:[[1,0],[2,2,3],[3,2,4],[4,2,2],[5,0],[6,-1]],barre:null,desc:"เสียงสะอาด ใช้คู่ D และ E ได้ดี"},
-  "B":  {type:"Major",notes:["B","D#","F#"],  f:[[1,2,1],[2,4,4],[3,4,3],[4,4,2],[5,2,1],[6,-1]],barre:2,desc:"Barre คอร์ดที่ใช้บ่อย"},
-  "Am": {type:"Minor",notes:["A","C","E"],    f:[[1,0],[2,1,1],[3,2,3],[4,2,4],[5,0],[6,-1]],barre:null,desc:"เสียงเศร้าอ่อนโยน ใช้บ่อยในเพลงรัก"},
-  "Em": {type:"Minor",notes:["E","G","B"],    f:[[1,0],[2,0],[3,0],[4,2,4],[5,2,3],[6,0]],barre:null,desc:"Minor ที่ง่ายที่สุด"},
-  "Dm": {type:"Minor",notes:["D","F","A"],    f:[[1,1,1],[2,3,4],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงเศร้าเข้ม เหมาะบัลลาด"},
-  "Bm": {type:"Minor",notes:["B","D","F#"],   f:[[1,2,1],[2,3,2],[3,4,4],[4,4,3],[5,2,1],[6,-1]],barre:2,desc:"Minor Barre ที่พบบ่อย"},
-  "Fm": {type:"Minor",notes:["F","Ab","C"],   f:[[1,1,1],[2,1,1],[3,1,1],[4,3,4],[5,3,3],[6,1,1]],barre:1,desc:"Minor Barre เสียงดำมืด"},
-  "G7": {type:"7th",  notes:["G","B","D","F"],f:[[1,1,1],[2,0],[3,0],[4,0],[5,2,2],[6,3,3]],barre:null,desc:"เสียงดึงดูด อยากกลับ C"},
-  "C7": {type:"7th",  notes:["C","E","G","Bb"],f:[[1,0],[2,1,1],[3,3,4],[4,2,3],[5,3,4],[6,-1]],barre:null,desc:"ให้ความรู้สึกบลูส์"},
-  "D7": {type:"7th",  notes:["D","F#","A","C"],f:[[1,2,3],[2,1,1],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงสนุก ใช้ในเพลงคันทรี"},
-  "E7": {type:"7th",  notes:["E","G#","B","D"],f:[[1,0],[2,0],[3,1,1],[4,0],[5,2,3],[6,0]],barre:null,desc:"เสียงบลูส์คลาสสิก"},
+const CHORDS={
+  "C":{type:"Major",notes:["C","E","G"],f:[[1,0],[2,1,1],[3,0],[4,2,3],[5,3,4],[6,-1]],barre:null,desc:"คอร์ดพื้นฐาน เสียงสว่างใส"},
+  "D":{type:"Major",notes:["D","F#","A"],f:[[1,2,1],[2,3,3],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงอบอุ่น ใช้บ่อยในเพลงป็อป"},
+  "E":{type:"Major",notes:["E","G#","B"],f:[[1,0],[2,0],[3,1,1],[4,2,3],[5,2,4],[6,0]],barre:null,desc:"เสียงเต็มก้อง ดีดง่าย"},
+  "F":{type:"Major",notes:["F","A","C"],f:[[1,1,1],[2,1,1],[3,2,2],[4,3,4],[5,3,3],[6,1,1]],barre:1,desc:"Barre คอร์ดแรกที่ควรฝึก"},
+  "G":{type:"Major",notes:["G","B","D"],f:[[1,3,4],[2,3,3],[3,0],[4,0],[5,2,1],[6,3,2]],barre:null,desc:"เสียงก้อง นิยมในเพลงโฟล์ค"},
+  "A":{type:"Major",notes:["A","C#","E"],f:[[1,0],[2,2,3],[3,2,4],[4,2,2],[5,0],[6,-1]],barre:null,desc:"เสียงสะอาด ใช้คู่ D และ E"},
+  "B":{type:"Major",notes:["B","D#","F#"],f:[[1,2,1],[2,4,4],[3,4,3],[4,4,2],[5,2,1],[6,-1]],barre:2,desc:"Barre คอร์ดที่ใช้บ่อย"},
+  "Am":{type:"Minor",notes:["A","C","E"],f:[[1,0],[2,1,1],[3,2,3],[4,2,4],[5,0],[6,-1]],barre:null,desc:"เสียงเศร้าอ่อนโยน ใช้บ่อยในเพลงรัก"},
+  "Em":{type:"Minor",notes:["E","G","B"],f:[[1,0],[2,0],[3,0],[4,2,4],[5,2,3],[6,0]],barre:null,desc:"Minor ที่ง่ายที่สุด"},
+  "Dm":{type:"Minor",notes:["D","F","A"],f:[[1,1,1],[2,3,4],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงเศร้าเข้ม เหมาะบัลลาด"},
+  "Bm":{type:"Minor",notes:["B","D","F#"],f:[[1,2,1],[2,3,2],[3,4,4],[4,4,3],[5,2,1],[6,-1]],barre:2,desc:"Minor Barre ที่พบบ่อย"},
+  "G7":{type:"7th",notes:["G","B","D","F"],f:[[1,1,1],[2,0],[3,0],[4,0],[5,2,2],[6,3,3]],barre:null,desc:"เสียงดึงดูด อยากกลับ C"},
+  "C7":{type:"7th",notes:["C","E","G","Bb"],f:[[1,0],[2,1,1],[3,3,4],[4,2,3],[5,3,4],[6,-1]],barre:null,desc:"ให้ความรู้สึกบลูส์"},
+  "D7":{type:"7th",notes:["D","F#","A","C"],f:[[1,2,3],[2,1,1],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงสนุก ใช้ในเพลงคันทรี"},
+  "E7":{type:"7th",notes:["E","G#","B","D"],f:[[1,0],[2,0],[3,1,1],[4,0],[5,2,3],[6,0]],barre:null,desc:"บลูส์คลาสสิก"},
 };
-
-const CHORD_TMPL = {
-  "C":["C","E","G"],"D":["D","F#","A"],"E":["E","G#","B"],
-  "F":["F","A","C"],"G":["G","B","D"],"A":["A","C#","E"],
-  "B":["B","D#","F#"],"Am":["A","C","E"],"Em":["E","G","B"],
-  "Dm":["D","F","A"],"Bm":["B","D","F#"],"Fm":["F","Ab","C"],
-  "G7":["G","B","D","F"],"C7":["C","E","G","Bb"],"D7":["D","F#","A","C"],"E7":["E","G#","B","D"]
-};
+const CHORD_TMPL={"C":["C","E","G"],"D":["D","F#","A"],"E":["E","G#","B"],"F":["F","A","C"],"G":["G","B","D"],"A":["A","C#","E"],"B":["B","D#","F#"],"Am":["A","C","E"],"Em":["E","G","B"],"Dm":["D","F","A"],"Bm":["B","D","F#"],"G7":["G","B","D","F"],"C7":["C","E","G","Bb"],"D7":["D","F#","A","C"],"E7":["E","G#","B","D"]};
 const NOTES=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 const ENHARMO={"Db":"C#","Eb":"D#","Gb":"F#","Ab":"G#","Bb":"A#"};
 function norm(n){return ENHARMO[n]||n}
@@ -459,8 +534,8 @@ function detectChord(ns){
   const nd=[...new Set(ns.map(norm))];
   let best=null,bs=0;
   for(const[name,tmpl]of Object.entries(CHORD_TMPL)){
-    const nt=tmpl.map(norm);
-    let m=0; for(const n of nd) if(nt.includes(n)) m++;
+    const nt=tmpl.map(norm);let m=0;
+    for(const n of nd)if(nt.includes(n))m++;
     const s=m/nt.length+m/nd.length;
     if(s>bs&&m>=Math.min(2,nt.length)){bs=s;best={name,score:Math.min(1,s*.6)}}
   }
@@ -468,15 +543,46 @@ function detectChord(ns){
 }
 
 // ═══════════════════════════════════════
-// MIC / AUDIO ENGINE
+// SETTINGS STATE
+// ═══════════════════════════════════════
+let settings={noiseGate:true,ngThreshold:-55,stopOnWrong:true,sensitivity:3,fontSize:20};
+let noiseThreshold=-55;
+
+function updateSens(v){
+  settings.sensitivity=parseInt(v);
+  const labels=['','ต่ำมาก','ต่ำ','ปานกลาง','สูง','สูงมาก'];
+  document.getElementById('sensLabel').textContent=labels[v]||'ปานกลาง';
+}
+function updateFont(v){
+  settings.fontSize=parseInt(v);
+  document.getElementById('fontLabel').textContent=v<=16?'เล็ก':v<=20?'ปกติ':'ใหญ่';
+  document.getElementById('lyricCurr').style.fontSize=v+'px';
+}
+function updateNG(v){
+  noiseThreshold=parseInt(v);
+  settings.ngThreshold=noiseThreshold;
+  document.getElementById('ngLabel').textContent=v+' dB';
+}
+function syncNoiseGate(el){
+  document.getElementById('noiseGate').checked=el.checked;
+  document.getElementById('noiseGate2').checked=el.checked;
+}
+function setColor(c1,c2,c3,el){
+  document.querySelectorAll('.color-chip').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  document.documentElement.style.setProperty('--g500',c1);
+  document.documentElement.style.setProperty('--g600',c2);
+  document.documentElement.style.setProperty('--g800',c3);
+  document.documentElement.style.setProperty('--g400',c1+'cc');
+}
+
+// ═══════════════════════════════════════
+// AUDIO ENGINE
 // ═══════════════════════════════════════
 let actx=null,analyser=null,micStream=null,isListening=false,animId=null,silTimer=null,lastChord=null;
 let pracListening=false,pracAnalyser=null,pracMicStream=null,pracAnimId=null;
 
-function getCtx(){
-  if(!actx) actx=new(window.AudioContext||window.webkitAudioContext)();
-  return actx;
-}
+function getCtx(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx;}
 
 async function requestMic(){
   try{
@@ -484,52 +590,55 @@ async function requestMic(){
     s.getTracks().forEach(t=>t.stop());
     setMicStatus('ok');
     document.getElementById('micBanner').style.display='none';
-    showToast('✅ ไมโครโฟนพร้อมใช้งาน');
+    showToast('✅ ไมโครโฟนพร้อม');
   }catch(e){
     setMicStatus('err');
     document.getElementById('micBanner').style.display='flex';
     showToast('❌ '+e.message);
   }
 }
-
 function setMicStatus(s){
-  const el=document.getElementById('micStatus');
-  el.className='mic-status '+s;
-  el.textContent=s==='ok'?'🟢 ไมค์พร้อม':s==='err'?'🔴 ไมค์ถูกบล็อก':'🎤 แตะเพื่อเปิดไมค์';
+  const el=document.getElementById('micPill');
+  el.className='mic-pill '+s;
+  el.textContent=s==='ok'?'🟢 ไมค์พร้อม':s==='err'?'🔴 ถูกบล็อก':'🎤 เปิดไมค์';
 }
 
-async function startMic(cb){
+function getNoiseSetting(){
+  const ng=document.getElementById('noiseGate');
+  return ng&&ng.checked;
+}
+
+async function startMic(useNoise){
   const ctx=getCtx();
   if(ctx.state==='suspended')await ctx.resume();
-  const s=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+  const ec=!useNoise;
+  const ns=!useNoise;
+  const s=await navigator.mediaDevices.getUserMedia({
+    audio:{echoCancellation:ec,noiseSuppression:ns,autoGainControl:false,sampleRate:44100}
+  });
   const an=ctx.createAnalyser();
-  an.fftSize=8192; an.smoothingTimeConstant=.85;
+  an.fftSize=8192;an.smoothingTimeConstant=.85;
   ctx.createMediaStreamSource(s).connect(an);
   setMicStatus('ok');
   return{stream:s,analyser:an};
 }
 
 async function toggleListen(){
-  if(isListening)stopListen();
-  else await startListen();
+  if(isListening)stopListen();else await startListen();
 }
-
 async function startListen(){
   try{
-    const{stream,analyser:an}=await startMic();
-    micStream=stream; analyser=an; isListening=true;
+    const useNoise=getNoiseSetting();
+    const{stream,analyser:an}=await startMic(useNoise);
+    micStream=stream;analyser=an;isListening=true;
     document.getElementById('micBanner').style.display='none';
     document.getElementById('listenBtn').innerHTML='⏹ หยุดฟัง';
     document.getElementById('listenBtn').classList.add('stop');
     document.getElementById('ring').classList.add('listen');
     document.getElementById('chordSmall').textContent='กำลังฟัง...';
     loopDetect();
-  }catch(e){
-    document.getElementById('micBanner').style.display='flex';
-    showToast('❌ '+e.message);
-  }
+  }catch(e){document.getElementById('micBanner').style.display='flex';showToast('❌ '+e.message);}
 }
-
 function stopListen(){
   isListening=false;
   if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;}
@@ -538,7 +647,14 @@ function stopListen(){
   document.getElementById('listenBtn').classList.remove('stop');
   document.getElementById('ring').classList.remove('listen','hit');
   document.getElementById('chordSmall').textContent='กดเริ่มฟัง';
-  resetWave();
+  const bars=document.getElementById('wv').children;
+  for(const b of bars){b.style.height='3px';b.style.background='#E5E7EB';}
+}
+
+function getThreshold(){
+  const ng=document.getElementById('noiseGate');
+  if(!ng||!ng.checked)return -140;
+  return noiseThreshold;
 }
 
 function loopDetect(){
@@ -547,17 +663,14 @@ function loopDetect(){
   const d=new Float32Array(buf);
   analyser.getFloatFrequencyData(d);
   const sr=getCtx().sampleRate;
-  // waveform
   const bars=document.getElementById('wv').children;
   for(let i=0;i<bars.length;i++){
     const b0=Math.floor((80+i*260)/sr*buf),b1=Math.min(buf-1,b0+35);
-    let mx=-140; for(let b=b0;b<=b1;b++) if(d[b]>mx)mx=d[b];
-    const h=Math.max(3,Math.min(40,(mx+100)*1.1));
-    bars[i].style.height=h+'px';
-    bars[i].style.background=h>20?'#22C55E':'#86EFAC';
+    let mx=-140;for(let b=b0;b<=b1;b++)if(d[b]>mx)mx=d[b];
+    const h=Math.max(3,Math.min(36,(mx+100)*1.1));
+    bars[i].style.height=h+'px';bars[i].style.background=h>18?'#22C55E':'#86EFAC';
   }
-  // peaks
-  const TH=-52, peaks=[];
+  const TH=getThreshold(),peaks=[];
   for(let i=1;i<buf-1;i++){
     if(d[i]>TH&&d[i]>d[i-1]&&d[i]>d[i+1]){
       const fr=i*sr/(buf*2);
@@ -567,23 +680,17 @@ function loopDetect(){
   peaks.sort((a,b)=>b.a-a.a);
   const top=peaks.slice(0,8);
   const rms=calcRMS(d);
-  if(rms>0.007&&top.length>=2){
+  if(rms>0.006&&top.length>=2){
     const ns=[...new Set(top.map(p=>freqToNote(p.fr)).filter(Boolean))];
     const res=detectChord(ns);
-    if(res){
-      lastChord=res.name;
-      showChord(res.name,res.score);
-      recordChordStat(res.name);
-    }
+    if(res){lastChord=res.name;showChord(res.name,res.score);recordChordStat(res.name);}
     clearTimeout(silTimer);silTimer=null;
-  }else if(rms<0.007&&lastChord&&!silTimer){
+  }else if(rms<0.006&&lastChord&&!silTimer){
     silTimer=setTimeout(()=>{document.getElementById('ring').classList.remove('hit');silTimer=null;},1500);
   }
   animId=requestAnimationFrame(loopDetect);
 }
-
 function calcRMS(d){let s=0;for(let i=0;i<d.length;i++){const l=Math.pow(10,d[i]/20);s+=l*l;}return Math.sqrt(s/d.length);}
-function resetWave(){const bars=document.getElementById('wv').children;for(const b of bars){b.style.height='3px';b.style.background='#E5E7EB';}}
 
 function showChord(name,conf){
   document.getElementById('chordBig').textContent=name;
@@ -592,17 +699,95 @@ function showChord(name,conf){
   document.getElementById('confFill').style.width=(conf*100).toFixed(0)+'%';
   const info=CHORDS[name];
   if(info){
-    document.getElementById('infoBox').innerHTML=`
-      <h4>${name} <span style="font-size:11px;color:var(--gray400);font-weight:500">${info.type}</span></h4>
+    document.getElementById('infoBox').innerHTML=`<h4>${name} <span style="font-size:10px;color:var(--gray400)">${info.type}</span></h4>
       <div class="notes-row">${info.notes.map(n=>`<span class="n-chip">${n}</span>`).join('')}</div>
       <div class="tip-box"><b>💡</b> ${info.desc}</div>`;
   }
-  // highlight in practice
-  document.getElementById('pracLiveChord').innerHTML=`<span style="font-family:Prompt;font-weight:800;font-size:18px;color:var(--g600)">${name}</span> <span style="font-size:11px;color:var(--gray400)">ตรวจพบ!</span>`;
-  document.querySelectorAll('.cc').forEach(c=>{
-    c.classList.toggle('hl',c.dataset.chord===name);
-  });
+  // practice live
+  document.getElementById('pracLiveChord').textContent=name;
+  document.querySelectorAll('.cc').forEach(c=>c.classList.toggle('hl',c.dataset.chord===name));
+  // check wrong chord in practice
+  checkWrongChord(name);
   updateStats();
+}
+
+// ═══════════════════════════════════════
+// KARAOKE ENGINE
+// ═══════════════════════════════════════
+let karaokeData=null;
+let karaokeInterval=null;
+
+function startKaraoke(song){
+  if(!song||!song.subtitles)return;
+  karaokeData=song;
+  const audio=document.getElementById('pAudio');
+  clearInterval(karaokeInterval);
+  karaokeInterval=setInterval(()=>updateKaraoke(audio.currentTime,audio.duration),200);
+  audio.addEventListener('ended',()=>clearInterval(karaokeInterval),{once:true});
+}
+
+function updateKaraoke(cur,dur){
+  if(!karaokeData||!karaokeData.subtitles)return;
+  const subs=karaokeData.subtitles;
+  const chords=karaokeData.chords||[];
+  const totalDur=dur||karaokeData.estDuration||240;
+
+  // progress
+  const pct=dur?cur/dur*100:0;
+  document.getElementById('kpFill').style.width=pct+'%';
+  document.getElementById('kpCurr').textContent=fmtTime(cur);
+  document.getElementById('kpTotal').textContent=fmtTime(dur||0);
+
+  // find current lyric line
+  let ci=-1;
+  for(let i=0;i<subs.length;i++){
+    if(cur>=subs[i].t)ci=i;
+    else break;
+  }
+
+  const prev=ci>0?subs[ci-1]:null;
+  const curr=ci>=0?subs[ci]:null;
+  const next=ci<subs.length-1?subs[ci+1]:null;
+
+  document.getElementById('lyricPrev').textContent=prev?prev.text:'';
+  document.getElementById('lyricCurr').textContent=curr?curr.text:'♪';
+  document.getElementById('lyricNext').textContent=next?next.text:'';
+
+  // current chord based on position in chord array
+  const chordIdx=Math.floor((cur/totalDur)*chords.length);
+  const nowChord=chords[Math.min(chordIdx,chords.length-1)]||'—';
+  const nextChord=chords[Math.min(chordIdx+1,chords.length-1)]||'—';
+  document.getElementById('chordNow').textContent=nowChord;
+  document.getElementById('chordNext').textContent=nextChord;
+  document.querySelectorAll('.cc').forEach(c=>c.classList.toggle('hl',c.dataset.chord===nowChord));
+  currentExpectedChord=nowChord;
+}
+
+function fmtTime(s){if(!s||isNaN(s))return'0:00';const m=Math.floor(s/60);const ss=Math.floor(s%60);return`${m}:${ss.toString().padStart(2,'0')}`;}
+
+let currentExpectedChord=null;
+let wrongCooldown=false;
+
+function checkWrongChord(detected){
+  if(!pracListening||!currentExpectedChord||wrongCooldown)return;
+  const stopSetting=document.getElementById('stopOnWrong');
+  if(!stopSetting||!stopSetting.checked)return;
+  if(detected!==currentExpectedChord){
+    wrongCooldown=true;
+    const audio=document.getElementById('pAudio');
+    audio.pause();
+    document.getElementById('chordNow').classList.add('wrong');
+    const alert=document.getElementById('wrongAlert');
+    document.getElementById('wrongMsg').textContent=`❌ คอร์ดไม่ถูก — ต้องการ "${currentExpectedChord}" แต่ได้ "${detected}"`;
+    alert.classList.add('show');
+    showToast(`⚠️ เล่นผิด! ต้องการ ${currentExpectedChord}`);
+    setTimeout(()=>{
+      document.getElementById('chordNow').classList.remove('wrong');
+      alert.classList.remove('show');
+      audio.play();
+      wrongCooldown=false;
+    },2500);
+  }
 }
 
 // ═══════════════════════════════════════
@@ -611,53 +796,45 @@ function showChord(name,conf){
 let mediaRec=null,recChunks=[],isRec=false,recInterval=null,recSecs=0;
 let recordings=[];
 
-async function toggleRecord(){
-  if(isRec)stopRecord();
-  else await startRecord();
-}
-
+async function toggleRecord(){if(isRec)stopRecord();else await startRecord();}
 async function startRecord(){
   try{
-    const s=await navigator.mediaDevices.getUserMedia({audio:true});
-    mediaRec=new MediaRecorder(s);
+    const ng=getNoiseSetting();
+    const s=await navigator.mediaDevices.getUserMedia({
+      audio:{echoCancellation:!ng,noiseSuppression:!ng,autoGainControl:false}
+    });
+    const bps=parseInt(document.getElementById('recQuality')?.value||'256000');
+    const opts=MediaRecorder.isTypeSupported('audio/webm;codecs=opus')?{mimeType:'audio/webm;codecs=opus',audioBitsPerSecond:bps}:{};
+    mediaRec=new MediaRecorder(s,opts);
     recChunks=[];
     mediaRec.ondataavailable=e=>{if(e.data.size>0)recChunks.push(e.data);};
     mediaRec.onstop=()=>{
       const blob=new Blob(recChunks,{type:'audio/webm'});
       const url=URL.createObjectURL(blob);
-      const ts=new Date().toLocaleTimeString('th-TH');
-      recordings.unshift({url,name:`บันทึก ${ts}`,blob,secs:recSecs});
-      renderRecordings();
-      s.getTracks().forEach(t=>t.stop());
+      recordings.unshift({url,name:`บันทึก ${new Date().toLocaleTimeString('th-TH')}`,secs:recSecs});
+      renderRecordings();s.getTracks().forEach(t=>t.stop());
     };
-    mediaRec.start();
-    isRec=true;
-    recSecs=0;
+    mediaRec.start(100);isRec=true;recSecs=0;
     document.getElementById('recBtn').classList.add('recording');
-    document.getElementById('recBtn').textContent='⏹ หยุดบันทึก';
+    document.getElementById('recBtn').textContent='⏹ หยุด';
     document.getElementById('recTimer').style.display='inline';
     recInterval=setInterval(()=>{recSecs++;document.getElementById('recTimer').textContent=fmt(recSecs);},1000);
-    showToast('🔴 กำลังบันทึก...');
+    showToast('🔴 บันทึก...');
   }catch(e){showToast('❌ '+e.message);}
 }
-
 function stopRecord(){
-  if(mediaRec&&isRec){mediaRec.stop();}
-  isRec=false;
-  clearInterval(recInterval);
+  if(mediaRec&&isRec)mediaRec.stop();
+  isRec=false;clearInterval(recInterval);
   document.getElementById('recBtn').classList.remove('recording');
-  document.getElementById('recBtn').textContent='⏺ บันทึกเสียง';
+  document.getElementById('recBtn').textContent='⏺ บันทึก';
   document.getElementById('recTimer').style.display='none';
-  showToast('✅ บันทึกเสรียบแล้ว');
+  showToast('✅ บันทึกเสร็จ');
 }
-
 function fmt(s){return`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
-
 function renderRecordings(){
-  const list=document.getElementById('recList');
   document.getElementById('recListCard').style.display=recordings.length?'':'none';
-  document.getElementById('recCount').textContent=recordings.length?`${recordings.length} ไฟล์`:'ยังไม่มีการบันทึก';
-  list.innerHTML=recordings.map((r,i)=>`
+  document.getElementById('recCount').textContent=recordings.length?recordings.length+' ไฟล์':'ยังไม่มีการบันทึก';
+  document.getElementById('recList').innerHTML=recordings.map((r,i)=>`
     <div class="rec-item">
       <audio src="${r.url}" controls></audio>
       <a class="btn-dl" href="${r.url}" download="${r.name}.webm">⬇</a>
@@ -665,35 +842,31 @@ function renderRecordings(){
     </div>`).join('');
   document.getElementById('stRecs').textContent=recordings.length;
 }
-
 function delRec(i){recordings.splice(i,1);renderRecordings();}
 
 // Practice record
 let pracRec=null,pracChunks=[],isPracRec=false,pracRecInt=null,pracRecSecs=0;
-async function togglePracticeRecord(){
-  if(isPracRec)stopPracRec();
-  else await startPracRec();
-}
+async function togglePracRec(){if(isPracRec)stopPracRec();else await startPracRec();}
 async function startPracRec(){
   try{
-    const s=await navigator.mediaDevices.getUserMedia({audio:true});
-    pracRec=new MediaRecorder(s);
+    const ng=document.getElementById('noiseGate2');
+    const useNoise=ng&&ng.checked;
+    const s=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:!useNoise,noiseSuppression:!useNoise,autoGainControl:false}});
+    const bps=parseInt(document.getElementById('recQuality')?.value||'256000');
+    const opts=MediaRecorder.isTypeSupported('audio/webm;codecs=opus')?{mimeType:'audio/webm;codecs=opus',audioBitsPerSecond:bps}:{};
+    pracRec=new MediaRecorder(s,opts);
     pracChunks=[];
     pracRec.ondataavailable=e=>{if(e.data.size>0)pracChunks.push(e.data);};
     pracRec.onstop=()=>{
       const blob=new Blob(pracChunks,{type:'audio/webm'});
       const url=URL.createObjectURL(blob);
-      const ts=new Date().toLocaleTimeString('th-TH');
-      recordings.unshift({url,name:`ฝึก ${activeSong?.name||''} ${ts}`,blob,secs:pracRecSecs});
-      renderRecordings();
-      s.getTracks().forEach(t=>t.stop());
+      recordings.unshift({url,name:`ฝึก-${activeSong?.name||''}`,secs:pracRecSecs});
+      renderRecordings();s.getTracks().forEach(t=>t.stop());
       doAIFeedback();
     };
-    pracRec.start();
-    isPracRec=true;
-    pracRecSecs=0;
+    pracRec.start(100);isPracRec=true;pracRecSecs=0;
     document.getElementById('pracRecBtn').classList.add('recording');
-    document.getElementById('pracRecBtn').textContent='⏹ หยุดบันทึก';
+    document.getElementById('pracRecBtn').textContent='⏹ หยุด';
     document.getElementById('pracTimer').style.display='inline';
     pracRecInt=setInterval(()=>{pracRecSecs++;document.getElementById('pracTimer').textContent=fmt(pracRecSecs);},1000);
     showToast('🔴 บันทึกการฝึก...');
@@ -701,25 +874,24 @@ async function startPracRec(){
 }
 function stopPracRec(){
   if(pracRec&&isPracRec)pracRec.stop();
-  isPracRec=false;
-  clearInterval(pracRecInt);
+  isPracRec=false;clearInterval(pracRecInt);
   document.getElementById('pracRecBtn').classList.remove('recording');
   document.getElementById('pracRecBtn').textContent='⏺ บันทึก';
   document.getElementById('pracTimer').style.display='none';
-  showToast('✅ บันทึกเสร็จ — AI กำลังวิเคราะห์...');
+  showToast('✅ AI กำลังวิเคราะห์...');
 }
 
-// Practice listen
-async function togglePracticeListen(){
+async function togglePracListen(){
   if(pracListening){
     pracListening=false;
     if(pracMicStream)pracMicStream.getTracks().forEach(t=>t.stop());
     if(pracAnimId)cancelAnimationFrame(pracAnimId);
-    document.getElementById('pracListenBtn').innerHTML='🎤 เริ่มฟังระหว่างเล่น';
+    document.getElementById('pracListenBtn').innerHTML='🎤 ฟังระหว่างเล่น';
     document.getElementById('pracListenBtn').classList.remove('stop');
   }else{
     try{
-      const{stream,analyser:an}=await startMic();
+      const ng=document.getElementById('noiseGate2');
+      const{stream,analyser:an}=await startMic(ng&&ng.checked);
       pracMicStream=stream;pracAnalyser=an;pracListening=true;
       document.getElementById('pracListenBtn').innerHTML='⏹ หยุดฟัง';
       document.getElementById('pracListenBtn').classList.add('stop');
@@ -733,7 +905,7 @@ function pracLoop(){
   const d=new Float32Array(buf);
   pracAnalyser.getFloatFrequencyData(d);
   const sr=getCtx().sampleRate;
-  const TH=-52,peaks=[];
+  const TH=getThreshold(),peaks=[];
   for(let i=1;i<buf-1;i++){
     if(d[i]>TH&&d[i]>d[i-1]&&d[i]>d[i+1]){
       const fr=i*sr/(buf*2);
@@ -743,7 +915,7 @@ function pracLoop(){
   peaks.sort((a,b)=>b.a-a.a);
   const top=peaks.slice(0,8);
   const rms=calcRMS(d);
-  if(rms>0.007&&top.length>=2){
+  if(rms>0.006&&top.length>=2){
     const ns=[...new Set(top.map(p=>freqToNote(p.fr)).filter(Boolean))];
     const res=detectChord(ns);
     if(res)showChord(res.name,res.score);
@@ -758,48 +930,30 @@ async function doAIFeedback(){
   const card=document.getElementById('feedbackCard');
   const content=document.getElementById('feedbackContent');
   card.style.display='';
-  content.innerHTML=`<div style="display:flex;align-items:center;gap:8px;color:var(--g700)"><div class="spin"></div>AI กำลังวิเคราะห์การเล่น...</div>`;
-  const songName=activeSong?.name||'ไม่ทราบเพลง';
-  const chords=activeSong?.chords?.join(', ')||'ไม่ทราบ';
-  const key=activeSong?.key||'ไม่ทราบ';
+  content.innerHTML=`<div style="display:flex;align-items:center;gap:8px;color:var(--g700)"><div class="spin"></div>AI กำลังวิเคราะห์...</div>`;
   try{
     const r=await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
+      method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        model:"claude-sonnet-4-6",max_tokens:1000,
-        system:"คุณเป็นครูสอนกีต้าร์ผู้เชี่ยวชาญ ตอบเป็น JSON เท่านั้น ไม่มี markdown",
-        messages:[{role:"user",content:`ผู้เรียนเพิ่งฝึกเพลง "${songName}" key: ${key} คอร์ดในเพลง: ${chords} ฝึกไปแล้ว ${pracRecSecs} วินาที
-
-ให้ feedback ที่เป็นประโยชน์ ตอบ JSON:
-{"score":75,"items":[{"type":"good","text":"จุดที่ดี"},{"type":"improve","text":"จุดที่ควรปรับปรุง"},{"type":"tip","text":"เคล็ดลับ"}],"summary":"สรุปสั้นๆ"}`}]
+        model:"claude-sonnet-4-6",max_tokens:800,
+        system:"คุณเป็นครูสอนกีต้าร์ผู้เชี่ยวชาญ ตอบ JSON เท่านั้น",
+        messages:[{role:"user",content:`ผู้เรียนฝึกเพลง "${activeSong?.name||'ไม่ทราบ'}" key:${activeSong?.key||'?'} คอร์ด:${activeSong?.chords?.join(',')||'?'} เวลา:${pracRecSecs}วินาที
+ตอบ JSON: {"score":75,"items":[{"type":"good","text":"..."},{"type":"improve","text":"..."},{"type":"tip","text":"..."}],"summary":"..."}`}]
       })
     });
     const data=await r.json();
     let txt=data.content?.find(c=>c.type==='text')?.text||'{}';
     txt=txt.replace(/```json|```/g,'').trim();
     const fb=JSON.parse(txt);
-    const colorMap={good:['#22C55E','✅'],improve:['#F59E0B','⚡'],tip:['#3B82F6','💡']};
-    const scoreCirc=buildScoreCircle(fb.score||70);
-    content.innerHTML=`
-      ${scoreCirc}
-      <p style="text-align:center;font-size:13px;color:var(--gray700);margin-bottom:14px">${fb.summary||''}</p>
-      <div style="display:flex;flex-direction:column;gap:2px">
-        ${(fb.items||[]).map(it=>{
-          const[col,ico]=colorMap[it.type]||['#6B7280','•'];
-          return`<div class="feedback-item"><div class="fb-dot" style="background:${col}"></div><div class="fb-text">${ico} ${it.text}</div></div>`;
-        }).join('')}
-      </div>`;
-  }catch(e){content.innerHTML=`<div class="tip-box"><b>AI:</b> ฝึกได้ดีมาก! ทำต่อไปเรื่อยๆ ความสม่ำเสมอคือกุญแจสู่ความสำเร็จ 🎸</div>`;}
+    const cm={good:['#22C55E','✅'],improve:['#F59E0B','⚡'],tip:['#3B82F6','💡']};
+    const sc=buildScore(fb.score||70);
+    content.innerHTML=`${sc}<p style="text-align:center;font-size:12px;color:var(--gray700);margin-bottom:12px">${fb.summary||''}</p>
+      <div>${(fb.items||[]).map(it=>{const[col,ico]=cm[it.type]||['#6B7280','•'];return`<div class="feedback-item"><div class="fb-dot" style="background:${col}"></div><div class="fb-text">${ico} ${it.text}</div></div>`;}).join('')}</div>`;
+  }catch(e){content.innerHTML=`<div class="tip-box"><b>AI:</b> ฝึกได้ดีมาก! ทำต่อไปเรื่อยๆ 🎸</div>`;}
 }
-
-function buildScoreCircle(score){
-  const r=28,c=2*Math.PI*r;
-  const fill=c*(1-score/100);
-  return`<div class="score-ring"><svg width="64" height="64" viewBox="0 0 64 64">
-    <circle cx="32" cy="32" r="${r}" fill="none" stroke="#E5E7EB" stroke-width="5"/>
-    <circle cx="32" cy="32" r="${r}" fill="none" stroke="#22C55E" stroke-width="5" stroke-dasharray="${c}" stroke-dashoffset="${fill}" stroke-linecap="round" transform="rotate(-90 32 32)"/>
-  </svg><div class="score-num">${score}</div></div>`;
+function buildScore(score){
+  const r=26,c=2*Math.PI*r,fill=c*(1-score/100);
+  return`<div class="score-ring"><svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="${r}" fill="none" stroke="#E5E7EB" stroke-width="5"/><circle cx="30" cy="30" r="${r}" fill="none" stroke="#22C55E" stroke-width="5" stroke-dasharray="${c}" stroke-dashoffset="${fill}" stroke-linecap="round" transform="rotate(-90 30 30)"/></svg><div class="score-num">${score}</div></div>`;
 }
 
 // ═══════════════════════════════════════
@@ -809,36 +963,38 @@ let songs=[],activeSong=null;
 
 function uploadSongs(e){
   for(const f of e.target.files){
-    if(!f.type.includes('audio')){showToast('❌ ต้องเป็นไฟล์ MP3');continue;}
+    if(!f.type.includes('audio')){showToast('❌ ต้องเป็น MP3');continue;}
     const url=URL.createObjectURL(f);
-    const song={id:Date.now()+Math.random(),name:f.name.replace(/\.mp3$/i,''),url,chords:null,key:'',style:'',tempo:'',lyrics:'',tip:'',status:'analyzing'};
-    songs.push(song);
-    renderSongs();
-    analyzeWithAI(song);
+    const song={id:Date.now()+Math.random(),name:f.name.replace(/\.mp3$/i,''),url,chords:null,key:'',subtitles:null,status:'analyzing'};
+    songs.push(song);renderSongs();analyzeWithAI(song);
   }
-  e.target.value='';
-  updateStats();
+  e.target.value='';updateStats();
 }
 
 async function analyzeWithAI(song){
   try{
     const r=await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
+      method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        model:"claude-sonnet-4-6",max_tokens:1500,
-        system:"คุณเป็น AI ผู้เชี่ยวชาญดนตรีไทยและกีต้าร์ ตอบเป็น JSON เท่านั้น ห้ามมี markdown",
-        messages:[{role:"user",content:`วิเคราะห์เพลงชื่อ "${song.name}" และสร้างข้อมูลสำหรับสอนกีต้าร์
-
-ตอบ JSON format นี้เท่านั้น:
+        model:"claude-sonnet-4-6",max_tokens:2000,
+        system:"คุณเป็น AI ผู้เชี่ยวชาญดนตรีและกีต้าร์ ตอบ JSON เท่านั้น ห้ามมี markdown",
+        messages:[{role:"user",content:`วิเคราะห์เพลง "${song.name}" สร้างข้อมูลสำหรับแอปสอนกีต้าร์
+ตอบ JSON:
 {
-  "chords": ["Am","C","G","Em","F","C","G","Am"],
+  "chords": ["Am","C","G","Em","F","C","G","Am","Am","C","G","Em"],
   "key": "Am",
   "tempo": "ช้า",
   "style": "บัลลาด",
   "bpm": 70,
-  "tip": "เคล็ดลับสั้นๆ 1-2 ประโยคสำหรับเพลงนี้",
-  "lyrics": "เนื้อเพลงสมมติหรือตัวอย่าง 4-8 บรรทัด พร้อมบอกคอร์ดด้วย เช่น [Am]คำร้อง [C]คำร้อง"
+  "estDuration": 240,
+  "tip": "เคล็ดลับ 1 ประโยค",
+  "subtitles": [
+    {"t":0,"text":"♪ อินโทร"},
+    {"t":8,"text":"เนื้อเพลงบรรทัดที่ 1"},
+    {"t":16,"text":"เนื้อเพลงบรรทัดที่ 2"},
+    {"t":24,"text":"เนื้อเพลงบรรทัดที่ 3"},
+    {"t":32,"text":"เนื้อเพลงบรรทัดที่ 4"}
+  ]
 }`}]
       })
     });
@@ -846,25 +1002,25 @@ async function analyzeWithAI(song){
     let txt=data.content?.find(c=>c.type==='text')?.text||'{}';
     txt=txt.replace(/```json|```/g,'').trim();
     const res=JSON.parse(txt);
-    Object.assign(song,{chords:res.chords||["Am","C","G","Em"],key:res.key||"Am",tempo:res.tempo||"ปานกลาง",style:res.style||"—",bpm:res.bpm||80,tip:res.tip||"",lyrics:res.lyrics||"",status:'done'});
+    Object.assign(song,{chords:res.chords||["Am","C","G","Em"],key:res.key||"Am",tempo:res.tempo||"ปานกลาง",style:res.style||"—",bpm:res.bpm||80,estDuration:res.estDuration||240,subtitles:res.subtitles||[{t:0,text:"♪"},{t:30,text:"เนื้อเพลง..."}],tip:res.tip||"",status:'done'});
   }catch(e){
-    Object.assign(song,{chords:["C","G","Am","F"],key:"C",tempo:"ปานกลาง",style:"ป็อป",lyrics:"[C]เนื้อเพลง [G]ตัวอย่าง\n[Am]ฝึกเล่น [F]ตามคอร์ด",tip:"ลองเล่นตามคอร์ดที่กำหนด",status:'done'});
+    Object.assign(song,{chords:["C","G","Am","F"],key:"C",tempo:"ปานกลาง",style:"ป็อป",subtitles:[{t:0,text:"♪ อินโทร"},{t:20,text:"ร้องตามได้เลย"},{t:40,text:"ฝึกคอร์ดตามเพลง"}],tip:"ลองเล่นตามคอร์ด",status:'done'});
   }
   renderSongs();
 }
 
 function renderSongs(){
   const el=document.getElementById('songList');
-  if(!songs.length){el.innerHTML=`<div class="empty"><div class="ei">🎸</div><p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบนก่อนเลย</p></div>`;return;}
+  if(!songs.length){el.innerHTML=`<div class="empty"><div class="ei">🎸</div><p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบน</p></div>`;return;}
   el.innerHTML=songs.map(s=>`
     <div class="song-row${activeSong?.id===s.id?' on':''}">
       <div class="song-ico">🎵</div>
       <div class="song-meta">
         <div class="song-name">${esc(s.name)}</div>
-        <div class="song-sub">${s.status==='analyzing'?'AI กำลังวิเคราะห์...':'✅ พร้อมเล่น · '+s.chords?.length+' คอร์ด · Key '+s.key}</div>
+        <div class="song-sub">${s.status==='analyzing'?'<span class="spin"></span> AI วิเคราะห์...':'✅ พร้อม · '+s.chords?.length+' คอร์ด · Key '+s.key}</div>
       </div>
       <div class="song-btns">
-        ${s.status==='done'?`<button class="bsm bpri" onclick="loadSong('${s.id}')">▶ ฝึก</button>`:`<span class="spin"></span>`}
+        ${s.status==='done'?`<button class="bsm bpri" onclick="loadSong('${s.id}')">▶ ฝึก</button>`:''}
         <button class="bsm bdng" onclick="delSong('${s.id}')">✕</button>
       </div>
     </div>`).join('');
@@ -876,30 +1032,23 @@ function loadSong(id){
   if(!activeSong)return;
   renderSongs();
   document.getElementById('practiceEmpty').style.display='none';
-  document.getElementById('practiceContent').style.display='flex';
+  const pc=document.getElementById('practiceContent');
+  pc.style.display='flex';
   document.getElementById('pTitle').textContent=activeSong.name;
   document.getElementById('pMeta').textContent=`Key: ${activeSong.key} · ${activeSong.style} · ${activeSong.tempo} · ~${activeSong.bpm}BPM`;
-  document.getElementById('pAudio').src=activeSong.url;
-  document.getElementById('keyBadge').textContent=`🎵 Key: ${activeSong.key}`;
+  const audio=document.getElementById('pAudio');
+  audio.src=activeSong.url;
+  document.getElementById('kSongInfo').textContent=activeSong.name;
+  document.getElementById('kKeyTag').textContent='Key: '+activeSong.key;
   // chord chips
-  const sc=document.getElementById('chordScroll');
-  const unique=[...new Set(activeSong.chords||[])];
-  sc.innerHTML=activeSong.chords.map(c=>`<div class="cc" data-chord="${c}" onclick="tapChord('${c}')">${c}</div>`).join('');
-  // lyrics
-  renderLyrics(activeSong.lyrics||'');
+  document.getElementById('chordScroll').innerHTML=activeSong.chords.map(c=>`<div class="cc" data-chord="${c}">${c}</div>`).join('');
   document.getElementById('feedbackCard').style.display='none';
+  document.getElementById('wrongAlert').classList.remove('show');
+  // start karaoke sync when play
+  audio.onplay=()=>startKaraoke(activeSong);
+  audio.onpause=()=>clearInterval(karaokeInterval);
   goTab('practice');
-  showToast('✅ โหลด '+activeSong.name);
-}
-
-function renderLyrics(raw){
-  const html=raw.replace(/\[([^\]]+)\]/g,'<span class="hl-lyric">[$1]</span>');
-  document.getElementById('lyricsBox').innerHTML=html||'— ไม่มีเนื้อเพลง —';
-}
-
-function tapChord(name){
-  document.querySelectorAll('.cc').forEach(c=>c.classList.toggle('hl',c.dataset.chord===name));
-  if(CHORDS[name])selectLib(name);
+  showToast('✅ '+activeSong.name);
 }
 
 function delSong(id){
@@ -917,8 +1066,7 @@ function buildLib(){
   renderLib('ทั้งหมด');
 }
 function filterLib(type,el){
-  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
-  el.classList.add('on');renderLib(type);
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));el.classList.add('on');renderLib(type);
 }
 function renderLib(filter){
   document.getElementById('libGrid').innerHTML=Object.entries(CHORDS)
@@ -929,17 +1077,16 @@ function selectLib(name){
   document.querySelectorAll('.chord-tile').forEach(c=>c.classList.remove('on'));
   document.getElementById('ct-'+name)?.classList.add('on');
   const info=CHORDS[name];if(!info)return;
-  const dc=document.getElementById('diagramCard');
-  dc.innerHTML=`
-    <h3>${name} <span style="font-size:13px;color:var(--gray400);font-weight:500">${info.type}</span></h3>
-    <div class="notes-row" style="justify-content:center;margin-bottom:12px">${info.notes.map(n=>`<span class="n-chip">${n}</span>`).join('')}</div>
-    ${makeFretboard(info.f,info.barre)}
-    <div class="tip-box" style="margin-top:12px;text-align:left"><b>💡</b> ${info.desc}</div>
-    ${info.barre?`<p style="font-size:11px;color:var(--gray400);margin-top:6px">Barre fret ${info.barre}</p>`:''}`;
+  document.getElementById('diagramCard').innerHTML=`
+    <h3>${name} <span style="font-size:12px;color:var(--gray400)">${info.type}</span></h3>
+    <div class="notes-row" style="justify-content:center;margin-bottom:10px">${info.notes.map(n=>`<span class="n-chip">${n}</span>`).join('')}</div>
+    ${makeFret(info.f,info.barre)}
+    <div class="tip-box" style="margin-top:10px;text-align:left"><b>💡</b> ${info.desc}</div>
+    ${info.barre?`<p style="font-size:10px;color:var(--gray400);margin-top:5px">Barre fret ${info.barre}</p>`:''}`;
 }
-function makeFretboard(fingers,barre){
-  const strings=6,frets=5,sw=34,sh=34,px=24,py=28;
-  const W=(strings-1)*sw+px*2+20,H=frets*sh+py+16;
+function makeFret(fingers,barre){
+  const strings=6,frets=5,sw=32,sh=32,px=22,py=26;
+  const W=(strings-1)*sw+px*2+18,H=frets*sh+py+14;
   const minFr=Math.min(...fingers.filter(f=>f[1]>0).map(f=>f[1]));
   const off=minFr>1?minFr-1:0;
   let s=`<svg class="fb" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
@@ -947,14 +1094,14 @@ function makeFretboard(fingers,barre){
   if(!off)s+=`<rect x="${px-2}" y="${py-4}" width="${(strings-1)*sw+4}" height="5" rx="2" fill="#374151"/>`;
   for(let f=0;f<=frets;f++)s+=`<line x1="${px}" y1="${py+f*sh}" x2="${px+(strings-1)*sw}" y2="${py+f*sh}" stroke="#D1D5DB" stroke-width="1.5"/>`;
   for(let i=0;i<strings;i++)s+=`<line x1="${px+i*sw}" y1="${py}" x2="${px+i*sw}" y2="${py+frets*sh}" stroke="#9CA3AF" stroke-width="${1.5+i*.15}"/>`;
-  if(barre){const by=py+(barre-off-.5)*sh;s+=`<rect x="${px-8}" y="${by-11}" width="${(strings-1)*sw+16}" height="22" rx="11" fill="#16A34A" opacity=".8"/>`;}
+  if(barre){const by=py+(barre-off-.5)*sh;s+=`<rect x="${px-7}" y="${by-10}" width="${(strings-1)*sw+14}" height="20" rx="10" fill="#16A34A" opacity=".8"/>`;}
   for(const[str,fret,finger]of fingers){
     const x=px+(6-str)*sw;
-    if(fret===-1)s+=`<text x="${x}" y="${py-10}" text-anchor="middle" font-size="13" fill="#9CA3AF">✕</text>`;
-    else if(fret===0)s+=`<circle cx="${x}" cy="${py-10}" r="7" fill="none" stroke="#22C55E" stroke-width="2"/>`;
-    else{const fy=py+(fret-off-.5)*sh;s+=`<circle cx="${x}" cy="${fy}" r="12" fill="#22C55E"/>${finger?`<text x="${x}" y="${fy+5}" text-anchor="middle" font-size="12" fill="white" font-weight="bold">${finger}</text>`:''}`;}
+    if(fret===-1)s+=`<text x="${x}" y="${py-9}" text-anchor="middle" font-size="12" fill="#9CA3AF">✕</text>`;
+    else if(fret===0)s+=`<circle cx="${x}" cy="${py-9}" r="6" fill="none" stroke="#22C55E" stroke-width="2"/>`;
+    else{const fy=py+(fret-off-.5)*sh;s+=`<circle cx="${x}" cy="${fy}" r="11" fill="#22C55E"/>${finger?`<text x="${x}" y="${fy+4}" text-anchor="middle" font-size="11" fill="white" font-weight="bold">${finger}</text>`:''}`;}
   }
-  if(off)s+=`<text x="${px+(strings-1)*sw+14}" y="${py+sh/2+4}" font-size="11" fill="#9CA3AF">${off+1}fr</text>`;
+  if(off)s+=`<text x="${px+(strings-1)*sw+12}" y="${py+sh/2+4}" font-size="10" fill="#9CA3AF">${off+1}fr</text>`;
   s+='</svg>';return s;
 }
 
@@ -962,77 +1109,14 @@ function makeFretboard(fingers,barre){
 // STATS
 // ═══════════════════════════════════════
 let chordStats={},todayCount=0;
-function recordChordStat(name){
-  chordStats[name]=(chordStats[name]||0)+1;
-  todayCount++;
-  updateStats();
-}
+function recordChordStat(name){chordStats[name]=(chordStats[name]||0)+1;todayCount++;updateStats();}
 function updateStats(){
   document.getElementById('stChords').textContent=todayCount;
   document.getElementById('stSongs').textContent=songs.length;
   document.getElementById('stRecs').textContent=recordings.length;
-  // streak bar
   const days=['อา','จ','อ','พ','พฤ','ศ','ส'];
   const today=new Date().getDay();
-  document.getElementById('streakBar').innerHTML=days.map((d,i)=>`
-    <div class="streak-day ${i===today?'sd-on':'sd-off'}">${d}</div>`).join('');
-  // chord history
+  document.getElementById('streakBar').innerHTML=days.map((d,i)=>`<div class="streak-day ${i===today?'sd-on':'sd-off'}">${d}</div>`).join('');
   const sorted=Object.entries(chordStats).sort((a,b)=>b[1]-a[1]).slice(0,6);
   const max=sorted[0]?.[1]||1;
-  document.getElementById('chordHistory').innerHTML=sorted.length?
-    sorted.map(([n,c])=>`<div class="ch-item"><div class="ch-name">${n}</div><div class="ch-bar"><div class="ch-fill" style="width:${c/max*100}%"></div></div><div class="ch-count">${c}</div></div>`).join(''):
-    `<div class="empty"><div class="ei">🎵</div><p>เริ่มฝึกเพื่อดูสถิติ</p></div>`;
-}
-
-// ═══════════════════════════════════════
-// NAV
-// ═══════════════════════════════════════
-function goTab(tab){
-  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
-  document.getElementById('pg-'+tab)?.classList.add('on');
-  document.querySelector(`[data-tab="${tab}"]`)?.classList.add('on');
-}
-
-// ═══════════════════════════════════════
-// DRAG & DROP
-// ═══════════════════════════════════════
-const uz=document.getElementById('uploadZone');
-uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('drag');});
-uz.addEventListener('dragleave',()=>uz.classList.remove('drag'));
-uz.addEventListener('drop',e=>{
-  e.preventDefault();uz.classList.remove('drag');
-  for(const f of e.dataTransfer.files){
-    if(!f.type.includes('audio'))continue;
-    const url=URL.createObjectURL(f);
-    const song={id:Date.now()+Math.random(),name:f.name.replace(/\.mp3$/i,''),url,chords:null,key:'',status:'analyzing'};
-    songs.push(song);renderSongs();analyzeWithAI(song);
-  }
-});
-
-// ═══════════════════════════════════════
-// TOAST + UTILS
-// ═══════════════════════════════════════
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
-}
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
-buildLib();
-updateStats();
-
-// Auto check mic permission
-navigator.permissions?.query({name:'microphone'}).then(p=>{
-  if(p.state==='granted')setMicStatus('ok');
-  else if(p.state==='denied'){setMicStatus('err');document.getElementById('micBanner').style.display='flex';}
-  else{setMicStatus('idle');}
-  p.onchange=()=>{if(p.state==='granted')setMicStatus('ok');else setMicStatus('err');};
-}).catch(()=>{});
-</script>
-</body>
-</html>
+  document.getElementById('chordHistory').innerHTML
