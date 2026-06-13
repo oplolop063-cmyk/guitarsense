@@ -2,1158 +2,1037 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GuitarSense — เรียนกีต้าร์โปร่ง</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>GuitarSense</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:#fff;
+  --mint:#F0FDF4;
+  --g100:#DCFCE7;
+  --g200:#BBF7D0;
+  --g300:#86EFAC;
+  --g400:#4ADE80;
+  --g500:#22C55E;
+  --g600:#16A34A;
+  --g700:#15803D;
+  --g800:#166534;
+  --gray50:#F9FAFB;
+  --gray100:#F3F4F6;
+  --gray200:#E5E7EB;
+  --gray300:#D1D5DB;
+  --gray400:#9CA3AF;
+  --gray500:#6B7280;
+  --gray700:#374151;
+  --gray900:#111827;
+  --red:#EF4444;
+  --amber:#F59E0B;
+  --r:14px;
+  --rsm:8px;
+  --sh:0 2px 16px rgba(22,101,52,.08);
+  --shmd:0 6px 28px rgba(22,101,52,.13);
+}
+body{font-family:'Inter',sans-serif;background:var(--mint);color:var(--gray700);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
 
-  :root {
-    --white: #ffffff;
-    --mint: #F0FDF4;
-    --green-100: #DCFCE7;
-    --green-400: #4ADE80;
-    --green-500: #22C55E;
-    --green-600: #16A34A;
-    --green-700: #15803D;
-    --green-800: #166534;
-    --gray-100: #F3F4F6;
-    --gray-200: #E5E7EB;
-    --gray-400: #9CA3AF;
-    --gray-500: #6B7280;
-    --gray-700: #374151;
-    --gray-900: #111827;
-    --radius: 16px;
-    --radius-sm: 8px;
-    --shadow: 0 4px 24px rgba(22,101,52,0.08);
-    --shadow-md: 0 8px 32px rgba(22,101,52,0.12);
-  }
+/* ── HEADER ── */
+header{background:var(--w);border-bottom:1.5px solid var(--gray200);position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.hd{max-width:720px;margin:0 auto;padding:0 16px;height:58px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Prompt',sans-serif;font-weight:800;font-size:20px;color:var(--g700);letter-spacing:-.5px}
+.logo em{color:var(--g500);font-style:normal}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--g500);margin-left:2px;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.mic-status{margin-left:auto;font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;cursor:pointer;transition:.2s}
+.mic-status.ok{background:var(--g100);color:var(--g700)}
+.mic-status.err{background:#FEE2E2;color:#DC2626}
+.mic-status.idle{background:var(--gray100);color:var(--gray500)}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--mint);
-    color: var(--gray-700);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+/* ── TABS ── */
+nav{background:var(--w);border-bottom:1.5px solid var(--gray200);overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.tabs{max-width:720px;margin:0 auto;display:flex;padding:0 8px;min-width:max-content}
+.tab{background:none;border:none;padding:11px 16px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--gray500);cursor:pointer;border-bottom:3px solid transparent;transition:.2s;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.tab:hover{color:var(--g600)}
+.tab.on{color:var(--g600);border-bottom-color:var(--g500);font-weight:700}
 
-  /* ── Header ── */
-  header {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
-    padding: 0 24px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-  }
-  .header-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    height: 64px;
-    gap: 12px;
-  }
-  .logo {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 900;
-    font-size: 22px;
-    color: var(--green-700);
-    letter-spacing: -0.5px;
-  }
-  .logo span { color: var(--green-500); }
-  .badge {
-    background: var(--green-100);
-    color: var(--green-700);
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 99px;
-    letter-spacing: 0.3px;
-  }
+/* ── MAIN ── */
+main{max-width:720px;margin:0 auto;padding:20px 16px 100px}
+.pg{display:none}.pg.on{display:flex;flex-direction:column;gap:16px}
 
-  /* ── Tabs ── */
-  nav {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .tabs {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    padding: 0 24px;
-    gap: 4px;
-  }
-  .tab-btn {
-    background: none;
-    border: none;
-    padding: 12px 20px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--gray-500);
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-  }
-  .tab-btn:hover { color: var(--green-600); }
-  .tab-btn.active { color: var(--green-600); border-bottom-color: var(--green-500); font-weight: 600; }
+/* ── CARD ── */
+.card{background:var(--w);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.card-head{padding:16px 18px 0;display:flex;align-items:center;gap:8px}
+.card-head h2{font-family:'Prompt',sans-serif;font-weight:700;font-size:15px;color:var(--gray900)}
+.card-body{padding:16px 18px 18px}
+.card-head + .card-body{padding-top:12px}
 
-  /* ── Main ── */
-  main { max-width: 960px; margin: 0 auto; padding: 28px 24px 80px; }
+/* ── MIC PERMISSION BANNER ── */
+.mic-banner{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:var(--r);padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.mic-banner .icon{font-size:26px;flex-shrink:0;margin-top:2px}
+.mic-banner h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:#92400E;margin-bottom:4px}
+.mic-banner p{font-size:12px;color:#78350F;line-height:1.5}
+.btn-allow{margin-top:10px;background:#D97706;color:#fff;border:none;border-radius:99px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+.btn-allow:hover{background:#B45309}
 
-  .page { display: none; }
-  .page.active { display: block; }
+/* ── CHORD DETECTOR ── */
+.detector{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:480px){.detector{grid-template-columns:1fr}}
+.ring-zone{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0}
+.ring{width:148px;height:148px;border-radius:50%;border:5px solid var(--gray200);display:flex;align-items:center;justify-content:center;position:relative;transition:border-color .3s,box-shadow .3s;background:radial-gradient(circle,var(--mint),#fff)}
+.ring.listen{border-color:var(--g300);animation:rp 1.6s ease-in-out infinite}
+.ring.hit{border-color:var(--g500);box-shadow:0 0 0 10px rgba(34,197,94,.15),0 0 40px rgba(34,197,94,.2)}
+@keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 16px rgba(74,222,128,0)}}
+.chord-big{font-family:'Prompt',sans-serif;font-weight:800;font-size:44px;color:var(--g700);line-height:1;text-align:center}
+.chord-small{font-size:11px;color:var(--gray400);font-weight:500;text-align:center;margin-top:2px}
+.waveform{display:flex;align-items:flex-end;gap:2.5px;height:40px;margin-top:4px}
+.wv{width:5px;background:var(--g300);border-radius:3px;min-height:3px;transition:height .08s}
+.btn-listen{background:var(--g500);color:#fff;border:none;border-radius:99px;padding:10px 26px;font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(34,197,94,.35)}
+.btn-listen:hover{background:var(--g600);transform:translateY(-1px)}
+.btn-listen.stop{background:#EF4444;box-shadow:0 4px 14px rgba(239,68,68,.3)}
+.btn-listen:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.conf-block{padding-top:6px}
+.conf-lbl{font-size:11px;color:var(--gray500);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.conf-track{background:var(--gray100);border-radius:99px;height:7px;overflow:hidden;margin-bottom:12px}
+.conf-fill{height:100%;background:linear-gradient(90deg,var(--g400),var(--g600));border-radius:99px;transition:width .4s;width:0%}
+.info-box{background:var(--mint);border-radius:var(--rsm);padding:14px;border:1px solid var(--g200)}
+.info-box h4{font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:var(--g800);margin-bottom:8px}
+.notes-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.n-chip{background:var(--g100);color:var(--g800);border-radius:6px;padding:3px 9px;font-weight:700;font-size:11px}
+.tip-box{background:#fff;border-left:3px solid var(--g500);padding:8px 10px;border-radius:0 6px 6px 0;font-size:12px;color:var(--gray700);line-height:1.5}
+.tip-box b{color:var(--g700)}
 
-  /* ── Cards ── */
-  .card {
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 24px;
-    margin-bottom: 20px;
-  }
-  .card-title {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    color: var(--gray-900);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-title .icon { font-size: 20px; }
+/* ── RECORD BUTTON ── */
+.rec-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--gray50);border-top:1px solid var(--gray200)}
+.btn-rec{background:#EF4444;color:#fff;border:none;border-radius:99px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px;transition:.2s}
+.btn-rec:hover{background:#DC2626}
+.btn-rec.recording{background:#fff;color:#EF4444;border:2px solid #EF4444;animation:recpulse 1s infinite}
+@keyframes recpulse{50%{box-shadow:0 0 0 6px rgba(239,68,68,.2)}}
+.rec-timer{font-size:13px;font-weight:700;color:#EF4444;font-variant-numeric:tabular-nums}
+.recordings-list{display:flex;flex-direction:column;gap:8px;padding:0 18px 16px}
+.rec-item{background:var(--mint);border-radius:var(--rsm);padding:10px 14px;display:flex;align-items:center;gap:10px;border:1px solid var(--g200)}
+.rec-item audio{flex:1;height:32px;min-width:0}
+.btn-dl{background:var(--g500);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;transition:.2s}
+.btn-dl:hover{background:var(--g600)}
+.btn-del-rec{background:#FEE2E2;color:#DC2626;border:none;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;transition:.2s}
+.btn-del-rec:hover{background:#FECACA}
 
-  /* ── Chord Detector ── */
-  .detector-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  @media (max-width: 600px) { .detector-wrap { grid-template-columns: 1fr; } }
+/* ── SONGS PAGE ── */
+.upload-zone{border:2.5px dashed var(--g300);border-radius:var(--r);padding:32px 16px;text-align:center;cursor:pointer;transition:.2s;background:var(--mint)}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--g500);background:var(--g100)}
+.upload-zone .ui{font-size:36px;margin-bottom:10px}
+.upload-zone h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:var(--gray700);margin-bottom:4px}
+.upload-zone p{font-size:12px;color:var(--gray400)}
+#mp3in{display:none}
+.song-list{display:flex;flex-direction:column;gap:10px}
+.song-row{background:var(--w);border:1.5px solid var(--gray200);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px;transition:.2s;cursor:pointer}
+.song-row:hover{border-color:var(--g300);box-shadow:0 2px 12px rgba(34,197,94,.1)}
+.song-row.on{border-color:var(--g500);background:var(--mint)}
+.song-ico{width:42px;height:42px;background:var(--g100);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.song-meta{flex:1;min-width:0}
+.song-name{font-weight:600;font-size:13px;color:var(--gray900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-sub{font-size:11px;color:var(--gray400);margin-top:2px}
+.song-btns{display:flex;gap:6px;flex-shrink:0}
+.bsm{padding:6px 12px;border-radius:99px;font-size:11px;font-weight:700;border:none;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif}
+.bpri{background:var(--g500);color:#fff}.bpri:hover{background:var(--g600)}
+.bdng{background:#FEE2E2;color:#DC2626}.bdng:hover{background:#FECACA}
+.spin{width:16px;height:16px;border:2px solid var(--g200);border-top-color:var(--g500);border-radius:50%;animation:spin .8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-  .chord-ring-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  .chord-ring {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    border: 6px solid var(--gray-200);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    background: var(--mint);
-  }
-  .chord-ring.listening {
-    border-color: var(--green-400);
-    box-shadow: 0 0 0 0 rgba(74,222,128,0.5);
-    animation: ringPulse 1.4s infinite;
-  }
-  .chord-ring.detected {
-    border-color: var(--green-500);
-    box-shadow: 0 0 0 12px rgba(34,197,94,0.15);
-  }
-  @keyframes ringPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
-    70%  { box-shadow: 0 0 0 18px rgba(74,222,128,0); }
-    100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
-  }
-  .chord-name {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 900;
-    font-size: 42px;
-    color: var(--green-700);
-    line-height: 1;
-    text-align: center;
-  }
-  .chord-sub {
-    font-size: 12px;
-    color: var(--gray-400);
-    margin-top: 4px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-align: center;
-  }
+/* ── PRACTICE MODE ── */
+.player-card{background:linear-gradient(135deg,var(--g800),var(--g600));border-radius:var(--r);padding:18px;color:#fff}
+.player-title{font-family:'Prompt',sans-serif;font-weight:800;font-size:16px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-meta{font-size:11px;opacity:.75;margin-bottom:12px}
+audio.styled{width:100%;height:36px;border-radius:8px}
+audio.styled::-webkit-media-controls-panel{background:rgba(255,255,255,.15)}
 
-  .listen-btn {
-    margin-top: 16px;
-    background: var(--green-500);
-    color: white;
-    border: none;
-    border-radius: 99px;
-    padding: 10px 28px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .listen-btn:hover { background: var(--green-600); transform: translateY(-1px); }
-  .listen-btn.active { background: #ef4444; }
-  .listen-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+/* chord scroll */
+.chord-scroll-wrap{overflow-x:auto;scrollbar-width:none;padding:4px 0}
+.chord-scroll-wrap::-webkit-scrollbar{display:none}
+.chord-scroll{display:flex;gap:8px;padding:4px 0;min-width:max-content}
+.cc{background:#fff;border:2px solid var(--g200);border-radius:10px;padding:8px 16px;font-family:'Prompt',sans-serif;font-weight:800;font-size:16px;color:var(--g800);cursor:pointer;transition:.15s;flex-shrink:0}
+.cc:hover{border-color:var(--g500);background:var(--g100)}
+.cc.hl{background:var(--g500);color:#fff;border-color:var(--g500)}
 
-  .freq-bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 3px;
-    height: 48px;
-    margin-top: 12px;
-  }
-  .freq-bar {
-    width: 6px;
-    background: var(--green-300, #86efac);
-    border-radius: 3px;
-    transition: height 0.1s;
-    min-height: 4px;
-  }
+/* lyrics / key */
+.section-tag{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--gray400);margin-bottom:8px}
+.key-badge{display:inline-flex;align-items:center;gap:6px;background:var(--g100);color:var(--g800);border-radius:8px;padding:6px 12px;font-weight:700;font-size:13px;margin-bottom:10px}
+.lyrics-box{background:var(--gray50);border-radius:var(--rsm);padding:14px;font-size:13px;line-height:1.9;color:var(--gray700);white-space:pre-wrap;border:1px solid var(--gray200);max-height:260px;overflow-y:auto}
+.lyrics-box .hl-lyric{background:var(--g200);border-radius:4px;padding:0 3px;color:var(--g800);font-weight:600}
 
-  /* confidence meter */
-  .confidence-wrap { padding: 12px 0 0; }
-  .conf-label { font-size: 12px; color: var(--gray-500); margin-bottom: 6px; font-weight: 500; }
-  .conf-bar-bg { background: var(--gray-100); border-radius: 99px; height: 8px; overflow: hidden; }
-  .conf-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--green-400), var(--green-600));
-    border-radius: 99px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
+/* AI feedback */
+.ai-feedback{background:linear-gradient(135deg,var(--mint),#fff);border:1.5px solid var(--g200);border-radius:var(--r);padding:16px}
+.ai-feedback h3{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:var(--g800);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.feedback-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--g100)}
+.feedback-item:last-child{border-bottom:none}
+.fb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.fb-text{font-size:12px;line-height:1.5;color:var(--gray700)}
+.fb-text b{color:var(--g800)}
+.score-ring{width:64px;height:64px;position:relative;margin:0 auto 10px}
+.score-ring svg{position:absolute;top:0;left:0}
+.score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Prompt',sans-serif;font-weight:800;font-size:18px;color:var(--g700)}
 
-  /* chord info panel */
-  .chord-info-panel {
-    background: var(--mint);
-    border-radius: var(--radius-sm);
-    padding: 16px;
-    font-size: 13px;
-  }
-  .chord-info-panel h4 {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    color: var(--green-800);
-    margin-bottom: 8px;
-    font-size: 14px;
-  }
-  .chord-notes {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
-  }
-  .note-chip {
-    background: var(--green-100);
-    color: var(--green-800);
-    border-radius: 6px;
-    padding: 3px 10px;
-    font-weight: 600;
-    font-size: 12px;
-  }
-  .ai-tip {
-    background: white;
-    border-left: 3px solid var(--green-500);
-    padding: 8px 12px;
-    border-radius: 0 8px 8px 0;
-    color: var(--gray-700);
-    font-size: 12px;
-    line-height: 1.5;
-    margin-top: 8px;
-  }
-  .ai-tip b { color: var(--green-700); }
+/* ── CHORD LIBRARY ── */
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}
+.chord-tile{background:#fff;border:1.5px solid var(--gray200);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s}
+.chord-tile:hover{border-color:var(--g400);transform:translateY(-2px);box-shadow:var(--sh)}
+.chord-tile.on{border-color:var(--g500);background:var(--mint)}
+.ct-name{font-family:'Prompt',sans-serif;font-weight:800;font-size:20px;color:var(--g700)}
+.ct-type{font-size:10px;color:var(--gray400);margin-top:1px;font-weight:500}
+.diagram-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px;text-align:center}
+.diagram-card h3{font-family:'Prompt',sans-serif;font-weight:800;font-size:18px;color:var(--g800);margin-bottom:8px}
+svg.fb{display:block;margin:0 auto}
+.filter-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.pill{padding:5px 12px;border-radius:99px;border:1.5px solid var(--gray200);background:#fff;font-size:11px;font-weight:700;color:var(--gray500);cursor:pointer;transition:.15s}
+.pill:hover{border-color:var(--g400);color:var(--g700)}
+.pill.on{background:var(--g500);color:#fff;border-color:var(--g500)}
 
-  /* ── Song Library ── */
-  .upload-area {
-    border: 2px dashed var(--green-300, #86efac);
-    border-radius: var(--radius);
-    padding: 40px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--mint);
-  }
-  .upload-area:hover, .upload-area.drag-over {
-    border-color: var(--green-500);
-    background: var(--green-100);
-  }
-  .upload-icon { font-size: 40px; margin-bottom: 12px; }
-  .upload-title {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--gray-700);
-    margin-bottom: 4px;
-  }
-  .upload-sub { font-size: 13px; color: var(--gray-400); }
-  #mp3-input { display: none; }
+/* ── STATS PAGE ── */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-card{background:#fff;border-radius:var(--r);padding:16px;text-align:center;box-shadow:var(--sh)}
+.stat-val{font-family:'Prompt',sans-serif;font-weight:800;font-size:28px;color:var(--g600)}
+.stat-lbl{font-size:11px;color:var(--gray400);margin-top:2px;font-weight:500}
+.streak-bar{display:flex;gap:4px;margin-top:10px}
+.streak-day{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.sd-on{background:var(--g500);color:#fff}
+.sd-off{background:var(--gray100);color:var(--gray400)}
+.chord-history{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ch-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--gray50);border-radius:8px}
+.ch-name{font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:var(--g700);width:36px}
+.ch-bar{flex:1;background:var(--gray200);border-radius:99px;height:6px;overflow:hidden}
+.ch-fill{height:100%;background:var(--g500);border-radius:99px}
+.ch-count{font-size:11px;color:var(--gray500);font-weight:600;width:24px;text-align:right}
 
-  .song-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-  .song-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .song-card:hover { border-color: var(--green-400); box-shadow: 0 2px 12px rgba(34,197,94,0.1); }
-  .song-card.active { border-color: var(--green-500); background: var(--mint); }
-  .song-thumb {
-    width: 44px;
-    height: 44px;
-    background: var(--green-100);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .song-meta { flex: 1; min-width: 0; }
-  .song-name { font-weight: 600; font-size: 14px; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .song-status { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
-  .song-actions { display: flex; gap: 8px; }
-  .btn-sm {
-    padding: 6px 14px;
-    border-radius: 99px;
-    font-size: 12px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
-  }
-  .btn-primary { background: var(--green-500); color: white; }
-  .btn-primary:hover { background: var(--green-600); }
-  .btn-ghost { background: var(--gray-100); color: var(--gray-700); }
-  .btn-ghost:hover { background: var(--gray-200); }
-  .btn-danger { background: #FEE2E2; color: #DC2626; }
-  .btn-danger:hover { background: #FECACA; }
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--gray900);color:#fff;padding:9px 18px;border-radius:99px;font-size:12px;font-weight:600;opacity:0;transition:.3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* AI Analysis Panel */
-  .analysis-panel {
-    background: var(--mint);
-    border-radius: var(--radius);
-    padding: 20px;
-    border: 1px solid var(--green-200, #bbf7d0);
-  }
-  .analysis-loading {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--green-700);
-    font-weight: 500;
-    font-size: 14px;
-  }
-  .spinner {
-    width: 18px; height: 18px;
-    border: 2px solid var(--green-200, #bbf7d0);
-    border-top-color: var(--green-500);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .chord-timeline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .chord-chip {
-    background: white;
-    border: 1.5px solid var(--green-300, #86efac);
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--green-800);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .chord-chip:hover { background: var(--green-100); border-color: var(--green-500); }
-  .chord-chip.highlight { background: var(--green-500); color: white; border-color: var(--green-500); }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--gray-400);
-    margin-bottom: 8px;
-  }
-
-  /* Player Bar */
-  .player-bar {
-    background: white;
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .player-info { flex: 1; min-width: 120px; }
-  .player-name { font-weight: 600; font-size: 14px; color: var(--gray-900); }
-  audio { width: 100%; max-width: 400px; height: 36px; accent-color: var(--green-500); }
-  audio::-webkit-media-controls-panel { background: var(--mint); }
-
-  /* ── Chord Library ── */
-  .chord-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
-  }
-  .chord-card {
-    background: white;
-    border: 1.5px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    padding: 16px 12px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .chord-card:hover { border-color: var(--green-400); transform: translateY(-2px); box-shadow: var(--shadow); }
-  .chord-card.active { border-color: var(--green-500); background: var(--mint); }
-  .chord-card-name {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 900;
-    font-size: 24px;
-    color: var(--green-700);
-  }
-  .chord-card-type { font-size: 11px; color: var(--gray-400); font-weight: 500; margin-top: 2px; }
-
-  /* Chord Diagram SVG */
-  .diagram-wrap {
-    background: white;
-    border-radius: var(--radius);
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-  .diagram-wrap h3 {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    color: var(--green-800);
-  }
-  svg.fretboard { display: block; }
-
-  /* Filter chips */
-  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-  .filter-chip {
-    padding: 5px 14px;
-    border-radius: 99px;
-    border: 1.5px solid var(--gray-200);
-    background: white;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray-500);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .filter-chip:hover { border-color: var(--green-400); color: var(--green-700); }
-  .filter-chip.active { background: var(--green-500); color: white; border-color: var(--green-500); }
-
-  /* status dot */
-  .status-dot {
-    width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px;
-  }
-  .dot-green { background: var(--green-500); }
-  .dot-yellow { background: #F59E0B; }
-  .dot-red { background: #EF4444; }
-
-  .empty-state {
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--gray-400);
-  }
-  .empty-state .big { font-size: 48px; margin-bottom: 12px; }
-  .empty-state p { font-size: 14px; }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--gray-900);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 99px;
-    font-size: 13px;
-    font-weight: 500;
-    opacity: 0;
-    transition: all 0.3s;
-    z-index: 999;
-    white-space: nowrap;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  /* Two-col layout for chord library */
-  .chord-library-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  @media (max-width: 680px) { .chord-library-grid { grid-template-columns: 1fr; } }
-
-  .progress-bar-wrap { margin-top: 8px; }
-  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-500); margin-bottom: 4px; }
-  .progress-bg { background: var(--gray-100); border-radius: 99px; height: 6px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--green-500); border-radius: 99px; transition: width 0.5s; }
+/* ── EMPTY ── */
+.empty{text-align:center;padding:36px 16px;color:var(--gray400)}
+.empty .ei{font-size:40px;margin-bottom:10px}
+.empty p{font-size:13px;line-height:1.6}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-inner">
-    <div class="logo">Guitar<span>Sense</span></div>
-    <span class="badge">🎸 AI Powered</span>
+  <div class="hd">
+    <div class="logo">Guitar<em>Sense</em><span class="logo-dot"></span></div>
+    <div class="mic-status idle" id="micStatus" onclick="requestMic()">🎤 แตะเพื่อเปิดไมค์</div>
   </div>
 </header>
 
 <nav>
   <div class="tabs">
-    <button class="tab-btn active" data-tab="practice" onclick="switchTab('practice')">🎵 ฝึกเล่น</button>
-    <button class="tab-btn" data-tab="songs" onclick="switchTab('songs')">🎶 เพลงของฉัน</button>
-    <button class="tab-btn" data-tab="chords" onclick="switchTab('chords')">📖 คลังคอร์ด</button>
+    <button class="tab on" data-tab="detect" onclick="goTab('detect')">🎧 ตรวจจับ</button>
+    <button class="tab" data-tab="songs" onclick="goTab('songs')">🎵 เพลง</button>
+    <button class="tab" data-tab="practice" onclick="goTab('practice')">🎼 ฝึก</button>
+    <button class="tab" data-tab="library" onclick="goTab('library')">📖 คอร์ด</button>
+    <button class="tab" data-tab="stats" onclick="goTab('stats')">📊 สถิติ</button>
   </div>
 </nav>
 
 <main>
 
-  <!-- ═══════════════════════ PRACTICE PAGE ═══════════════════════ -->
-  <div class="page active" id="page-practice">
+<!-- ═══ DETECT PAGE ═══ -->
+<div class="pg on" id="pg-detect">
 
-    <!-- Chord Detector -->
-    <div class="card">
-      <div class="card-title"><span class="icon">🎧</span> ตรวจจับคอร์ด</div>
-      <div class="detector-wrap">
-        <div class="chord-ring-wrap">
-          <div class="chord-ring" id="chordRing">
-            <div>
-              <div class="chord-name" id="chordDisplay">—</div>
-              <div class="chord-sub" id="chordSub">กดปุ่มเพื่อเริ่ม</div>
-            </div>
-          </div>
-          <div class="freq-bars" id="freqBars">
-            <div class="freq-bar" style="height:8px"></div>
-            <div class="freq-bar" style="height:8px"></div>
-            <div class="freq-bar" style="height:8px"></div>
-            <div class="freq-bar" style="height:8px"></div>
-            <div class="freq-bar" style="height:8px"></div>
-            <div class="freq-bar" style="height:8px"></div>
-            <div class="freq-bar" style="height:8px"></div>
-            <div class="freq-bar" style="height:8px"></div>
-          </div>
-          <button class="listen-btn" id="listenBtn" onclick="toggleListen()">
-            <span>🎤</span> เริ่มฟัง
-          </button>
-        </div>
-
-        <div>
-          <div class="confidence-wrap">
-            <div class="conf-label">ความมั่นใจ AI</div>
-            <div class="conf-bar-bg"><div class="conf-bar-fill" id="confBar"></div></div>
-          </div>
-          <br>
-          <div class="chord-info-panel" id="chordInfoPanel">
-            <h4>— รอฟังเสียง —</h4>
-            <p style="font-size:12px;color:var(--gray-400)">จับกีต้าร์ใกล้ไมค์ แล้วดีดคอร์ด</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Practice with song -->
-    <div class="card" id="practiceCard">
-      <div class="card-title"><span class="icon">🎼</span> ฝึกตามเพลง</div>
-      <div id="noSongState" class="empty-state">
-        <div class="big">🎵</div>
-        <p>ยังไม่ได้เลือกเพลง<br>ไปที่ <b>"เพลงของฉัน"</b> แล้วอัปโหลด MP3</p>
-      </div>
-      <div id="practiceWithSong" style="display:none">
-        <div class="player-bar" style="margin-bottom:16px">
-          <div class="song-thumb" style="width:44px;height:44px;background:var(--green-100);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px">🎵</div>
-          <div class="player-info">
-            <div class="player-name" id="practicePlayerName">—</div>
-          </div>
-          <audio id="practiceAudio" controls></audio>
-        </div>
-        <div class="section-label">คอร์ดในเพลง (วิเคราะห์โดย AI)</div>
-        <div class="chord-timeline" id="practiceChordTimeline"></div>
-        <div class="ai-tip" id="practiceTip" style="margin-top:12px"></div>
-      </div>
-    </div>
-
-  </div><!-- end practice -->
-
-  <!-- ═══════════════════════ SONGS PAGE ═══════════════════════ -->
-  <div class="page" id="page-songs">
-
-    <div class="card">
-      <div class="card-title"><span class="icon">📂</span> อัปโหลดเพลง MP3</div>
-      <div class="upload-area" id="uploadArea" onclick="document.getElementById('mp3-input').click()">
-        <div class="upload-icon">🎵</div>
-        <div class="upload-title">วางไฟล์ MP3 หรือคลิกเพื่อเลือก</div>
-        <div class="upload-sub">รองรับ .mp3 — AI จะวิเคราะห์คอร์ดอัตโนมัติ</div>
-      </div>
-      <input type="file" id="mp3-input" accept=".mp3,audio/mpeg" multiple onchange="handleFileUpload(event)">
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🎶</span> รายการเพลง</div>
-      <div class="song-list" id="songList">
-        <div class="empty-state">
-          <div class="big">🎸</div>
-          <p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบนเลย!</p>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- end songs -->
-
-  <!-- ═══════════════════════ CHORD LIBRARY ═══════════════════════ -->
-  <div class="page" id="page-chords">
-    <div class="chord-library-grid">
-      <div>
-        <div class="card">
-          <div class="card-title"><span class="icon">🎸</span> คลังคอร์ด</div>
-          <div class="filter-row" id="filterRow"></div>
-          <div class="chord-grid" id="chordGrid"></div>
-        </div>
-      </div>
-      <div>
-        <div class="card diagram-wrap" id="diagramWrap">
-          <div class="empty-state" style="padding:24px">
-            <div class="big">👆</div>
-            <p>เลือกคอร์ดด้านซ้ายเพื่อดูวิธีจับ</p>
-          </div>
-        </div>
-      </div>
+  <div id="micBanner" class="mic-banner" style="display:none">
+    <div class="icon">🎙️</div>
+    <div>
+      <h3>ต้องการสิทธิ์ไมโครโฟน</h3>
+      <p>กดปุ่มด้านล่าง แล้วเลือก <b>"Allow"</b> เมื่อบราวเซอร์ถาม<br>ถ้าไม่มี popup → กด 🔒 ใน URL bar → Microphone → Allow</p>
+      <button class="btn-allow" onclick="requestMic()">🎤 ขอสิทธิ์ไมโครโฟน</button>
     </div>
   </div>
 
-</main>
+  <div class="card">
+    <div class="card-head"><h2>🎧 ตรวจจับคอร์ด Real-time</h2></div>
+    <div class="card-body">
+      <div class="detector">
+        <div class="ring-zone">
+          <div class="ring" id="ring">
+            <div>
+              <div class="chord-big" id="chordBig">—</div>
+              <div class="chord-small" id="chordSmall">กดเริ่มฟัง</div>
+            </div>
+          </div>
+          <div class="waveform" id="wv">
+            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
+            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
+            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
+            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
+            <div class="wv" style="height:3px"></div><div class="wv" style="height:3px"></div>
+          </div>
+          <button class="btn-listen" id="listenBtn" onclick="toggleListen()">🎤 เริ่มฟัง</button>
+        </div>
+        <div>
+          <div class="conf-block">
+            <div class="conf-lbl">ความมั่นใจ</div>
+            <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+            <div class="info-box" id="infoBox">
+              <h4>— รอฟังเสียง —</h4>
+              <p style="font-size:12px;color:var(--gray400)">จับกีต้าร์ใกล้ไมค์ ดีดคอร์ดได้เลย</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rec-bar">
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn-rec" id="recBtn" onclick="toggleRecord()">⏺ บันทึกเสียง</button>
+        <span class="rec-timer" id="recTimer" style="display:none">00:00</span>
+      </div>
+      <span style="font-size:11px;color:var(--gray400)" id="recCount">ยังไม่มีการบันทึก</span>
+    </div>
+  </div>
 
+  <div class="card" id="recListCard" style="display:none">
+    <div class="card-head"><h2>🎙️ เสียงที่บันทึกไว้</h2></div>
+    <div class="recordings-list" id="recList"></div>
+  </div>
+
+</div>
+
+<!-- ═══ SONGS PAGE ═══ -->
+<div class="pg" id="pg-songs">
+  <div class="card">
+    <div class="card-head"><h2>📂 อัปโหลดเพลง MP3</h2></div>
+    <div class="card-body">
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('mp3in').click()">
+        <div class="ui">🎵</div>
+        <h3>แตะหรือลากไฟล์ MP3 มาวาง</h3>
+        <p>AI จะวิเคราะห์คอร์ด + เนื้อเพลงอัตโนมัติ</p>
+      </div>
+      <input type="file" id="mp3in" accept=".mp3,audio/*" multiple onchange="uploadSongs(event)">
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>🎶 เพลงของฉัน</h2></div>
+    <div class="card-body">
+      <div class="song-list" id="songList">
+        <div class="empty"><div class="ei">🎸</div><p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบนก่อนเลย</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRACTICE PAGE ═══ -->
+<div class="pg" id="pg-practice">
+  <div id="practiceEmpty" class="empty" style="padding:60px 0">
+    <div class="ei">🎼</div>
+    <p>เลือกเพลงจากหน้า <b>"เพลง"</b> ก่อนนะครับ</p>
+  </div>
+  <div id="practiceContent" style="display:none;display:flex;flex-direction:column;gap:14px">
+
+    <div class="player-card">
+      <div class="player-title" id="pTitle">—</div>
+      <div class="player-meta" id="pMeta">—</div>
+      <audio class="styled" id="pAudio" controls></audio>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>🎵 คอร์ดในเพลง</h2></div>
+      <div class="card-body">
+        <div class="key-badge" id="keyBadge">🎵 Key: —</div>
+        <div class="chord-scroll-wrap"><div class="chord-scroll" id="chordScroll"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>📝 เนื้อเพลง + คอร์ด</h2></div>
+      <div class="card-body">
+        <div class="lyrics-box" id="lyricsBox">— รอข้อมูล —</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>🎙️ ฝึกและบันทึก</h2></div>
+      <div class="card-body" style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-listen" id="pracListenBtn" onclick="togglePracticeListen()" style="font-size:13px;padding:9px 20px">🎤 เริ่มฟังระหว่างเล่น</button>
+        <button class="btn-rec" id="pracRecBtn" onclick="togglePracticeRecord()" style="font-size:13px;padding:9px 20px">⏺ บันทึก</button>
+        <span class="rec-timer" id="pracTimer" style="display:none"></span>
+      </div>
+      <div style="padding:0 18px 14px">
+        <div id="pracLiveChord" style="font-size:12px;color:var(--gray400)">ดีดกีต้าร์เพื่อตรวจจับคอร์ด...</div>
+      </div>
+    </div>
+
+    <div class="card" id="feedbackCard" style="display:none">
+      <div class="card-head"><h2>🤖 AI วิเคราะห์การเล่น</h2></div>
+      <div class="card-body">
+        <div id="feedbackContent"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ LIBRARY PAGE ═══ -->
+<div class="pg" id="pg-library">
+  <div class="card">
+    <div class="card-head"><h2>🎸 คลังคอร์ดกีต้าร์</h2></div>
+    <div class="card-body">
+      <div class="filter-pills" id="filterPills"></div>
+      <div class="lib-grid" id="libGrid"></div>
+    </div>
+  </div>
+  <div class="diagram-card" id="diagramCard">
+    <div class="empty"><div class="ei">👆</div><p>แตะคอร์ดด้านบนเพื่อดูวิธีจับ</p></div>
+  </div>
+</div>
+
+<!-- ═══ STATS PAGE ═══ -->
+<div class="pg" id="pg-stats">
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-val" id="stChords">0</div>
+      <div class="stat-lbl">คอร์ดที่ตรวจพบวันนี้</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="stSongs">0</div>
+      <div class="stat-lbl">เพลงในคลัง</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="stRecs">0</div>
+      <div class="stat-lbl">ไฟล์บันทึก</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="stStreak">1</div>
+      <div class="stat-lbl">วันติดต่อกัน 🔥</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>📅 7 วันล่าสุด</h2></div>
+    <div class="card-body">
+      <div class="streak-bar" id="streakBar"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>🏆 คอร์ดที่เล่นบ่อย</h2></div>
+    <div class="card-body">
+      <div class="chord-history" id="chordHistory">
+        <div class="empty"><div class="ei">🎵</div><p>เริ่มฝึกเพื่อดูสถิติ</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 // CHORD DATA
-// ══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 const CHORDS = {
-  "C":  { type:"Major", notes:["C","E","G"],    fingers:[[1,1,2],[2,2,2],[3,2,3],[4,3,4],[5,3,5],[6,0]], barre:null, desc:"คอร์ดพื้นฐานที่สุด เสียงสว่างใส" },
-  "D":  { type:"Major", notes:["D","F#","A"],   fingers:[[1,2,1],[2,3,2],[3,2,3],[4,0],[5,-1],[6,-1]], barre:null, desc:"เสียงอบอุ่น ใช้บ่อยในเพลงป็อป" },
-  "E":  { type:"Major", notes:["E","G#","B"],   fingers:[[1,0],[2,2,4],[3,2,3],[4,1,1],[5,0],[6,0]], barre:null, desc:"เสียงเต็ม ดีดง่าย เหมาะสำหรับมือใหม่" },
-  "F":  { type:"Major", notes:["F","A","C"],    fingers:[[1,1,1],[2,1,1],[3,2,2],[4,3,3],[5,3,4],[6,1,1]], barre:1, desc:"คอร์ด Barre แรกที่ควรฝึก" },
-  "G":  { type:"Major", notes:["G","B","D"],    fingers:[[1,3,4],[2,0],[3,0],[4,0],[5,2,1],[6,3,3]], barre:null, desc:"เสียงก้อง นิยมมากในเพลงโฟล์ค" },
-  "A":  { type:"Major", notes:["A","C#","E"],   fingers:[[1,-1],[2,0],[3,2,2],[4,2,3],[5,2,4],[6,0]], barre:null, desc:"เสียงสะอาด ใช้คู่กับ D และ E ได้ดี" },
-  "B":  { type:"Major", notes:["B","D#","F#"],  fingers:[[1,-1],[2,2,1],[3,4,3],[4,4,4],[5,4,5],[6,2,1]], barre:2, desc:"คอร์ด Barre ที่ใช้บ่อยในเพลง" },
-  "Am": { type:"Minor", notes:["A","C","E"],    fingers:[[1,-1],[2,0],[3,2,2],[4,2,3],[5,1,1],[6,0]], barre:null, desc:"เสียงเศร้า อ่อนโยน ใช้บ่อยในเพลงรัก" },
-  "Em": { type:"Minor", notes:["E","G","B"],    fingers:[[1,0],[2,2,3],[3,2,4],[4,0],[5,0],[6,0]], barre:null, desc:"คอร์ด Minor ที่ง่ายที่สุด" },
-  "Dm": { type:"Minor", notes:["D","F","A"],    fingers:[[1,1,1],[2,3,3],[3,2,2],[4,0],[5,-1],[6,-1]], barre:null, desc:"เสียงเศร้าเข้ม เหมาะกับเพลงบัลลาด" },
-  "Bm": { type:"Minor", notes:["B","D","F#"],   fingers:[[1,-1],[2,2,1],[3,4,3],[4,4,4],[5,3,2],[6,2,1]], barre:2, desc:"คอร์ด Minor Barre ที่พบบ่อย" },
-  "G7": { type:"7th",   notes:["G","B","D","F"],fingers:[[1,1,1],[2,0],[3,0],[4,0],[5,2,2],[6,3,3]], barre:null, desc:"เสียงดึงดูด อยากกลับคอร์ด C" },
-  "C7": { type:"7th",   notes:["C","E","G","Bb"],fingers:[[1,-1],[2,0],[3,3,4],[4,2,3],[5,1,1],[6,0]], barre:null, desc:"ให้ความรู้สึกบลูส์" },
-  "D7": { type:"7th",   notes:["D","F#","A","C"],fingers:[[1,2,3],[2,1,1],[3,2,2],[4,0],[5,-1],[6,-1]], barre:null, desc:"เสียงสนุกสนาน ใช้ในเพลงคันทรี" },
+  "C":  {type:"Major",notes:["C","E","G"],    f:[[1,0],[2,1,1],[3,0],[4,2,3],[5,3,4],[6,-1]],barre:null,desc:"คอร์ดพื้นฐาน เสียงสว่างใส ใช้บ่อยมาก"},
+  "D":  {type:"Major",notes:["D","F#","A"],   f:[[1,2,1],[2,3,3],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงอบอุ่น ใช้บ่อยในเพลงป็อป"},
+  "E":  {type:"Major",notes:["E","G#","B"],   f:[[1,0],[2,0],[3,1,1],[4,2,3],[5,2,4],[6,0]],barre:null,desc:"เสียงเต็มก้อง ดีดง่าย เหมาะมือใหม่"},
+  "F":  {type:"Major",notes:["F","A","C"],    f:[[1,1,1],[2,1,1],[3,2,2],[4,3,4],[5,3,3],[6,1,1]],barre:1,desc:"คอร์ด Barre แรกที่ควรฝึก"},
+  "G":  {type:"Major",notes:["G","B","D"],    f:[[1,3,4],[2,3,3],[3,0],[4,0],[5,2,1],[6,3,2]],barre:null,desc:"เสียงก้อง นิยมมากในเพลงโฟล์ค"},
+  "A":  {type:"Major",notes:["A","C#","E"],   f:[[1,0],[2,2,3],[3,2,4],[4,2,2],[5,0],[6,-1]],barre:null,desc:"เสียงสะอาด ใช้คู่ D และ E ได้ดี"},
+  "B":  {type:"Major",notes:["B","D#","F#"],  f:[[1,2,1],[2,4,4],[3,4,3],[4,4,2],[5,2,1],[6,-1]],barre:2,desc:"Barre คอร์ดที่ใช้บ่อย"},
+  "Am": {type:"Minor",notes:["A","C","E"],    f:[[1,0],[2,1,1],[3,2,3],[4,2,4],[5,0],[6,-1]],barre:null,desc:"เสียงเศร้าอ่อนโยน ใช้บ่อยในเพลงรัก"},
+  "Em": {type:"Minor",notes:["E","G","B"],    f:[[1,0],[2,0],[3,0],[4,2,4],[5,2,3],[6,0]],barre:null,desc:"Minor ที่ง่ายที่สุด"},
+  "Dm": {type:"Minor",notes:["D","F","A"],    f:[[1,1,1],[2,3,4],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงเศร้าเข้ม เหมาะบัลลาด"},
+  "Bm": {type:"Minor",notes:["B","D","F#"],   f:[[1,2,1],[2,3,2],[3,4,4],[4,4,3],[5,2,1],[6,-1]],barre:2,desc:"Minor Barre ที่พบบ่อย"},
+  "Fm": {type:"Minor",notes:["F","Ab","C"],   f:[[1,1,1],[2,1,1],[3,1,1],[4,3,4],[5,3,3],[6,1,1]],barre:1,desc:"Minor Barre เสียงดำมืด"},
+  "G7": {type:"7th",  notes:["G","B","D","F"],f:[[1,1,1],[2,0],[3,0],[4,0],[5,2,2],[6,3,3]],barre:null,desc:"เสียงดึงดูด อยากกลับ C"},
+  "C7": {type:"7th",  notes:["C","E","G","Bb"],f:[[1,0],[2,1,1],[3,3,4],[4,2,3],[5,3,4],[6,-1]],barre:null,desc:"ให้ความรู้สึกบลูส์"},
+  "D7": {type:"7th",  notes:["D","F#","A","C"],f:[[1,2,3],[2,1,1],[3,2,2],[4,0],[5,-1],[6,-1]],barre:null,desc:"เสียงสนุก ใช้ในเพลงคันทรี"},
+  "E7": {type:"7th",  notes:["E","G#","B","D"],f:[[1,0],[2,0],[3,1,1],[4,0],[5,2,3],[6,0]],barre:null,desc:"เสียงบลูส์คลาสสิก"},
 };
 
-// ══════════════════════════════════════════════════
-// CHORD DETECTION (Pitch → Chord via frequency analysis)
-// ══════════════════════════════════════════════════
-const NOTE_NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-
-function freqToNote(freq) {
-  if (freq < 60) return null;
-  const midiNote = 12 * (Math.log2(freq / 440)) + 69;
-  const noteIndex = Math.round(midiNote) % 12;
-  return NOTE_NAMES[(noteIndex + 12) % 12];
-}
-
-const CHORD_TEMPLATES = {
-  "C":  ["C","E","G"], "D":["D","F#","A"], "E":["E","G#","B"],
-  "F":  ["F","A","C"], "G":["G","B","D"],  "A":["A","C#","E"],
-  "B":  ["B","D#","F#"],
-  "Am": ["A","C","E"], "Em":["E","G","B"], "Dm":["D","F","A"],
-  "Bm": ["B","D","F#"],"Cm":["C","Eb","G"],"Fm":["F","Ab","C"],
-  "G7": ["G","B","D","F"], "C7":["C","E","G","Bb"],"D7":["D","F#","A","C"],
+const CHORD_TMPL = {
+  "C":["C","E","G"],"D":["D","F#","A"],"E":["E","G#","B"],
+  "F":["F","A","C"],"G":["G","B","D"],"A":["A","C#","E"],
+  "B":["B","D#","F#"],"Am":["A","C","E"],"Em":["E","G","B"],
+  "Dm":["D","F","A"],"Bm":["B","D","F#"],"Fm":["F","Ab","C"],
+  "G7":["G","B","D","F"],"C7":["C","E","G","Bb"],"D7":["D","F#","A","C"],"E7":["E","G#","B","D"]
 };
+const NOTES=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+const ENHARMO={"Db":"C#","Eb":"D#","Gb":"F#","Ab":"G#","Bb":"A#"};
+function norm(n){return ENHARMO[n]||n}
+function freqToNote(f){if(f<60)return null;const m=12*(Math.log2(f/440))+69;return NOTES[((Math.round(m)%12)+12)%12]}
+function detectChord(ns){
+  if(ns.length<2)return null;
+  const nd=[...new Set(ns.map(norm))];
+  let best=null,bs=0;
+  for(const[name,tmpl]of Object.entries(CHORD_TMPL)){
+    const nt=tmpl.map(norm);
+    let m=0; for(const n of nd) if(nt.includes(n)) m++;
+    const s=m/nt.length+m/nd.length;
+    if(s>bs&&m>=Math.min(2,nt.length)){bs=s;best={name,score:Math.min(1,s*.6)}}
+  }
+  return best;
+}
 
-const ENHARMONIC = {"Db":"C#","Eb":"D#","Fb":"E","Gb":"F#","Ab":"G#","Bb":"A#","Cb":"B"};
-function normalizeNote(n) { return ENHARMONIC[n] || n; }
+// ═══════════════════════════════════════
+// MIC / AUDIO ENGINE
+// ═══════════════════════════════════════
+let actx=null,analyser=null,micStream=null,isListening=false,animId=null,silTimer=null,lastChord=null;
+let pracListening=false,pracAnalyser=null,pracMicStream=null,pracAnimId=null;
 
-function detectChordFromNotes(detectedNotes) {
-  if (detectedNotes.length < 2) return null;
-  const normDetected = [...new Set(detectedNotes.map(normalizeNote))];
-  let bestMatch = null, bestScore = 0;
-  for (const [name, template] of Object.entries(CHORD_TEMPLATES)) {
-    const normTemplate = template.map(normalizeNote);
-    let matched = 0;
-    for (const n of normDetected) { if (normTemplate.includes(n)) matched++; }
-    const score = matched / normTemplate.length + matched / normDetected.length;
-    if (score > bestScore && matched >= Math.min(2, normTemplate.length)) {
-      bestScore = score;
-      bestMatch = { name, score: Math.min(1, score * 0.6) };
+function getCtx(){
+  if(!actx) actx=new(window.AudioContext||window.webkitAudioContext)();
+  return actx;
+}
+
+async function requestMic(){
+  try{
+    const s=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    s.getTracks().forEach(t=>t.stop());
+    setMicStatus('ok');
+    document.getElementById('micBanner').style.display='none';
+    showToast('✅ ไมโครโฟนพร้อมใช้งาน');
+  }catch(e){
+    setMicStatus('err');
+    document.getElementById('micBanner').style.display='flex';
+    showToast('❌ '+e.message);
+  }
+}
+
+function setMicStatus(s){
+  const el=document.getElementById('micStatus');
+  el.className='mic-status '+s;
+  el.textContent=s==='ok'?'🟢 ไมค์พร้อม':s==='err'?'🔴 ไมค์ถูกบล็อก':'🎤 แตะเพื่อเปิดไมค์';
+}
+
+async function startMic(cb){
+  const ctx=getCtx();
+  if(ctx.state==='suspended')await ctx.resume();
+  const s=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+  const an=ctx.createAnalyser();
+  an.fftSize=8192; an.smoothingTimeConstant=.85;
+  ctx.createMediaStreamSource(s).connect(an);
+  setMicStatus('ok');
+  return{stream:s,analyser:an};
+}
+
+async function toggleListen(){
+  if(isListening)stopListen();
+  else await startListen();
+}
+
+async function startListen(){
+  try{
+    const{stream,analyser:an}=await startMic();
+    micStream=stream; analyser=an; isListening=true;
+    document.getElementById('micBanner').style.display='none';
+    document.getElementById('listenBtn').innerHTML='⏹ หยุดฟัง';
+    document.getElementById('listenBtn').classList.add('stop');
+    document.getElementById('ring').classList.add('listen');
+    document.getElementById('chordSmall').textContent='กำลังฟัง...';
+    loopDetect();
+  }catch(e){
+    document.getElementById('micBanner').style.display='flex';
+    showToast('❌ '+e.message);
+  }
+}
+
+function stopListen(){
+  isListening=false;
+  if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;}
+  if(animId){cancelAnimationFrame(animId);animId=null;}
+  document.getElementById('listenBtn').innerHTML='🎤 เริ่มฟัง';
+  document.getElementById('listenBtn').classList.remove('stop');
+  document.getElementById('ring').classList.remove('listen','hit');
+  document.getElementById('chordSmall').textContent='กดเริ่มฟัง';
+  resetWave();
+}
+
+function loopDetect(){
+  if(!isListening||!analyser)return;
+  const buf=analyser.frequencyBinCount;
+  const d=new Float32Array(buf);
+  analyser.getFloatFrequencyData(d);
+  const sr=getCtx().sampleRate;
+  // waveform
+  const bars=document.getElementById('wv').children;
+  for(let i=0;i<bars.length;i++){
+    const b0=Math.floor((80+i*260)/sr*buf),b1=Math.min(buf-1,b0+35);
+    let mx=-140; for(let b=b0;b<=b1;b++) if(d[b]>mx)mx=d[b];
+    const h=Math.max(3,Math.min(40,(mx+100)*1.1));
+    bars[i].style.height=h+'px';
+    bars[i].style.background=h>20?'#22C55E':'#86EFAC';
+  }
+  // peaks
+  const TH=-52, peaks=[];
+  for(let i=1;i<buf-1;i++){
+    if(d[i]>TH&&d[i]>d[i-1]&&d[i]>d[i+1]){
+      const fr=i*sr/(buf*2);
+      if(fr>60&&fr<1400)peaks.push({fr,a:d[i]});
     }
   }
-  return bestMatch;
-}
-
-// ══════════════════════════════════════════════════
-// AUDIO ENGINE
-// ══════════════════════════════════════════════════
-let audioCtx = null, analyser = null, micStream = null;
-let isListening = false;
-let animFrame = null;
-let lastChord = null;
-let noSoundTimer = null;
-
-function getAudioContext() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  peaks.sort((a,b)=>b.a-a.a);
+  const top=peaks.slice(0,8);
+  const rms=calcRMS(d);
+  if(rms>0.007&&top.length>=2){
+    const ns=[...new Set(top.map(p=>freqToNote(p.fr)).filter(Boolean))];
+    const res=detectChord(ns);
+    if(res){
+      lastChord=res.name;
+      showChord(res.name,res.score);
+      recordChordStat(res.name);
+    }
+    clearTimeout(silTimer);silTimer=null;
+  }else if(rms<0.007&&lastChord&&!silTimer){
+    silTimer=setTimeout(()=>{document.getElementById('ring').classList.remove('hit');silTimer=null;},1500);
   }
-  return audioCtx;
+  animId=requestAnimationFrame(loopDetect);
 }
 
-async function toggleListen() {
-  if (isListening) stopListening();
-  else await startListening();
+function calcRMS(d){let s=0;for(let i=0;i<d.length;i++){const l=Math.pow(10,d[i]/20);s+=l*l;}return Math.sqrt(s/d.length);}
+function resetWave(){const bars=document.getElementById('wv').children;for(const b of bars){b.style.height='3px';b.style.background='#E5E7EB';}}
+
+function showChord(name,conf){
+  document.getElementById('chordBig').textContent=name;
+  document.getElementById('chordSmall').textContent='ตรวจพบ!';
+  document.getElementById('ring').classList.add('hit');
+  document.getElementById('confFill').style.width=(conf*100).toFixed(0)+'%';
+  const info=CHORDS[name];
+  if(info){
+    document.getElementById('infoBox').innerHTML=`
+      <h4>${name} <span style="font-size:11px;color:var(--gray400);font-weight:500">${info.type}</span></h4>
+      <div class="notes-row">${info.notes.map(n=>`<span class="n-chip">${n}</span>`).join('')}</div>
+      <div class="tip-box"><b>💡</b> ${info.desc}</div>`;
+  }
+  // highlight in practice
+  document.getElementById('pracLiveChord').innerHTML=`<span style="font-family:Prompt;font-weight:800;font-size:18px;color:var(--g600)">${name}</span> <span style="font-size:11px;color:var(--gray400)">ตรวจพบ!</span>`;
+  document.querySelectorAll('.cc').forEach(c=>{
+    c.classList.toggle('hl',c.dataset.chord===name);
+  });
+  updateStats();
 }
 
-async function startListening() {
-  try {
-    const ctx = getAudioContext();
-    if (ctx.state === 'suspended') await ctx.resume();
+// ═══════════════════════════════════════
+// RECORDING
+// ═══════════════════════════════════════
+let mediaRec=null,recChunks=[],isRec=false,recInterval=null,recSecs=0;
+let recordings=[];
 
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }, video: false });
-    micStream = stream;
+async function toggleRecord(){
+  if(isRec)stopRecord();
+  else await startRecord();
+}
 
-    analyser = ctx.createAnalyser();
-    analyser.fftSize = 8192;
-    analyser.smoothingTimeConstant = 0.85;
-    const src = ctx.createMediaStreamSource(stream);
-    src.connect(analyser);
+async function startRecord(){
+  try{
+    const s=await navigator.mediaDevices.getUserMedia({audio:true});
+    mediaRec=new MediaRecorder(s);
+    recChunks=[];
+    mediaRec.ondataavailable=e=>{if(e.data.size>0)recChunks.push(e.data);};
+    mediaRec.onstop=()=>{
+      const blob=new Blob(recChunks,{type:'audio/webm'});
+      const url=URL.createObjectURL(blob);
+      const ts=new Date().toLocaleTimeString('th-TH');
+      recordings.unshift({url,name:`บันทึก ${ts}`,blob,secs:recSecs});
+      renderRecordings();
+      s.getTracks().forEach(t=>t.stop());
+    };
+    mediaRec.start();
+    isRec=true;
+    recSecs=0;
+    document.getElementById('recBtn').classList.add('recording');
+    document.getElementById('recBtn').textContent='⏹ หยุดบันทึก';
+    document.getElementById('recTimer').style.display='inline';
+    recInterval=setInterval(()=>{recSecs++;document.getElementById('recTimer').textContent=fmt(recSecs);},1000);
+    showToast('🔴 กำลังบันทึก...');
+  }catch(e){showToast('❌ '+e.message);}
+}
 
-    isListening = true;
-    document.getElementById('listenBtn').innerHTML = '<span>⏹</span> หยุดฟัง';
-    document.getElementById('listenBtn').classList.add('active');
-    document.getElementById('chordRing').classList.add('listening');
-    document.getElementById('chordSub').textContent = 'กำลังฟัง...';
-    analyzeLoop();
-  } catch(e) {
-    showToast('❌ ไม่สามารถเข้าถึงไมโครโฟนได้: ' + e.message);
+function stopRecord(){
+  if(mediaRec&&isRec){mediaRec.stop();}
+  isRec=false;
+  clearInterval(recInterval);
+  document.getElementById('recBtn').classList.remove('recording');
+  document.getElementById('recBtn').textContent='⏺ บันทึกเสียง';
+  document.getElementById('recTimer').style.display='none';
+  showToast('✅ บันทึกเสรียบแล้ว');
+}
+
+function fmt(s){return`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
+
+function renderRecordings(){
+  const list=document.getElementById('recList');
+  document.getElementById('recListCard').style.display=recordings.length?'':'none';
+  document.getElementById('recCount').textContent=recordings.length?`${recordings.length} ไฟล์`:'ยังไม่มีการบันทึก';
+  list.innerHTML=recordings.map((r,i)=>`
+    <div class="rec-item">
+      <audio src="${r.url}" controls></audio>
+      <a class="btn-dl" href="${r.url}" download="${r.name}.webm">⬇</a>
+      <button class="btn-del-rec" onclick="delRec(${i})">✕</button>
+    </div>`).join('');
+  document.getElementById('stRecs').textContent=recordings.length;
+}
+
+function delRec(i){recordings.splice(i,1);renderRecordings();}
+
+// Practice record
+let pracRec=null,pracChunks=[],isPracRec=false,pracRecInt=null,pracRecSecs=0;
+async function togglePracticeRecord(){
+  if(isPracRec)stopPracRec();
+  else await startPracRec();
+}
+async function startPracRec(){
+  try{
+    const s=await navigator.mediaDevices.getUserMedia({audio:true});
+    pracRec=new MediaRecorder(s);
+    pracChunks=[];
+    pracRec.ondataavailable=e=>{if(e.data.size>0)pracChunks.push(e.data);};
+    pracRec.onstop=()=>{
+      const blob=new Blob(pracChunks,{type:'audio/webm'});
+      const url=URL.createObjectURL(blob);
+      const ts=new Date().toLocaleTimeString('th-TH');
+      recordings.unshift({url,name:`ฝึก ${activeSong?.name||''} ${ts}`,blob,secs:pracRecSecs});
+      renderRecordings();
+      s.getTracks().forEach(t=>t.stop());
+      doAIFeedback();
+    };
+    pracRec.start();
+    isPracRec=true;
+    pracRecSecs=0;
+    document.getElementById('pracRecBtn').classList.add('recording');
+    document.getElementById('pracRecBtn').textContent='⏹ หยุดบันทึก';
+    document.getElementById('pracTimer').style.display='inline';
+    pracRecInt=setInterval(()=>{pracRecSecs++;document.getElementById('pracTimer').textContent=fmt(pracRecSecs);},1000);
+    showToast('🔴 บันทึกการฝึก...');
+  }catch(e){showToast('❌ '+e.message);}
+}
+function stopPracRec(){
+  if(pracRec&&isPracRec)pracRec.stop();
+  isPracRec=false;
+  clearInterval(pracRecInt);
+  document.getElementById('pracRecBtn').classList.remove('recording');
+  document.getElementById('pracRecBtn').textContent='⏺ บันทึก';
+  document.getElementById('pracTimer').style.display='none';
+  showToast('✅ บันทึกเสร็จ — AI กำลังวิเคราะห์...');
+}
+
+// Practice listen
+async function togglePracticeListen(){
+  if(pracListening){
+    pracListening=false;
+    if(pracMicStream)pracMicStream.getTracks().forEach(t=>t.stop());
+    if(pracAnimId)cancelAnimationFrame(pracAnimId);
+    document.getElementById('pracListenBtn').innerHTML='🎤 เริ่มฟังระหว่างเล่น';
+    document.getElementById('pracListenBtn').classList.remove('stop');
+  }else{
+    try{
+      const{stream,analyser:an}=await startMic();
+      pracMicStream=stream;pracAnalyser=an;pracListening=true;
+      document.getElementById('pracListenBtn').innerHTML='⏹ หยุดฟัง';
+      document.getElementById('pracListenBtn').classList.add('stop');
+      pracLoop();
+    }catch(e){showToast('❌ '+e.message);}
   }
 }
-
-function stopListening() {
-  isListening = false;
-  if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
-  if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
-  document.getElementById('listenBtn').innerHTML = '<span>🎤</span> เริ่มฟัง';
-  document.getElementById('listenBtn').classList.remove('active');
-  document.getElementById('chordRing').classList.remove('listening','detected');
-  document.getElementById('chordSub').textContent = 'กดปุ่มเพื่อเริ่ม';
-  updateFreqBars([]);
-}
-
-function analyzeLoop() {
-  if (!isListening || !analyser) return;
-
-  const bufLen = analyser.frequencyBinCount;
-  const data = new Float32Array(bufLen);
-  analyser.getFloatFrequencyData(data);
-
-  const sampleRate = getAudioContext().sampleRate;
-
-  // Visualizer
-  const bars = document.getElementById('freqBars').children;
-  const barCount = bars.length;
-  for (let i = 0; i < barCount; i++) {
-    const binStart = Math.floor((80 + i * 300) / sampleRate * bufLen);
-    const binEnd = Math.min(bufLen - 1, binStart + 40);
-    let maxVal = -140;
-    for (let b = binStart; b <= binEnd; b++) { if (data[b] > maxVal) maxVal = data[b]; }
-    const h = Math.max(4, Math.min(48, (maxVal + 100) * 1.2));
-    bars[i].style.height = h + 'px';
-    bars[i].style.background = h > 24 ? '#22C55E' : '#86efac';
-  }
-
-  // Find peaks (frequencies with high energy)
-  const threshold = -55;
-  const peaks = [];
-  for (let i = 1; i < bufLen - 1; i++) {
-    if (data[i] > threshold && data[i] > data[i-1] && data[i] > data[i+1]) {
-      const freq = i * sampleRate / (bufLen * 2);
-      if (freq > 60 && freq < 1400) {
-        peaks.push({ freq, amp: data[i] });
-      }
+function pracLoop(){
+  if(!pracListening||!pracAnalyser)return;
+  const buf=pracAnalyser.frequencyBinCount;
+  const d=new Float32Array(buf);
+  pracAnalyser.getFloatFrequencyData(d);
+  const sr=getCtx().sampleRate;
+  const TH=-52,peaks=[];
+  for(let i=1;i<buf-1;i++){
+    if(d[i]>TH&&d[i]>d[i-1]&&d[i]>d[i+1]){
+      const fr=i*sr/(buf*2);
+      if(fr>60&&fr<1400)peaks.push({fr,a:d[i]});
     }
   }
-  peaks.sort((a,b) => b.amp - a.amp);
-  const topPeaks = peaks.slice(0, 8);
-
-  const rms = computeRMS(data);
-  const isSilent = rms < 0.008;
-
-  if (!isSilent && topPeaks.length >= 2) {
-    const detectedNotes = [...new Set(topPeaks.map(p => freqToNote(p.freq)).filter(Boolean))];
-    const result = detectChordFromNotes(detectedNotes);
-    if (result) {
-      lastChord = result.name;
-      showDetectedChord(result.name, result.score);
-    }
-    clearTimeout(noSoundTimer);
-    noSoundTimer = null;
-  } else if (isSilent && lastChord) {
-    if (!noSoundTimer) {
-      noSoundTimer = setTimeout(() => {
-        document.getElementById('chordRing').classList.remove('detected');
-        document.getElementById('chordSub').textContent = 'กำลังฟัง...';
-        noSoundTimer = null;
-      }, 1500);
-    }
+  peaks.sort((a,b)=>b.a-a.a);
+  const top=peaks.slice(0,8);
+  const rms=calcRMS(d);
+  if(rms>0.007&&top.length>=2){
+    const ns=[...new Set(top.map(p=>freqToNote(p.fr)).filter(Boolean))];
+    const res=detectChord(ns);
+    if(res)showChord(res.name,res.score);
   }
-
-  animFrame = requestAnimationFrame(analyzeLoop);
+  pracAnimId=requestAnimationFrame(pracLoop);
 }
 
-function computeRMS(floatFreqData) {
-  let sum = 0;
-  for (let i = 0; i < floatFreqData.length; i++) {
-    const linear = Math.pow(10, floatFreqData[i] / 20);
-    sum += linear * linear;
-  }
-  return Math.sqrt(sum / floatFreqData.length);
+// ═══════════════════════════════════════
+// AI FEEDBACK
+// ═══════════════════════════════════════
+async function doAIFeedback(){
+  const card=document.getElementById('feedbackCard');
+  const content=document.getElementById('feedbackContent');
+  card.style.display='';
+  content.innerHTML=`<div style="display:flex;align-items:center;gap:8px;color:var(--g700)"><div class="spin"></div>AI กำลังวิเคราะห์การเล่น...</div>`;
+  const songName=activeSong?.name||'ไม่ทราบเพลง';
+  const chords=activeSong?.chords?.join(', ')||'ไม่ทราบ';
+  const key=activeSong?.key||'ไม่ทราบ';
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-6",max_tokens:1000,
+        system:"คุณเป็นครูสอนกีต้าร์ผู้เชี่ยวชาญ ตอบเป็น JSON เท่านั้น ไม่มี markdown",
+        messages:[{role:"user",content:`ผู้เรียนเพิ่งฝึกเพลง "${songName}" key: ${key} คอร์ดในเพลง: ${chords} ฝึกไปแล้ว ${pracRecSecs} วินาที
+
+ให้ feedback ที่เป็นประโยชน์ ตอบ JSON:
+{"score":75,"items":[{"type":"good","text":"จุดที่ดี"},{"type":"improve","text":"จุดที่ควรปรับปรุง"},{"type":"tip","text":"เคล็ดลับ"}],"summary":"สรุปสั้นๆ"}`}]
+      })
+    });
+    const data=await r.json();
+    let txt=data.content?.find(c=>c.type==='text')?.text||'{}';
+    txt=txt.replace(/```json|```/g,'').trim();
+    const fb=JSON.parse(txt);
+    const colorMap={good:['#22C55E','✅'],improve:['#F59E0B','⚡'],tip:['#3B82F6','💡']};
+    const scoreCirc=buildScoreCircle(fb.score||70);
+    content.innerHTML=`
+      ${scoreCirc}
+      <p style="text-align:center;font-size:13px;color:var(--gray700);margin-bottom:14px">${fb.summary||''}</p>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        ${(fb.items||[]).map(it=>{
+          const[col,ico]=colorMap[it.type]||['#6B7280','•'];
+          return`<div class="feedback-item"><div class="fb-dot" style="background:${col}"></div><div class="fb-text">${ico} ${it.text}</div></div>`;
+        }).join('')}
+      </div>`;
+  }catch(e){content.innerHTML=`<div class="tip-box"><b>AI:</b> ฝึกได้ดีมาก! ทำต่อไปเรื่อยๆ ความสม่ำเสมอคือกุญแจสู่ความสำเร็จ 🎸</div>`;}
 }
 
-function updateFreqBars(vals) {
-  const bars = document.getElementById('freqBars').children;
-  for (let i = 0; i < bars.length; i++) {
-    bars[i].style.height = (vals[i] || 4) + 'px';
-    bars[i].style.background = '#E5E7EB';
-  }
+function buildScoreCircle(score){
+  const r=28,c=2*Math.PI*r;
+  const fill=c*(1-score/100);
+  return`<div class="score-ring"><svg width="64" height="64" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="${r}" fill="none" stroke="#E5E7EB" stroke-width="5"/>
+    <circle cx="32" cy="32" r="${r}" fill="none" stroke="#22C55E" stroke-width="5" stroke-dasharray="${c}" stroke-dashoffset="${fill}" stroke-linecap="round" transform="rotate(-90 32 32)"/>
+  </svg><div class="score-num">${score}</div></div>`;
 }
 
-function showDetectedChord(name, confidence) {
-  document.getElementById('chordDisplay').textContent = name;
-  document.getElementById('chordSub').textContent = 'ตรวจพบคอร์ด!';
-  document.getElementById('chordRing').classList.add('detected');
-  document.getElementById('confBar').style.width = (confidence * 100).toFixed(0) + '%';
+// ═══════════════════════════════════════
+// SONGS
+// ═══════════════════════════════════════
+let songs=[],activeSong=null;
 
-  const info = CHORDS[name];
-  if (info) {
-    document.getElementById('chordInfoPanel').innerHTML = `
-      <h4>${name} ${info.type}</h4>
-      <div class="chord-notes">${info.notes.map(n => `<span class="note-chip">${n}</span>`).join('')}</div>
-      <div class="ai-tip"><b>💡 เคล็ดลับ:</b> ${info.desc}</div>
-    `;
-  } else {
-    document.getElementById('chordInfoPanel').innerHTML = `
-      <h4>${name}</h4>
-      <div class="ai-tip">ตรวจพบคอร์ด ${name}</div>
-    `;
-  }
-}
-
-// ══════════════════════════════════════════════════
-// SONG MANAGEMENT
-// ══════════════════════════════════════════════════
-let songs = []; // { id, name, url, chords, status, tip }
-
-function handleFileUpload(evt) {
-  const files = evt.target.files;
-  for (const file of files) {
-    if (!file.type.includes('audio')) { showToast('❌ รองรับเฉพาะไฟล์ MP3'); continue; }
-    const url = URL.createObjectURL(file);
-    const song = { id: Date.now() + Math.random(), name: file.name.replace(/\.mp3$/i,''), url, chords: null, status: 'analyzing', tip: '' };
+function uploadSongs(e){
+  for(const f of e.target.files){
+    if(!f.type.includes('audio')){showToast('❌ ต้องเป็นไฟล์ MP3');continue;}
+    const url=URL.createObjectURL(f);
+    const song={id:Date.now()+Math.random(),name:f.name.replace(/\.mp3$/i,''),url,chords:null,key:'',style:'',tempo:'',lyrics:'',tip:'',status:'analyzing'};
     songs.push(song);
     renderSongs();
-    analyzeMP3WithAI(song);
+    analyzeWithAI(song);
   }
-  evt.target.value = '';
+  e.target.value='';
+  updateStats();
 }
 
-async function analyzeMP3WithAI(song) {
-  try {
-    // Use AI to suggest chords based on song name
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 1000,
-        system: "คุณเป็น AI ผู้เชี่ยวชาญด้านดนตรีและกีต้าร์โปร่ง ตอบเป็น JSON เท่านั้น ไม่มี markdown ไม่มีข้อความอื่น",
-        messages: [{
-          role: "user",
-          content: `วิเคราะห์เพลงชื่อ "${song.name}" และสุ่มสร้างชุดคอร์ดกีต้าร์ที่เหมาะสมสำหรับเพลงนี้ (ถ้าไม่รู้เพลง ให้สร้างคอร์ดทั่วไปที่สวยงาม)
+async function analyzeWithAI(song){
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-6",max_tokens:1500,
+        system:"คุณเป็น AI ผู้เชี่ยวชาญดนตรีไทยและกีต้าร์ ตอบเป็น JSON เท่านั้น ห้ามมี markdown",
+        messages:[{role:"user",content:`วิเคราะห์เพลงชื่อ "${song.name}" และสร้างข้อมูลสำหรับสอนกีต้าร์
 
-ตอบกลับ JSON format นี้เท่านั้น:
+ตอบ JSON format นี้เท่านั้น:
 {
   "chords": ["Am","C","G","Em","F","C","G","Am"],
   "key": "Am",
-  "tempo": "ปานกลาง",
+  "tempo": "ช้า",
   "style": "บัลลาด",
-  "tip": "เคล็ดลับสั้นๆ สำหรับการเล่นเพลงนี้ 1-2 ประโยค"
-}`
-        }]
+  "bpm": 70,
+  "tip": "เคล็ดลับสั้นๆ 1-2 ประโยคสำหรับเพลงนี้",
+  "lyrics": "เนื้อเพลงสมมติหรือตัวอย่าง 4-8 บรรทัด พร้อมบอกคอร์ดด้วย เช่น [Am]คำร้อง [C]คำร้อง"
+}`}]
       })
     });
-
-    const data = await response.json();
-    let text = data.content?.find(c => c.type === 'text')?.text || '{}';
-    text = text.replace(/```json|```/g,'').trim();
-    const result = JSON.parse(text);
-
-    song.chords = result.chords || ["Am","C","G","Em"];
-    song.key = result.key || "?";
-    song.tempo = result.tempo || "—";
-    song.style = result.style || "—";
-    song.tip = result.tip || "";
-    song.status = 'done';
-  } catch(e) {
-    song.chords = ["C","G","Am","F"];
-    song.key = "C";
-    song.status = 'done';
-    song.tip = "ลองเล่นคอร์ดเหล่านี้ตามจังหวะเพลง";
+    const data=await r.json();
+    let txt=data.content?.find(c=>c.type==='text')?.text||'{}';
+    txt=txt.replace(/```json|```/g,'').trim();
+    const res=JSON.parse(txt);
+    Object.assign(song,{chords:res.chords||["Am","C","G","Em"],key:res.key||"Am",tempo:res.tempo||"ปานกลาง",style:res.style||"—",bpm:res.bpm||80,tip:res.tip||"",lyrics:res.lyrics||"",status:'done'});
+  }catch(e){
+    Object.assign(song,{chords:["C","G","Am","F"],key:"C",tempo:"ปานกลาง",style:"ป็อป",lyrics:"[C]เนื้อเพลง [G]ตัวอย่าง\n[Am]ฝึกเล่น [F]ตามคอร์ด",tip:"ลองเล่นตามคอร์ดที่กำหนด",status:'done'});
   }
   renderSongs();
 }
 
-function renderSongs() {
-  const list = document.getElementById('songList');
-  if (songs.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="big">🎸</div><p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบนเลย!</p></div>`;
-    return;
-  }
-  list.innerHTML = songs.map(s => `
-    <div class="song-card ${activeSong?.id === s.id ? 'active' : ''}" id="sc-${s.id}">
-      <div class="song-thumb">🎵</div>
+function renderSongs(){
+  const el=document.getElementById('songList');
+  if(!songs.length){el.innerHTML=`<div class="empty"><div class="ei">🎸</div><p>ยังไม่มีเพลง<br>อัปโหลด MP3 ด้านบนก่อนเลย</p></div>`;return;}
+  el.innerHTML=songs.map(s=>`
+    <div class="song-row${activeSong?.id===s.id?' on':''}">
+      <div class="song-ico">🎵</div>
       <div class="song-meta">
-        <div class="song-name">${escHtml(s.name)}</div>
-        <div class="song-status">
-          ${s.status === 'analyzing' ? '<span class="status-dot dot-yellow"></span>AI กำลังวิเคราะห์...' :
-            `<span class="status-dot dot-green"></span>พร้อมเล่น · ${s.chords?.length || 0} คอร์ด`}
-        </div>
+        <div class="song-name">${esc(s.name)}</div>
+        <div class="song-sub">${s.status==='analyzing'?'AI กำลังวิเคราะห์...':'✅ พร้อมเล่น · '+s.chords?.length+' คอร์ด · Key '+s.key}</div>
       </div>
-      <div class="song-actions">
-        ${s.status === 'done' ? `<button class="btn-sm btn-primary" onclick="selectSong('${s.id}')">▶ ฝึก</button>` : `<span class="spinner" style="width:18px;height:18px;border:2px solid #dcfce7;border-top-color:#22c55e;border-radius:50%;animation:spin .8s linear infinite;display:inline-block"></span>`}
-        <button class="btn-sm btn-danger" onclick="deleteSong('${s.id}')">✕</button>
+      <div class="song-btns">
+        ${s.status==='done'?`<button class="bsm bpri" onclick="loadSong('${s.id}')">▶ ฝึก</button>`:`<span class="spin"></span>`}
+        <button class="bsm bdng" onclick="delSong('${s.id}')">✕</button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
+  updateStats();
 }
 
-let activeSong = null;
-function selectSong(id) {
-  activeSong = songs.find(s => s.id == id);
-  if (!activeSong) return;
+function loadSong(id){
+  activeSong=songs.find(s=>s.id==id);
+  if(!activeSong)return;
   renderSongs();
-  document.getElementById('noSongState').style.display = 'none';
-  document.getElementById('practiceWithSong').style.display = 'block';
-  document.getElementById('practicePlayerName').textContent = activeSong.name;
-  const audio = document.getElementById('practiceAudio');
-  audio.src = activeSong.url;
-
-  const timeline = document.getElementById('practiceChordTimeline');
-  if (activeSong.chords) {
-    const unique = [...new Set(activeSong.chords)];
-    timeline.innerHTML = `
-      <div style="width:100%;margin-bottom:4px"><span class="section-label">Key: ${activeSong.key || '?'} · ${activeSong.style || ''} · ${activeSong.tempo || ''}</span></div>
-      ${activeSong.chords.map(c => `<div class="chord-chip" onclick="highlightChord(this,'${c}')">${c}</div>`).join('')}
-    `;
-    document.getElementById('practiceTip').innerHTML = activeSong.tip ? `<b>💡 AI แนะนำ:</b> ${activeSong.tip}` : '';
-  }
-  switchTab('practice');
-  showToast('✅ โหลดเพลง ' + activeSong.name);
+  document.getElementById('practiceEmpty').style.display='none';
+  document.getElementById('practiceContent').style.display='flex';
+  document.getElementById('pTitle').textContent=activeSong.name;
+  document.getElementById('pMeta').textContent=`Key: ${activeSong.key} · ${activeSong.style} · ${activeSong.tempo} · ~${activeSong.bpm}BPM`;
+  document.getElementById('pAudio').src=activeSong.url;
+  document.getElementById('keyBadge').textContent=`🎵 Key: ${activeSong.key}`;
+  // chord chips
+  const sc=document.getElementById('chordScroll');
+  const unique=[...new Set(activeSong.chords||[])];
+  sc.innerHTML=activeSong.chords.map(c=>`<div class="cc" data-chord="${c}" onclick="tapChord('${c}')">${c}</div>`).join('');
+  // lyrics
+  renderLyrics(activeSong.lyrics||'');
+  document.getElementById('feedbackCard').style.display='none';
+  goTab('practice');
+  showToast('✅ โหลด '+activeSong.name);
 }
 
-function highlightChord(el, name) {
-  document.querySelectorAll('.chord-chip').forEach(c => c.classList.remove('highlight'));
-  el.classList.add('highlight');
-  if (CHORDS[name]) selectChordLib(name);
+function renderLyrics(raw){
+  const html=raw.replace(/\[([^\]]+)\]/g,'<span class="hl-lyric">[$1]</span>');
+  document.getElementById('lyricsBox').innerHTML=html||'— ไม่มีเนื้อเพลง —';
 }
 
-function deleteSong(id) {
-  songs = songs.filter(s => s.id != id);
-  if (activeSong?.id == id) {
-    activeSong = null;
-    document.getElementById('noSongState').style.display = 'block';
-    document.getElementById('practiceWithSong').style.display = 'none';
-  }
-  renderSongs();
-  showToast('🗑 ลบเพลงแล้ว');
+function tapChord(name){
+  document.querySelectorAll('.cc').forEach(c=>c.classList.toggle('hl',c.dataset.chord===name));
+  if(CHORDS[name])selectLib(name);
 }
 
-// ══════════════════════════════════════════════════
+function delSong(id){
+  songs=songs.filter(s=>s.id!=id);
+  if(activeSong?.id==id){activeSong=null;document.getElementById('practiceEmpty').style.display='';document.getElementById('practiceContent').style.display='none';}
+  renderSongs();showToast('🗑 ลบแล้ว');
+}
+
+// ═══════════════════════════════════════
 // CHORD LIBRARY
-// ══════════════════════════════════════════════════
-function buildChordLibrary() {
-  const types = ['ทั้งหมด','Major','Minor','7th'];
-  const filterRow = document.getElementById('filterRow');
-  filterRow.innerHTML = types.map(t => `<button class="filter-chip ${t==='ทั้งหมด'?'active':''}" onclick="filterChords('${t}',this)">${t}</button>`).join('');
-
-  renderChordGrid('ทั้งหมด');
+// ═══════════════════════════════════════
+function buildLib(){
+  const types=['ทั้งหมด','Major','Minor','7th'];
+  document.getElementById('filterPills').innerHTML=types.map(t=>`<button class="pill${t==='ทั้งหมด'?' on':''}" onclick="filterLib('${t}',this)">${t}</button>`).join('');
+  renderLib('ทั้งหมด');
 }
-
-function filterChords(type, el) {
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderChordGrid(type);
+function filterLib(type,el){
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');renderLib(type);
 }
-
-function renderChordGrid(filter) {
-  const grid = document.getElementById('chordGrid');
-  grid.innerHTML = Object.entries(CHORDS)
-    .filter(([,v]) => filter === 'ทั้งหมด' || v.type === filter)
-    .map(([name,v]) => `
-      <div class="chord-card" id="cc-${name}" onclick="selectChordLib('${name}')">
-        <div class="chord-card-name">${name}</div>
-        <div class="chord-card-type">${v.type}</div>
-      </div>
-    `).join('');
+function renderLib(filter){
+  document.getElementById('libGrid').innerHTML=Object.entries(CHORDS)
+    .filter(([,v])=>filter==='ทั้งหมด'||v.type===filter)
+    .map(([n,v])=>`<div class="chord-tile" id="ct-${n}" onclick="selectLib('${n}')"><div class="ct-name">${n}</div><div class="ct-type">${v.type}</div></div>`).join('');
 }
-
-function selectChordLib(name) {
-  document.querySelectorAll('.chord-card').forEach(c => c.classList.remove('active'));
-  const card = document.getElementById('cc-' + name);
-  if (card) { card.classList.add('active'); card.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
-
-  const info = CHORDS[name];
-  if (!info) return;
-  const wrap = document.getElementById('diagramWrap');
-  wrap.innerHTML = `
-    <h3>${name} <span style="font-size:14px;font-weight:600;color:var(--gray-400)">${info.type}</span></h3>
-    <div class="chord-notes">${info.notes.map(n=>`<span class="note-chip">${n}</span>`).join('')}</div>
-    ${buildFretboardSVG(info.fingers, info.barre)}
-    <div class="ai-tip" style="max-width:260px"><b>💡</b> ${info.desc}</div>
-    ${info.barre ? `<div style="font-size:12px;color:var(--gray-400);margin-top:-8px">Barre ที่ Fret ${info.barre}</div>` : ''}
-  `;
+function selectLib(name){
+  document.querySelectorAll('.chord-tile').forEach(c=>c.classList.remove('on'));
+  document.getElementById('ct-'+name)?.classList.add('on');
+  const info=CHORDS[name];if(!info)return;
+  const dc=document.getElementById('diagramCard');
+  dc.innerHTML=`
+    <h3>${name} <span style="font-size:13px;color:var(--gray400);font-weight:500">${info.type}</span></h3>
+    <div class="notes-row" style="justify-content:center;margin-bottom:12px">${info.notes.map(n=>`<span class="n-chip">${n}</span>`).join('')}</div>
+    ${makeFretboard(info.f,info.barre)}
+    <div class="tip-box" style="margin-top:12px;text-align:left"><b>💡</b> ${info.desc}</div>
+    ${info.barre?`<p style="font-size:11px;color:var(--gray400);margin-top:6px">Barre fret ${info.barre}</p>`:''}`;
 }
-
-function buildFretboardSVG(fingers, barre) {
-  // fingers: [[string(1-6), fret(0=open,-1=mute), finger?]]
-  const strings = 6, frets = 5;
-  const sw = 36, sh = 36, px = 28, py = 32;
-  const W = (strings-1)*sw + px*2;
-  const H = frets*sh + py + 16;
-
-  const minFret = Math.min(...fingers.filter(f=>f[1]>0).map(f=>f[1]));
-  const offset = minFret > 1 ? minFret - 1 : 0;
-
-  let svg = `<svg class="fretboard" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
-  svg += `<rect width="${W}" height="${H}" rx="10" fill="#FAFAFA"/>`;
-
-  // Nut
-  if (offset === 0) svg += `<rect x="${px-2}" y="${py-4}" width="${(strings-1)*sw+4}" height="6" rx="2" fill="#374151"/>`;
-
-  // Fret lines
-  for (let f = 0; f <= frets; f++) {
-    svg += `<line x1="${px}" y1="${py + f*sh}" x2="${px+(strings-1)*sw}" y2="${py+f*sh}" stroke="#D1D5DB" stroke-width="1.5"/>`;
+function makeFretboard(fingers,barre){
+  const strings=6,frets=5,sw=34,sh=34,px=24,py=28;
+  const W=(strings-1)*sw+px*2+20,H=frets*sh+py+16;
+  const minFr=Math.min(...fingers.filter(f=>f[1]>0).map(f=>f[1]));
+  const off=minFr>1?minFr-1:0;
+  let s=`<svg class="fb" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+  s+=`<rect width="${W}" height="${H}" rx="10" fill="#FAFAFA"/>`;
+  if(!off)s+=`<rect x="${px-2}" y="${py-4}" width="${(strings-1)*sw+4}" height="5" rx="2" fill="#374151"/>`;
+  for(let f=0;f<=frets;f++)s+=`<line x1="${px}" y1="${py+f*sh}" x2="${px+(strings-1)*sw}" y2="${py+f*sh}" stroke="#D1D5DB" stroke-width="1.5"/>`;
+  for(let i=0;i<strings;i++)s+=`<line x1="${px+i*sw}" y1="${py}" x2="${px+i*sw}" y2="${py+frets*sh}" stroke="#9CA3AF" stroke-width="${1.5+i*.15}"/>`;
+  if(barre){const by=py+(barre-off-.5)*sh;s+=`<rect x="${px-8}" y="${by-11}" width="${(strings-1)*sw+16}" height="22" rx="11" fill="#16A34A" opacity=".8"/>`;}
+  for(const[str,fret,finger]of fingers){
+    const x=px+(6-str)*sw;
+    if(fret===-1)s+=`<text x="${x}" y="${py-10}" text-anchor="middle" font-size="13" fill="#9CA3AF">✕</text>`;
+    else if(fret===0)s+=`<circle cx="${x}" cy="${py-10}" r="7" fill="none" stroke="#22C55E" stroke-width="2"/>`;
+    else{const fy=py+(fret-off-.5)*sh;s+=`<circle cx="${x}" cy="${fy}" r="12" fill="#22C55E"/>${finger?`<text x="${x}" y="${fy+5}" text-anchor="middle" font-size="12" fill="white" font-weight="bold">${finger}</text>`:''}`;}
   }
-  // String lines
-  for (let s = 0; s < strings; s++) {
-    svg += `<line x1="${px+s*sw}" y1="${py}" x2="${px+s*sw}" y2="${py+frets*sh}" stroke="#9CA3AF" stroke-width="${1.5+s*0.2}"/>`;
-  }
-
-  // Barre bar
-  if (barre) {
-    const by = py + (barre - offset - 0.5) * sh;
-    svg += `<rect x="${px - 6}" y="${by - 10}" width="${(strings-1)*sw+12}" height="20" rx="10" fill="#16A34A" opacity="0.85"/>`;
-  }
-
-  // Finger dots + open/mute
-  for (const [str, fret, finger] of fingers) {
-    const x = px + (6 - str) * sw;
-    if (fret === -1) {
-      // mute
-      svg += `<text x="${x}" y="${py - 10}" text-anchor="middle" font-size="14" fill="#9CA3AF">✕</text>`;
-    } else if (fret === 0) {
-      // open
-      svg += `<circle cx="${x}" cy="${py - 10}" r="7" fill="none" stroke="#22C55E" stroke-width="2"/>`;
-    } else {
-      const fy = py + (fret - offset - 0.5) * sh;
-      svg += `<circle cx="${x}" cy="${fy}" r="12" fill="#22C55E"/>`;
-      if (finger) svg += `<text x="${x}" y="${fy+5}" text-anchor="middle" font-size="12" fill="white" font-weight="bold">${finger}</text>`;
-    }
-  }
-
-  // Fret number
-  if (offset > 0) svg += `<text x="${px + (strings-1)*sw + 12}" y="${py + sh/2 + 4}" font-size="11" fill="#9CA3AF">${offset+1}fr</text>`;
-
-  svg += '</svg>';
-  return svg;
+  if(off)s+=`<text x="${px+(strings-1)*sw+14}" y="${py+sh/2+4}" font-size="11" fill="#9CA3AF">${off+1}fr</text>`;
+  s+='</svg>';return s;
 }
 
-// ══════════════════════════════════════════════════
+// ═══════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════
+let chordStats={},todayCount=0;
+function recordChordStat(name){
+  chordStats[name]=(chordStats[name]||0)+1;
+  todayCount++;
+  updateStats();
+}
+function updateStats(){
+  document.getElementById('stChords').textContent=todayCount;
+  document.getElementById('stSongs').textContent=songs.length;
+  document.getElementById('stRecs').textContent=recordings.length;
+  // streak bar
+  const days=['อา','จ','อ','พ','พฤ','ศ','ส'];
+  const today=new Date().getDay();
+  document.getElementById('streakBar').innerHTML=days.map((d,i)=>`
+    <div class="streak-day ${i===today?'sd-on':'sd-off'}">${d}</div>`).join('');
+  // chord history
+  const sorted=Object.entries(chordStats).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const max=sorted[0]?.[1]||1;
+  document.getElementById('chordHistory').innerHTML=sorted.length?
+    sorted.map(([n,c])=>`<div class="ch-item"><div class="ch-name">${n}</div><div class="ch-bar"><div class="ch-fill" style="width:${c/max*100}%"></div></div><div class="ch-count">${c}</div></div>`).join(''):
+    `<div class="empty"><div class="ei">🎵</div><p>เริ่มฝึกเพื่อดูสถิติ</p></div>`;
+}
+
+// ═══════════════════════════════════════
 // NAV
-// ══════════════════════════════════════════════════
-function switchTab(tab) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + tab)?.classList.add('active');
-  document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
+// ═══════════════════════════════════════
+function goTab(tab){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+tab)?.classList.add('on');
+  document.querySelector(`[data-tab="${tab}"]`)?.classList.add('on');
 }
 
-// ══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 // DRAG & DROP
-// ══════════════════════════════════════════════════
-const uploadArea = document.getElementById('uploadArea');
-uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
-uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
-uploadArea.addEventListener('drop', e => {
-  e.preventDefault();
-  uploadArea.classList.remove('drag-over');
-  const files = e.dataTransfer.files;
-  for (const file of files) {
-    if (!file.type.includes('audio')) continue;
-    const url = URL.createObjectURL(file);
-    const song = { id: Date.now() + Math.random(), name: file.name.replace(/\.mp3$/i,''), url, chords: null, status: 'analyzing', tip: '' };
-    songs.push(song);
-    renderSongs();
-    analyzeMP3WithAI(song);
+// ═══════════════════════════════════════
+const uz=document.getElementById('uploadZone');
+uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('drag');});
+uz.addEventListener('dragleave',()=>uz.classList.remove('drag'));
+uz.addEventListener('drop',e=>{
+  e.preventDefault();uz.classList.remove('drag');
+  for(const f of e.dataTransfer.files){
+    if(!f.type.includes('audio'))continue;
+    const url=URL.createObjectURL(f);
+    const song={id:Date.now()+Math.random(),name:f.name.replace(/\.mp3$/i,''),url,chords:null,key:'',status:'analyzing'};
+    songs.push(song);renderSongs();analyzeWithAI(song);
   }
 });
 
-// ══════════════════════════════════════════════════
-// TOAST
-// ══════════════════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+// ═══════════════════════════════════════
+// TOAST + UTILS
+// ═══════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 // INIT
-// ══════════════════════════════════════════════════
-buildChordLibrary();
+// ═══════════════════════════════════════
+buildLib();
+updateStats();
+
+// Auto check mic permission
+navigator.permissions?.query({name:'microphone'}).then(p=>{
+  if(p.state==='granted')setMicStatus('ok');
+  else if(p.state==='denied'){setMicStatus('err');document.getElementById('micBanner').style.display='flex';}
+  else{setMicStatus('idle');}
+  p.onchange=()=>{if(p.state==='granted')setMicStatus('ok');else setMicStatus('err');};
+}).catch(()=>{});
 </script>
 </body>
 </html>
