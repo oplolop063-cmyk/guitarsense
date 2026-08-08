@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarity Lab — ปรับภาพ/คลิปให้คมชัด</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D10;
+    --panel:#12161B;
+    --panel-2:#181D24;
+    --border:#232A32;
+    --cyan:#3DE8FF;
+    --cyan-dim:#1B4A54;
+    --amber:#FFB020;
+    --text:#E7ECEF;
+    --sub:#8A97A3;
+    --danger:#FF5C5C;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;}
+  ::selection{background:var(--cyan);color:#00171B;}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:20px 16px 60px;}
+
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand .mark{width:34px;height:34px;border-radius:8px;background:
+      linear-gradient(135deg,var(--cyan),#1E7A8C);
+      display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;color:#00171B;font-size:15px;flex:none;}
+  .brand h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0;letter-spacing:.2px;}
+  .brand p{margin:0;font-size:11.5px;color:var(--sub);font-family:'JetBrains Mono',monospace;letter-spacing:.3px;}
+
+  .badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--cyan);border:1px solid var(--cyan-dim);background:rgba(61,232,255,0.06);padding:5px 10px;border-radius:20px;white-space:nowrap;}
+
+  .drop{
+    border:1.5px dashed var(--border);border-radius:14px;background:var(--panel);
+    padding:30px 18px;text-align:center;cursor:pointer;transition:.15s border-color,.15s background;
+  }
+  .drop:hover, .drop.drag{border-color:var(--cyan);background:rgba(61,232,255,0.04);}
+  .drop .icon{font-size:26px;margin-bottom:8px;}
+  .drop h3{font-family:'Space Grotesk',sans-serif;margin:0 0 4px;font-size:15px;}
+  .drop p{margin:0;color:var(--sub);font-size:12.5px;}
+  input[type=file]{display:none;}
+
+  .studio{display:none;gap:16px;margin-top:18px;grid-template-columns: 1fr 300px;}
+  .studio.active{display:grid;}
+  @media (max-width:820px){ .studio{grid-template-columns:1fr;} }
+
+  .stage{
+    background:var(--panel);border:1px solid var(--border);border-radius:14px;
+    padding:14px;position:relative;overflow:hidden;
+  }
+  .stage-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .stage-head .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--sub);}
+  .viewbox{
+    position:relative;width:100%;background:#000;border-radius:10px;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;min-height:220px;
+  }
+  canvas{display:block;max-width:100%;height:auto;}
+  #origCanvas{position:absolute;top:0;left:0;}
+  #enhCanvas{position:relative;}
+
+  /* compare handle */
+  .compareHandle{
+    position:absolute;top:0;bottom:0;width:2px;background:var(--cyan);
+    box-shadow:0 0 8px rgba(61,232,255,.8);pointer-events:none;display:none;
+  }
+  .compareHandle::after{
+    content:'⇔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:30px;height:30px;background:var(--cyan);color:#00171B;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
+  }
+  .compareRange{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;display:none;}
+
+  .sideLabel{position:absolute;top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 7px;border-radius:5px;background:rgba(0,0,0,.55);letter-spacing:.5px;display:none;}
+  .sideLabel.left{left:8px;color:var(--sub);}
+  .sideLabel.right{right:8px;color:var(--cyan);}
+
+  .scanline{
+    position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+    top:0;opacity:0;pointer-events:none;
+  }
+  .scanline.play{animation:sweep 0.9s ease-out;}
+  @keyframes sweep{
+    0%{top:0;opacity:1;}
+    90%{opacity:1;}
+    100%{top:100%;opacity:0;}
+  }
+
+  .panel{
+    background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;
+    display:flex;flex-direction:column;gap:16px;height:fit-content;
+  }
+  .panel h4{margin:0;font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--sub);letter-spacing:.4px;text-transform:uppercase;}
+
+  .slider-row{display:flex;flex-direction:column;gap:6px;}
+  .slider-row .lbl{display:flex;justify-content:space-between;font-size:12.5px;}
+  .slider-row .lbl span:first-child{color:var(--text);}
+  .slider-row .lbl span:last-child{font-family:'JetBrains Mono',monospace;color:var(--cyan);}
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:3px;
+    background:var(--panel-2);outline:none;border:1px solid var(--border);
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--cyan);
+    cursor:pointer;box-shadow:0 0 0 3px rgba(61,232,255,.18);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:15px;height:15px;border-radius:50%;background:var(--cyan);border:none;cursor:pointer;
+  }
+
+  .check-row{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;padding:8px 10px;background:var(--panel-2);border:1px solid var(--border);border-radius:9px;}
+  .switch{position:relative;width:38px;height:21px;flex:none;}
+  .switch input{opacity:0;width:0;height:0;}
+  .slider-ui{position:absolute;inset:0;background:var(--border);border-radius:20px;cursor:pointer;transition:.15s;}
+  .slider-ui::before{content:'';position:absolute;width:15px;height:15px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s;}
+  input:checked + .slider-ui{background:var(--cyan-dim);}
+  input:checked + .slider-ui::before{transform:translateX(17px);background:var(--cyan);}
+
+  .btn{
+    border:none;border-radius:10px;padding:11px 14px;font-family:'Inter',sans-serif;font-weight:600;
+    font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
+    transition:.15s transform, .15s opacity;width:100%;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn-auto{background:linear-gradient(135deg,var(--amber),#C97E00);color:#241300;}
+  .btn-download{background:linear-gradient(135deg,var(--cyan),#1E9AAE);color:#00171B;}
+  .btn-download:disabled{opacity:.4;cursor:not-allowed;}
+  .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--sub);}
+  .btn-ghost:hover{border-color:var(--sub);color:var(--text);}
+
+  .status{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);text-align:center;min-height:14px;}
+  .progressWrap{height:5px;background:var(--panel-2);border-radius:3px;overflow:hidden;display:none;}
+  .progressBar{height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .1s linear;}
+
+  footer{margin-top:26px;text-align:center;color:var(--sub);font-size:11px;font-family:'JetBrains Mono',monospace;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="mark">CL</div>
+      <div>
+        <h1>Clarity Lab</h1>
+        <p>SHARPEN · COLOR · UPSCALE — ทำงานในเบราว์เซอร์ ไม่อัปโหลดไฟล์</p>
+      </div>
+    </div>
+    <div class="badge" id="fileTypeBadge">รอไฟล์...</div>
+  </header>
+
+  <div class="drop" id="dropZone">
+    <div class="icon">◧</div>
+    <h3>ลากไฟล์มาวาง หรือแตะเพื่อเลือก</h3>
+    <p>รองรับรูปภาพ (JPG/PNG/WEBP) และวิดีโอคลิป (MP4/WEBM)</p>
+    <input type="file" id="fileInput" accept="image/*,video/*">
+  </div>
+
+  <div class="studio" id="studio">
+    <div class="stage">
+      <div class="stage-head">
+        <span class="tag" id="dimsTag">—</span>
+        <span class="tag" id="modeTag">—</span>
+      </div>
+      <div class="viewbox" id="viewbox">
+        <canvas id="origCanvas"></canvas>
+        <canvas id="enhCanvas"></canvas>
+        <div class="sideLabel left" id="labelOrig">ต้นฉบับ</div>
+        <div class="sideLabel right" id="labelEnh">ปรับแล้ว</div>
+        <div class="compareHandle" id="compareHandle"></div>
+        <input type="range" class="compareRange" id="compareRange" min="0" max="100" value="50">
+        <div class="scanline" id="scanline"></div>
+      </div>
+      <div class="progressWrap" id="progressWrap"><div class="progressBar" id="progressBar"></div></div>
+      <div class="status" id="status">พร้อมใช้งาน</div>
+    </div>
+
+    <div class="panel">
+      <div>
+        <h4>ปรับแต่งภาพ</h4>
+        <div style="height:10px"></div>
+        <div class="slider-row">
+          <div class="lbl"><span>ความคมชัด (Sharpness)</span><span id="vSharp">20</span></div>
+          <input type="range" id="sharp" min="0" max="100" value="20">
+        </div>
+      </div>
+      <div class="slider-row">
+        <div class="lbl"><span>คอนทราสต์</span><span id="vContrast">0</span></div>
+        <input type="range" id="contrast" min="-50" max="100" value="0">
+      </div>
+      <div class="slider-row">
+        <div class="lbl"><span>ความอิ่มสี</span><span id="vSat">0</span></div>
+        <input type="range" id="sat" min="-50" max="100" value="0">
+      </div>
+      <div class="slider-row">
+        <div class="lbl"><span>ความสว่าง</span><span id="vBright">0</span></div>
+        <input type="range" id="bright" min="-50" max="50" value="0">
+      </div>
+
+      <div class="check-row" id="upscaleRow">
+        <span>ขยายภาพคมชัด 2×</span>
+        <label class="switch"><input type="checkbox" id="upscale"><span class="slider-ui"></span></label>
+      </div>
+
+      <button class="btn btn-auto" id="autoBtn">⚡ ปรับอัตโนมัติ (Auto Enhance)</button>
+      <button class="btn btn-download" id="downloadBtn" disabled>⬇ ดาวน์โหลดผลลัพธ์</button>
+      <button class="btn btn-ghost" id="resetBtn">↺ รีเซ็ต</button>
+    </div>
+  </div>
+
+  <footer>ประมวลผลทั้งหมดบนเครื่องของคุณผ่าน Canvas + SVG filter — ไฟล์ไม่ถูกส่งออกไปที่ไหน</footer>
+</div>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="sharpenKernel" color-interpolation-filters="sRGB">
+    <feConvolveMatrix order="3" kernelMatrix="0 0 0 0 1 0 0 0 0" edgeMode="duplicate" preserveAlpha="true"/>
+  </filter>
+</svg>
+
+<script>
+(function(){
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const studio = document.getElementById('studio');
+  const viewbox = document.getElementById('viewbox');
+  const origCanvas = document.getElementById('origCanvas');
+  const enhCanvas = document.getElementById('enhCanvas');
+  const octx = origCanvas.getContext('2d');
+  const ectx = enhCanvas.getContext('2d', {willReadFrequently:false});
+  const compareHandle = document.getElementById('compareHandle');
+  const compareRange = document.getElementById('compareRange');
+  const labelOrig = document.getElementById('labelOrig');
+  const labelEnh = document.getElementById('labelEnh');
+  const scanline = document.getElementById('scanline');
+  const statusEl = document.getElementById('status');
+  const dimsTag = document.getElementById('dimsTag');
+  const modeTag = document.getElementById('modeTag');
+  const fileTypeBadge = document.getElementById('fileTypeBadge');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const autoBtn = document.getElementById('autoBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const upscaleRow = document.getElementById('upscaleRow');
+  const upscaleChk = document.getElementById('upscale');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const kernelEl = document.querySelector('#sharpenKernel feConvolveMatrix');
+
+  const sliders = {
+    sharp: document.getElementById('sharp'),
+    contrast: document.getElementById('contrast'),
+    sat: document.getElementById('sat'),
+    bright: document.getElementById('bright'),
+  };
+  const labels = {
+    sharp: document.getElementById('vSharp'),
+    contrast: document.getElementById('vContrast'),
+    sat: document.getElementById('vSat'),
+    bright: document.getElementById('vBright'),
+  };
+
+  let mode = null; // 'image' | 'video'
+  let img = null;
+  let videoEl = null;
+  let downloadBlobUrl = null;
+  let downloadName = 'clarity-lab-result.png';
+  let recorder = null;
+  let recordedChunks = [];
+  let renderLoopId = null;
+
+  function state(){
+    return {
+      sharp: parseFloat(sliders.sharp.value),
+      contrast: parseFloat(sliders.contrast.value),
+      sat: parseFloat(sliders.sat.value),
+      bright: parseFloat(sliders.bright.value),
+    };
+  }
+
+  function updateKernel(sharpVal){
+    const k = (sharpVal/100) * 1.3;
+    const m = [0,-k,0, -k,(1+4*k),-k, 0,-k,0];
+    kernelEl.setAttribute('kernelMatrix', m.join(' '));
+  }
+
+  function filterString(){
+    const s = state();
+    updateKernel(s.sharp);
+    const c = 100 + s.contrast;
+    const sat = 100 + s.sat;
+    const b = 100 + s.bright;
+    return `url(#sharpenKernel) contrast(${c}%) saturate(${sat}%) brightness(${b}%)`;
+  }
+
+  function refreshLabels(){
+    labels.sharp.textContent = sliders.sharp.value;
+    labels.contrast.textContent = (sliders.contrast.value>0?'+':'')+sliders.contrast.value;
+    labels.sat.textContent = (sliders.sat.value>0?'+':'')+sliders.sat.value;
+    labels.bright.textContent = (sliders.bright.value>0?'+':'')+sliders.bright.value;
+  }
+
+  // ---------- drop zone ----------
+  dropZone.addEventListener('click', ()=>fileInput.click());
+  ['dragenter','dragover'].forEach(ev=>dropZone.addEventListener(ev, e=>{e.preventDefault();dropZone.classList.add('drag');}));
+  ['dragleave','drop'].forEach(ev=>dropZone.addEventListener(ev, e=>{e.preventDefault();dropZone.classList.remove('drag');}));
+  dropZone.addEventListener('drop', e=>{
+    const f = e.dataTransfer.files[0];
+    if(f) handleFile(f);
+  });
+  fileInput.addEventListener('change', e=>{
+    const f = e.target.files[0];
+    if(f) handleFile(f);
+  });
+
+  function handleFile(file){
+    stopEverything();
+    const isVideo = file.type.startsWith('video/');
+    const isImage = file.type.startsWith('image/');
+    if(!isVideo && !isImage){ alert('รองรับเฉพาะไฟล์รูปภาพหรือวิดีโอ'); return; }
+
+    fileTypeBadge.textContent = isVideo ? 'VIDEO' : 'IMAGE';
+    studio.classList.add('active');
+    downloadBtn.disabled = true;
+    resetSlidersUI();
+
+    if(isImage){
+      mode = 'image';
+      modeTag.textContent = 'MODE: IMAGE';
+      upscaleRow.style.display = 'flex';
+      const url = URL.createObjectURL(file);
+      img = new Image();
+      img.onload = ()=>{
+        setupImageCanvas();
+        renderImage();
+        setStatus('พร้อมปรับแต่ง — ลองกด Auto Enhance');
+      };
+      img.src = url;
+    } else {
+      mode = 'video';
+      modeTag.textContent = 'MODE: VIDEO';
+      upscaleRow.style.display = 'none';
+      const url = URL.createObjectURL(file);
+      videoEl = document.createElement('video');
+      videoEl.src = url;
+      videoEl.muted = true;
+      videoEl.playsInline = true;
+      videoEl.loop = false;
+      videoEl.addEventListener('loadedmetadata', ()=>{
+        setupVideoCanvas();
+        setStatus('กด ▶ เพื่อเริ่มประมวลผลวิดีโอ (จะเล่นครบคลิปแล้วให้ดาวน์โหลด)');
+        renderVideoPreviewFrame();
+        showVideoStartOverlay();
+      });
+    }
+  }
+
+  function resetSlidersUI(){
+    sliders.sharp.value = 20; sliders.contrast.value = 0; sliders.sat.value = 0; sliders.bright.value = 0;
+    upscaleChk.checked = false;
+    refreshLabels();
+  }
+
+  // ---------- image pipeline ----------
+  function setupImageCanvas(){
+    const scale = upscaleChk.checked ? 2 : 1;
+    const w = img.naturalWidth * scale;
+    const h = img.naturalHeight * scale;
+    [origCanvas, enhCanvas].forEach(c=>{ c.width=w; c.height=h; });
+    dimsTag.textContent = `${img.naturalWidth}×${img.naturalHeight}${scale>1?' → '+w+'×'+h:''}`;
+    octx.imageSmoothingEnabled = true; octx.imageSmoothingQuality='high';
+    octx.clearRect(0,0,w,h); octx.drawImage(img,0,0,w,h);
+    origCanvas.style.display='none';
+  }
+
+  function renderImage(){
+    if(!img) return;
+    const w = enhCanvas.width, h = enhCanvas.height;
+    ectx.imageSmoothingEnabled = true; ectx.imageSmoothingQuality='high';
+    ectx.filter = filterString();
+    ectx.clearRect(0,0,w,h);
+    ectx.drawImage(img,0,0,w,h);
+  }
+
+  // ---------- video pipeline ----------
+  let previewRAF = null;
+  function setupVideoCanvas(){
+    const w = videoEl.videoWidth, h = videoEl.videoHeight;
+    [origCanvas, enhCanvas].forEach(c=>{ c.width=w; c.height=h; });
+    dimsTag.textContent = `${w}×${h} · ${videoEl.duration.toFixed(1)}s`;
+    origCanvas.style.display='none';
+  }
+
+  function renderVideoPreviewFrame(){
+    if(!videoEl) return;
+    ectx.filter = filterString();
+    ectx.drawImage(videoEl,0,0,enhCanvas.width, enhCanvas.height);
+  }
+
+  function showVideoStartOverlay(){
+    if(document.getElementById('playOverlay')) return;
+    const btn = document.createElement('button');
+    btn.id='playOverlay';
+    btn.textContent='▶ เริ่มประมวลผลวิดีโอ';
+    Object.assign(btn.style,{
+      position:'absolute', zIndex:5, left:'50%', top:'50%', transform:'translate(-50%,-50%)',
+      background:'rgba(61,232,255,.95)', color:'#00171B', border:'none', borderRadius:'10px',
+      padding:'12px 18px', fontWeight:'700', fontFamily:'Inter,sans-serif', cursor:'pointer', fontSize:'13px'
+    });
+    btn.onclick = ()=>{ btn.remove(); startVideoProcessing(); };
+    viewbox.appendChild(btn);
+  }
+
+  function startVideoProcessing(){
+    recordedChunks = [];
+    downloadBtn.disabled = true;
+    progressWrap.style.display='block';
+    let mimeType = 'video/webm;codecs=vp9';
+    if(!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm';
+    if(!MediaRecorder.isTypeSupported(mimeType)){
+      setStatus('เบราว์เซอร์นี้ไม่รองรับการบันทึกวิดีโอ ลองใช้ Chrome ล่าสุด');
+      return;
+    }
+    const canvasStream = enhCanvas.captureStream(30);
+    let audioTracks = [];
+    try{ audioTracks = videoEl.captureStream().getAudioTracks(); }catch(e){}
+    const combined = new MediaStream([...canvasStream.getVideoTracks(), ...audioTracks]);
+    recorder = new MediaRecorder(combined, {mimeType, videoBitsPerSecond: 8_000_000});
+    recorder.ondataavailable = e=>{ if(e.data.size>0) recordedChunks.push(e.data); };
+    recorder.onstop = ()=>{
+      const blob = new Blob(recordedChunks, {type:'video/webm'});
+      if(downloadBlobUrl) URL.revokeObjectURL(downloadBlobUrl);
+      downloadBlobUrl = URL.createObjectURL(blob);
+      downloadName = 'clarity-lab-video.webm';
+      downloadBtn.disabled = false;
+      progressWrap.style.display='none';
+      setStatus('ประมวลผลเสร็จแล้ว — กดดาวน์โหลดได้เลย');
+    };
+
+    videoEl.currentTime = 0;
+    videoEl.play();
+    recorder.start();
+    setStatus('กำลังประมวลผลวิดีโอ...');
+
+    function loop(){
+      if(videoEl.paused || videoEl.ended) return;
+      renderVideoPreviewFrame();
+      const pct = (videoEl.currentTime / videoEl.duration) * 100;
+      progressBar.style.width = pct + '%';
+      renderLoopId = requestAnimationFrame(loop);
+    }
+    renderLoopId = requestAnimationFrame(loop);
+
+    videoEl.onended = ()=>{
+      if(renderLoopId) cancelAnimationFrame(renderLoopId);
+      if(recorder && recorder.state === 'recording') recorder.stop();
+    };
+  }
+
+  function stopEverything(){
+    if(renderLoopId) cancelAnimationFrame(renderLoopId);
+    if(recorder && recorder.state==='recording') recorder.stop();
+    if(videoEl){ videoEl.pause(); videoEl = null; }
+    if(downloadBlobUrl){ URL.revokeObjectURL(downloadBlobUrl); downloadBlobUrl=null; }
+    progressWrap.style.display='none';
+    progressBar.style.width='0%';
+    const overlay = document.getElementById('playOverlay');
+    if(overlay) overlay.remove();
+  }
+
+  // ---------- unified render trigger ----------
+  function rerender(){
+    if(mode==='image') renderImage();
+    else if(mode==='video' && videoEl) renderVideoPreviewFrame();
+  }
+
+  Object.values(sliders).forEach(s=>{
+    s.addEventListener('input', ()=>{ refreshLabels(); rerender(); });
+  });
+  upscaleChk.addEventListener('change', ()=>{
+    if(mode==='image'){ setupImageCanvas(); renderImage(); }
+  });
+
+  autoBtn.addEventListener('click', ()=>{
+    sliders.sharp.value = 62;
+    sliders.contrast.value = 18;
+    sliders.sat.value = 22;
+    sliders.bright.value = 4;
+    refreshLabels();
+    rerender();
+    playScan();
+  });
+
+  resetBtn.addEventListener('click', ()=>{
+    resetSlidersUI();
+    if(mode==='image'){ setupImageCanvas(); renderImage(); }
+    else rerender();
+  });
+
+  function playScan(){
+    scanline.classList.remove('play');
+    void scanline.offsetWidth;
+    scanline.classList.add('play');
+  }
+
+  // ---------- compare slider (image only) ----------
+  function enableCompare(){
+    labelOrig.style.display='block';
+    labelEnh.style.display='block';
+    compareHandle.style.display='block';
+    compareRange.style.display='block';
+    updateCompare();
+  }
+  function updateCompare(){
+    const pct = compareRange.value;
+    enhCanvas.style.clipPath = `inset(0 0 0 ${pct}%)`;
+    compareHandle.style.left = pct + '%';
+    origCanvas.style.display = 'block';
+  }
+  compareRange.addEventListener('input', updateCompare);
+
+  const _origSetupImage = setupImageCanvas;
+  setupImageCanvas = function(){
+    _origSetupImage();
+    enableCompare();
+  };
+
+  // ---------- download ----------
+  downloadBtn.addEventListener('click', ()=>{
+    if(mode==='image'){
+      enhCanvas.toBlob(blob=>{
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'clarity-lab-image.png';
+        a.click();
+        setTimeout(()=>URL.revokeObjectURL(url), 4000);
+      }, 'image/png');
+    } else if(mode==='video' && downloadBlobUrl){
+      const a = document.createElement('a');
+      a.href = downloadBlobUrl; a.download = downloadName;
+      a.click();
+    }
+  });
+
+  function setStatus(msg){ statusEl.textContent = msg; }
+
+  // enable download button for images once ready
+  const _origRenderImage = renderImage;
+  renderImage = function(){ _origRenderImage(); downloadBtn.disabled = false; };
+
+})();
+</script>
+</body>
+</html>
